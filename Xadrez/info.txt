@@ -1,0 +1,14 @@
+PROJETO DO XADREZ:
+
+Pendencias:
+- Falta criar a tela de Desistencia, Vitoria.
+- Falta implementar a Promoção do Peao.
+- Falta implementar o movimento de Roque Maior e Menor.
+- Falta Atualizar os modelos.
+- Falta fazer os testes unitarios
+- Falta converter o projeto pelo maven
+
+Problemas:
+- Quando tiver na vez do branco, não tem que mostrar que outra branca como inimiga.
+- Preferencialmente criar um metodo que seta a peca como ameaçada sem marcar como inimigo, para evitar que ela fique marcada mesmo na vez da pessoa.
+
