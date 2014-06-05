@@ -11,7 +11,7 @@ public class ControleEntrada {
 	public ControleEntrada(){
 		System.out.println("INICIANDO O CONTROLE DA ENTRADA");
 		this.visaoEntrada = new VisaoEntrada();
-		this.visaoEntrada.construirMenu(40,435);
+		this.visaoEntrada.construirMenu(40,545);
 		this.visaoEntrada.construirBackground();
 		this.visaoEntrada.setVisible(true);
 	}

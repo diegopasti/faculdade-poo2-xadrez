@@ -60,9 +60,17 @@ public class InteligenciaSimples implements Inteligencia{
 		
 		if(Peca == null){
 			System.out.println("INTELIGENCIA >>> A PECA ESCOLHIDA NÃO TEM NENHUM MOVIMENTO QUE PODE CAPTURAR ALGUMA PECA");
-			int random = new Random().nextInt(PecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()); 
-			System.out.println("INTELIGENCIA >>> A PECA ESCOLHIDA TEM "+PecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()+"E ESCOLHEU O"+random+" MOVIMENTO");
-			return new Coordenada(PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(random).getLinha(),PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(random).getColuna());
+			
+			if(PecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()>0){
+				int random = new Random().nextInt(PecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()); 
+				System.out.println("INTELIGENCIA >>> A PECA ESCOLHIDA TEM "+PecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()+"E ESCOLHEU O"+random+" MOVIMENTO");
+				return new Coordenada(PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(random).getLinha(),PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(random).getColuna());
+			}
+			else{
+			return PecaEscolhida.getCoordenada();
+			}
+			
+			
 		}
 		else{
 			System.out.println("INTELIGENCIA >>> A PECA ESCOLHIDA TEM UM MOVIMENTO QUE PODE CAPTURAR ALGUMA PECA");

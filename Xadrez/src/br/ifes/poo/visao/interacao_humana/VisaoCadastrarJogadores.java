@@ -50,13 +50,13 @@ public class VisaoCadastrarJogadores extends JPanel{
 		ImageIcon img = new ImageIcon(getClass().getResource("/img/Entrada.png"));
 		this.Background = new JLabel(img);		
 		this.Background.setLocation(0, 0);
-		this.Background.setSize(800,600);
+		this.Background.setSize(1024,730);
 		
 	}
 	
 	private void construirComponentes(){
-		this.construirComponentesPrimeiroJogador(550, 410);
-		this.construirComponentesSegundoJogador(550,477);
+		this.construirComponentesPrimeiroJogador(60,500);//774, 500);
+		this.construirComponentesSegundoJogador(60,567);//774,567);
 		this.construirComponentesControleTarefas();					
 	}
 	
@@ -74,13 +74,15 @@ public class VisaoCadastrarJogadores extends JPanel{
 	
 	private void construirComponentesControleTarefas(){
 		this.botaoVoltar = new VisaoBotao();
+		this.botaoVoltar.setSize(80, 30);
 		this.botaoVoltar.definirImagens("/img/Menu/Voltar_Over.png", "/img/Menu/Voltar_Pressed.png", "/img/Menu/Voltar_Released.png");
 		
 		this.botaoJogar = new VisaoBotao();
+		this.botaoJogar.setSize(80, 30);
 		this.botaoJogar.definirImagens("/img/Menu/Jogar_Over.png", "/img/Menu/Jogar_Pressed.png", "/img/Menu/Jogar_Released.png");
 		
-		this.botaoVoltar.setLocation(20, 540);
-		this.botaoJogar.setLocation(580, 540);
+		this.botaoVoltar.setLocation(60, 637);
+		this.botaoJogar.setLocation(180, 637);
 		
 	}
 	

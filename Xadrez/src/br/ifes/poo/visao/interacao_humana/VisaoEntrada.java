@@ -62,7 +62,7 @@ public class VisaoEntrada extends JPanel {
 		ImageIcon img = new ImageIcon(getClass().getResource("/img/Entrada.png"));
 		this.Background = new JLabel(img);		
 		this.Background.setLocation(0, 0);
-		this.Background.setSize(800,600);
+		this.Background.setSize(1024,730);
 		this.add(this.Background);
 		
 	}

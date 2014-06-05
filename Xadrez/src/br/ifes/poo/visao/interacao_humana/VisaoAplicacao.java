@@ -32,8 +32,8 @@ public class VisaoAplicacao extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addContainerListener(this.ControleSinais);
 		
-		this.setSize(805,628);
-		this.setLocationRelativeTo(null);
+		this.setSize(1024,730); // 805,628
+		this.setLocationRelativeTo(null); // centraliza a tela
 		this.setResizable(false);
 	}
 	

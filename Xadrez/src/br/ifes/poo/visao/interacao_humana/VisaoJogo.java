@@ -28,7 +28,7 @@ public class VisaoJogo extends JPanel {
 	
 	
 	public VisaoJogo(){
-		this.construirTabuleiro(10,8);
+		this.construirTabuleiro(70,62);
 		this.construirMenu(677,526);
 		this.construirPlacar();
 		this.construirBackground();	
@@ -40,7 +40,7 @@ public class VisaoJogo extends JPanel {
 		ImageIcon img = new ImageIcon(getClass().getResource("/img/Tabuleiro.png"));
 		this.Background = new JLabel(img);		
 		this.Background.setLocation(0, 0);
-		this.Background.setSize(800,600);
+		this.Background.setSize(1024,730);
 		this.add(this.Background);		
 	}
 	
@@ -92,8 +92,7 @@ public class VisaoJogo extends JPanel {
 	}
 	
 	public void construirTabuleiro(int x, int y){
-		this.visaoTabuleiro = new VisaoTabuleiro();
-		
+		this.visaoTabuleiro = new VisaoTabuleiro();		
 		this.visaoTabuleiro.setLocation(x, y);
 		this.add(visaoTabuleiro);
 	}
