@@ -20,7 +20,7 @@ public class TipoMovimentoTorre extends TipoMovimentoAbstrato {
 	}
 	
 	@Override
-	public ArrayList<Coordenada> MovimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna) {
+	public ArrayList<Coordenada> movimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna) {
 
 		this.CoordenadasPossiveis = new ArrayList<Coordenada>();
 		this.LinhaSelecionada  = linha;
@@ -31,21 +31,21 @@ public class TipoMovimentoTorre extends TipoMovimentoAbstrato {
 		// DA POSICAO DA PECA PRA BAIXO
 		for (int g=this.LinhaSelecionada+1; g<8; g++){
 			
-			if(!this.TentarInserirCoordenadaPossivel(g, this.ColunaSelecionada)){
+			if(!this.tentarInserirCoordenadaPossivel(g, this.ColunaSelecionada)){
 				break;
 			}						
 		}
 		
 		// DA POSICAO DA PECA PRA CIMA
 		for (int g=this.LinhaSelecionada-1; g>=0; g--){			
-			if(!this.TentarInserirCoordenadaPossivel(g, this.ColunaSelecionada)){
+			if(!this.tentarInserirCoordenadaPossivel(g, this.ColunaSelecionada)){
 				break;
 			}
 		}
 		
 		// DA POSICAO DA PECA PRA ESQUERDA
 		for (int g=this.ColunaSelecionada-1; g>=0; g--){			
-			if(!this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada, g)){
+			if(!this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada, g)){
 				break;
 			}
 		}
@@ -53,7 +53,7 @@ public class TipoMovimentoTorre extends TipoMovimentoAbstrato {
 		
 		// DA POSICAO DA PECA PRA DIREITA
 		for (int g=this.ColunaSelecionada+1; g<8; g++){
-			if(!this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada, g)){
+			if(!this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada, g)){
 				break;
 			}
 		}
@@ -61,7 +61,7 @@ public class TipoMovimentoTorre extends TipoMovimentoAbstrato {
 	return this.CoordenadasPossiveis;
 	}
 	
-	private Boolean TentarInserirCoordenadaPossivel(int l, int c){
+	private Boolean tentarInserirCoordenadaPossivel(int l, int c){
 		
 		//System.out.print("VERIFICANDO O SLOT ["+l+","+c+"] : "+this.Tabuleiro[l][c].getControlePeca()+". ");
 		
@@ -93,7 +93,7 @@ public class TipoMovimentoTorre extends TipoMovimentoAbstrato {
 	}
 	
 	@Override
-	public void ResetarMovimentosPossiveis() {
+	public void resetarMovimentosPossiveis() {
 		this.CoordenadasPossiveis.clear();
 	}	
 		

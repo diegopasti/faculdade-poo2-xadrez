@@ -6,8 +6,7 @@ import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 public class EstrategiaBasica implements Estrategia {
 
 	@Override
-	public ControlePeca EscolherPeca(VisaoJogo Jogo) {
-		// TODO Auto-generated method stub
+	public ControlePeca escolherPeca(VisaoJogo Jogo) {
 		return null;
 	}
 	

@@ -19,7 +19,7 @@ public class TipoMovimentoRei extends TipoMovimentoAbstrato{
 		this.TipoMovimento = "REI";
 	}
 
-	public ArrayList<Coordenada> MovimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna){
+	public ArrayList<Coordenada> movimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna){
 		
 		this.CoordenadasPossiveis = new ArrayList<Coordenada>();
 		this.LinhaSelecionada  = linha;
@@ -29,49 +29,49 @@ public class TipoMovimentoRei extends TipoMovimentoAbstrato{
 		
 		// Norte
 		if(linha > 1){
-			this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada);
+			this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada);
 		}
 		
 		// Nordeste
 		if(linha > 1 && coluna < 7){
-			this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada+1);
+			this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada+1);
 		}
 		
 		// Leste
 		if(coluna < 7){
-			this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada, this.ColunaSelecionada+1);
+			this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada, this.ColunaSelecionada+1);
 		}
 		
 		// Sudeste
 		if(linha < 7 && coluna < 7){
-			this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada+1);
+			this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada+1);
 		}
 		
 		// Sul
 		if(linha < 7){
-			this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada);
+			this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada);
 		}
 		
 		// Suldoeste
 		if(linha < 7 && coluna > 0){
-			this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada-1);
+			this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada-1);
 		}
 		
 		// Oeste
 		if(coluna > 1){
-			this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada, this.ColunaSelecionada-1);
+			this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada, this.ColunaSelecionada-1);
 		}
 		
 		// Noroeste
 		if(coluna > 1 && linha > 1){
-			this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada-1);
+			this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada-1);
 		}
 		
 				
 		return this.CoordenadasPossiveis;
 	}
 	
-	private void TentarInserirCoordenadaPossivel(int l, int c){
+	private void tentarInserirCoordenadaPossivel(int l, int c){
 		if(this.Tabuleiro[l][c].getControlePeca() == null){
 			//System.out.println("SLOT ["+l+","+c+"] : "+tabuleiro[l][c].getControlePeca());
 			Coordenada coord = new Coordenada(l,c);
@@ -89,7 +89,7 @@ public class TipoMovimentoRei extends TipoMovimentoAbstrato{
 		
 	}
 	
-	public void ResetarMovimentosPossiveis(){
+	public void resetarMovimentosPossiveis(){
 		this.CoordenadasPossiveis.clear();
 	}
 

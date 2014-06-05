@@ -43,8 +43,8 @@ public class VisaoTabuleiro extends JPanel{
 			for(int i=0; i < 8; i++){
 				
 				VisaoSlot Slot = new VisaoSlot();
-				Slot.AdicionarObservador(MonitorSlots);
-				Slot.DefinirImagens("/img/Tabuleiro/Slot_Over.png", "/img/Tabuleiro/Slot_Pressed.png", "/img/Tabuleiro/Slot_Released.png");
+				Slot.adicionarObservador(MonitorSlots);
+				Slot.definirImagens("/img/Tabuleiro/Slot_Over.png", "/img/Tabuleiro/Slot_Pressed.png", "/img/Tabuleiro/Slot_Released.png");
 				Slot.setPathPossibilidade("/img/Tabuleiro/Slot_Possivel.png");
 				Slot.setPathEnemy("/img/Tabuleiro/Slot_Inimigo.png");
 				Slot.setPathXeque("/img/Tabuleiro/Slot_Cheque.png");
@@ -72,26 +72,26 @@ public class VisaoTabuleiro extends JPanel{
 	}
 	
 	
-	public void AtivarSlot(Coordenada coord){
-		this.MatrizSlots[coord.getLinha()][coord.getColuna()].MarcarPeca();
+	public void ativarSlot(Coordenada coord){
+		this.MatrizSlots[coord.getLinha()][coord.getColuna()].marcarPeca();
 		//this.AtivarSlot(this.MatrizSlots[coord.getLinha()][coord.getColuna()]);
 	}
 		
 	
-	public void AtivarSlot(VisaoSlot slot){
+	public void ativarSlot(VisaoSlot slot){
 		
 		if(this.MovimentosPossiveis.isEmpty()){
 			if(this.SlotAtivo != null){ 	// TINHAMOS UMA PECA SELECIONADA QUE NAO TINHA NENHUM MOVIMENTO POSSIVEL. TEMOS DESATIVAR ELA PRA ATIVAR O NOVO SLOT SELECIONADO.
-				this.DesativarSlot(this.SlotAtivo);
+				this.desativarSlot(this.SlotAtivo);
 			}
 			
 			this.SlotAtivo = slot;
-			this.DefinirMovimentosPossiveisSlotAtivo();			
+			this.definirMovimentosPossiveisSlotAtivo();			
 			
 			if(!this.MovimentosPossiveis.isEmpty()){
 				//System.out.println("TABULEIRO >>> MOVIMENTOS POSSIVEIS: "+this.MovimentosPossiveis);
-				this.MarcarMovimentosPossiveis(this.MovimentosPossiveis);
-				this.MarcarInimigosPossiveis(this.MovimentosPossiveis);			
+				this.marcarMovimentosPossiveis(this.MovimentosPossiveis);
+				this.marcarInimigosPossiveis(this.MovimentosPossiveis);			
 			}
 			
 			else{
@@ -103,7 +103,7 @@ public class VisaoTabuleiro extends JPanel{
 		}
 		else{
 			if(slot.getControlePeca() == null){
-				this.MoverPeca(slot);
+				this.moverPeca(slot);
 			}
 			
 			else{
@@ -112,20 +112,20 @@ public class VisaoTabuleiro extends JPanel{
 					
 					if(slot.getSlotInimigo()){
 						System.out.println("TABULEIRO >>> "+this.SlotAtivo.getControlePeca().toString()+" CAPTUROU "+slot.getControlePeca().toString()+"!");
-						this.CapturarPeca(slot);
+						this.capturarPeca(slot);
 					}
 				}
 				else{
 					// O JOGADOR TROCOU A SUA PECA ATIVA POR OUTRA DELE PROPRIO
-					this.DesativarSlot(SlotAtivo);
+					this.desativarSlot(SlotAtivo);
 					this.SlotAtivo = slot;
-					this.DefinirMovimentosPossiveisSlotAtivo();
+					this.definirMovimentosPossiveisSlotAtivo();
 					
 					
 					if(!this.MovimentosPossiveis.isEmpty()){
 						//System.out.println("TABULEIRO >>> MOVIMENTOS POSSIVEIS: "+this.MovimentosPossiveis);
-						this.MarcarMovimentosPossiveis(this.MovimentosPossiveis);
-						this.MarcarInimigosPossiveis(this.MovimentosPossiveis);				
+						this.marcarMovimentosPossiveis(this.MovimentosPossiveis);
+						this.marcarInimigosPossiveis(this.MovimentosPossiveis);				
 					}
 					
 					else{
@@ -136,39 +136,39 @@ public class VisaoTabuleiro extends JPanel{
 		}
 	}
 	
-	public void DefinirMovimentosPossiveisSlotAtivo(){
-		this.MovimentosPossiveis.addAll(this.SlotAtivo.getControlePeca().getModeloPeca().VerificarMovimentosPossiveis(this.MatrizSlots));
+	public void definirMovimentosPossiveisSlotAtivo(){
+		this.MovimentosPossiveis.addAll(this.SlotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.MatrizSlots));
 	}
 	
-	public void DesativarSlot(VisaoSlot slot){
+	public void desativarSlot(VisaoSlot slot){
 		//System.out.println("TABULEIRO >>> TEMOS QUE DESATIVAR AS POSSIBILIDADE DE MOVIMENTO: "+this.MovimentosPossiveis);
-		this.DesmarcarMovimentosPossiveis(this.MovimentosPossiveis);		
-		this.SlotAtivo.getControlePeca().getModeloPeca().ResetarMovimentosPossiveis();
+		this.desmarcarMovimentosPossiveis(this.MovimentosPossiveis);		
+		this.SlotAtivo.getControlePeca().getModeloPeca().resetarMovimentosPossiveis();
 		
 		this.MovimentosPossiveis.clear();
-		this.SlotAtivo.DesmarcarPeca();
+		this.SlotAtivo.desmarcarPeca();
 	}
 	
 	
-	public void MoverPeca(VisaoSlot SlotDestino){
+	public void moverPeca(VisaoSlot SlotDestino){
 				
 		System.out.println("TABULEIRO >>> MOVENDO "+this.SlotAtivo.getControlePeca().toString()+" para "+SlotDestino.getCoordenada().toString());
-		this.RemoverPeca(this.SlotAtivo.getCoordenada());
-		this.InserirPeca(this.SlotAtivo.getControlePeca(), SlotDestino.getCoordenada());
+		this.removerPeca(this.SlotAtivo.getCoordenada());
+		this.inserirPeca(this.SlotAtivo.getControlePeca(), SlotDestino.getCoordenada());
 		
-		this.AtivarEfeito();
-		this.VerificarAmeaca();
-		this.VerificarXeque();		
+		this.ativarEfeito();
+		this.verificarAmeaca();
+		this.verificarXeque();		
 		
-		this.DesativarSlot(this.SlotAtivo);		
+		this.desativarSlot(this.SlotAtivo);		
 		this.SlotAtivo.setControlePeca(null);
 		this.SlotAtivo = null;
 		
-		this.controleJogo.ProximoJogadorAtivo();
+		this.controleJogo.proximoJogadorAtivo();
 	}
 	
 	
-	public void VerificarAmeaca(){
+	public void verificarAmeaca(){
 		ControleJogador controleJogadorAdversario = null;
 		if(this.JogadorAtivo != this.controleJogo.getControlePrimeiroJogador()){
 			controleJogadorAdversario = this.controleJogo.getControlePrimeiroJogador();
@@ -182,21 +182,21 @@ public class VisaoTabuleiro extends JPanel{
 			controleJogadorAdversario.getPecas().get(k).getModeloPeca().setAmeacado(false);
 		}
 		
-		ArrayList<Coordenada> Coordenadas = this.SlotAtivo.getControlePeca().getModeloPeca().VerificarMovimentosPossiveis(this.MatrizSlots);
+		ArrayList<Coordenada> Coordenadas = this.SlotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.MatrizSlots);
 		for(int g = 0; g < Coordenadas.size(); g++){
 			if(this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca() != null){ // E TEM QUE SER DE COR OPOSTA){
-				this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].MarcarInimigo(false);
+				this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].marcarInimigo(false);
 			}
 			
 		}
 	}
 	
-	public void VerificarXeque(){
-		ArrayList<Coordenada> Coordenadas = this.SlotAtivo.getControlePeca().getModeloPeca().VerificarMovimentosPossiveis(this.MatrizSlots);
+	public void verificarXeque(){
+		ArrayList<Coordenada> Coordenadas = this.SlotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.MatrizSlots);
 		for(int g = 0; g < Coordenadas.size(); g++){
 			if(this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca() != null){
 				if(this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca().getModeloPeca().getTipo() == "REI"){
-					this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].MarcarXeque();
+					this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].marcarXeque();
 				}	
 			}
 			
@@ -204,33 +204,33 @@ public class VisaoTabuleiro extends JPanel{
 	}
 	
 	
-	public void CapturarPeca(VisaoSlot slot){
+	public void capturarPeca(VisaoSlot slot){
 		if(slot.getControlePeca().getModeloPeca().getTipo() == "REI"){
 			// E O FIM DO JOGO!
-			this.RemoverPeca(slot.getCoordenada());
-			this.controleJogo.DeclararVencedor(getJogadorAtivo());
-			this.MoverPeca(slot);	
+			this.removerPeca(slot.getCoordenada());
+			this.controleJogo.declararVencedor(getJogadorAtivo());
+			this.moverPeca(slot);	
 			
 		}
 		else{
-			this.RemoverPeca(slot.getCoordenada());
+			this.removerPeca(slot.getCoordenada());
 			this.controleJogo.getJogadorAtivo().addPontos(slot.getControlePeca().getModeloPeca().getValor());
-			this.controleJogo.AtualizarPlacar();
-			this.MoverPeca(slot);	
+			this.controleJogo.atualizarPlacar();
+			this.moverPeca(slot);	
 		}
 		
 	}
 	
-	public void MarcarInimigosPossiveis(ArrayList<Coordenada> possibilidades){
+	public void marcarInimigosPossiveis(ArrayList<Coordenada> possibilidades){
 		
 		for(int i=0; i < possibilidades.size() ; i++){
 			if(this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca() != null){
 				if(this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getCor() != this.SlotAtivo.getControlePeca().getModeloPeca().getCor()){
 					if(this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getTipo() == "REI"){
-						this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].MarcarXeque();
+						this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarXeque();
 					}
 					else{
-						this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].MarcarInimigo(true);	
+						this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarInimigo(true);	
 					}
 						
 				}	
@@ -239,22 +239,22 @@ public class VisaoTabuleiro extends JPanel{
 	}
 	
 	
-	public void DesmarcarMovimentosPossiveis(ArrayList<Coordenada> possibilidades){
+	public void desmarcarMovimentosPossiveis(ArrayList<Coordenada> possibilidades){
 		//System.out.println("TABULEIRO >>> "+possibilidades.size()+" VOU DESMARCAR O CAMINHO DO: "+this.SlotAtivo.getControlePeca().toString());
 		for(int i=0; i < possibilidades.size(); i++){
 			//System.out.println("TABULEIRO >>> SLOT: "+possibilidades.get(i).toString());
-			this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].DesmarcarPeca();
+			this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].desmarcarPeca();
 			this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].setSlotPossivel(false);
 		}
 		
 	}
 	
-	public void MarcarMovimentosPossiveis(ArrayList<Coordenada> possibilidades){
+	public void marcarMovimentosPossiveis(ArrayList<Coordenada> possibilidades){
 		//System.out.println("TABULEIRO >>> QUANTIDADE DE MOVIMENTOS POSSIVEIS: "+possibilidades.size());
 		
 		for(int i=0; i < possibilidades.size(); i++){
 			//System.out.println("TABULEIRO >>> SLOT: "+possibilidades.get(i).toString());
-			this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].MarcarPossibilidade();
+			this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarPossibilidade();
 		}
 	
 	}
@@ -270,7 +270,7 @@ public class VisaoTabuleiro extends JPanel{
 	
 	
 	
-	public void AtivarEfeito(){
+	public void ativarEfeito(){
 		String Peca = this.SlotAtivo.getControlePeca().getModeloPeca().getTipo();
 		
 		if(Peca.contains("PEAO")){
@@ -295,12 +295,12 @@ public class VisaoTabuleiro extends JPanel{
 	}
 	
 	
-	public void InserirPeca(ControlePeca Peca, Coordenada coord){
-		this.MatrizSlots[coord.getLinha()][ coord.getColuna()].InserirPeca(Peca);
+	public void inserirPeca(ControlePeca Peca, Coordenada coord){
+		this.MatrizSlots[coord.getLinha()][ coord.getColuna()].inserirPeca(Peca);
 		Peca.setCoordenada(coord);
 	}
 	
-	public void RemoverPeca(Coordenada coord){
-		this.MatrizSlots[coord.getLinha()][coord.getColuna()].RemoverPeca();
+	public void removerPeca(Coordenada coord){
+		this.MatrizSlots[coord.getLinha()][coord.getColuna()].removerPeca();
 	}
 }

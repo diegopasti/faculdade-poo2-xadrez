@@ -7,11 +7,11 @@ import br.ifes.poo.visao.interacao_humana.VisaoSlot;
 
 public abstract class TipoMovimentoAbstrato {
 	
-	public ArrayList<Coordenada> MovimentosPossiveis(String Cor,VisaoSlot[][] tabuleiro, int linha, int coluna){
+	public ArrayList<Coordenada> movimentosPossiveis(String Cor,VisaoSlot[][] tabuleiro, int linha, int coluna){
 		return null;
 	}
 	
-	public void ResetarMovimentosPossiveis(){
+	public void resetarMovimentosPossiveis(){
 		
 	}	
 	

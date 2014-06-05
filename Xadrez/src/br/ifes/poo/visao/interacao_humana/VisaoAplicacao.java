@@ -17,18 +17,18 @@ public class VisaoAplicacao extends JFrame {
 	public VisaoAplicacao(String Nome) {
 		super(Nome);
 		
-		this.ConstruirTela(Nome);
-		this.ConstruirControleSinais();
+		this.construirTela(Nome);
+		this.construirControleSinais();
 		System.out.println("INICIANDO A VISAO DA APLICACAO");
 	}
 
-	public void ConstruirControleSinais(){
+	public void construirControleSinais(){
 		this.ControleSinais = new ControleSinais();
 		this.addMouseListener(ControleSinais);
 		this.addMouseMotionListener(ControleSinais);
 	}
 		
-	public void ConstruirTela(String Nome) {
+	public void construirTela(String Nome) {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addContainerListener(this.ControleSinais);
 		
@@ -37,23 +37,23 @@ public class VisaoAplicacao extends JFrame {
 		this.setResizable(false);
 	}
 	
-	public void IncluirPainel(JPanel Painel){
+	public void incluirPainel(JPanel Painel){
 		this.PainelPrincipal = Painel;
 		this.setContentPane(this.PainelPrincipal);
 	}
 	
-	public void ExcluirPainel(){		
+	public void excluirPainel(){		
 		this.remove(this.PainelPrincipal);
 		this.PainelPrincipal.setVisible(false);
 		this.PainelPrincipal = null;
 		this.repaint();
 	}
 	
-	public void ExibirAplicacao() {		
+	public void exibirAplicacao() {		
 		this.setVisible(true);
 	}
 
-	public void DestruirTela() {
+	public void destruirTela() {
 		this.dispose();
 	}
 
@@ -61,7 +61,6 @@ public class VisaoAplicacao extends JFrame {
 		
 		@Override
 		public void mouseDragged(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 	

@@ -18,7 +18,7 @@ public class VisaoPeca extends JButton{
 		this.setOpaque(false);
 	}
 	
-	public void DefinirImagem(String txt){
+	public void definirImagem(String txt){
 		this.setIcon(new ImageIcon(getClass().getResource(txt)));
 	}
 

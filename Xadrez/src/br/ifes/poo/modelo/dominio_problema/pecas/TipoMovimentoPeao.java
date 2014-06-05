@@ -20,7 +20,7 @@ public class TipoMovimentoPeao extends TipoMovimentoAbstrato {
 		this.TipoMovimento = "PEAO";
 	}
 
-	public ArrayList<Coordenada> MovimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna){
+	public ArrayList<Coordenada> movimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna){
 		this.CoordenadasPossiveis = new ArrayList<Coordenada>();
 	
 		this.LinhaSelecionada  = linha;
@@ -32,14 +32,14 @@ public class TipoMovimentoPeao extends TipoMovimentoAbstrato {
 			
 			if (this.LinhaSelecionada > 0){
 				
-				this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada);
+				this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada);
 				
 				if(coluna > 0){
-					this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada-1);
+					this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada-1);
 				}
 				
 				if(coluna < 7){
-					this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada+1);
+					this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada-1, this.ColunaSelecionada+1);
 				}
 				
 			}
@@ -48,14 +48,14 @@ public class TipoMovimentoPeao extends TipoMovimentoAbstrato {
 		else if(Cor == "PRETA"){
 			
 			if (linha < 7){
-				this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada);
+				this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada);
 			
 				if(coluna > 0){
-					this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada-1);
+					this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada-1);
 				}
 				
 				if(coluna < 7){
-					this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada+1);
+					this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada+1, this.ColunaSelecionada+1);
 				}	
 			}
 		}
@@ -64,7 +64,7 @@ public class TipoMovimentoPeao extends TipoMovimentoAbstrato {
 		
 	}
 	
-	private Boolean TentarInserirCoordenadaPossivel(int l, int c){
+	private Boolean tentarInserirCoordenadaPossivel(int l, int c){
 		if(this.Tabuleiro[l][c].getControlePeca() == null){
 			if(c == this.ColunaSelecionada){ // Se for da mesma coluna, é um movimento normal do peao.
 				Coordenada coord = new Coordenada(l,c);
@@ -91,7 +91,7 @@ public class TipoMovimentoPeao extends TipoMovimentoAbstrato {
 	}
 	
 	
-	public void ResetarMovimentosPossiveis(){
+	public void resetarMovimentosPossiveis(){
 		this.CoordenadasPossiveis.clear();
 	}
 

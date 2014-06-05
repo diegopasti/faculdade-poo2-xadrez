@@ -18,7 +18,7 @@ private VisaoSlot[][] Tabuleiro;
 		this.TipoMovimento = "PEAO INICIAL";
 	}
 	
-	public ArrayList<Coordenada> MovimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna){
+	public ArrayList<Coordenada> movimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna){
 		this.CoordenadasPossiveis = new ArrayList<Coordenada>();
 		
 		this.LinhaSelecionada  = linha;
@@ -28,20 +28,20 @@ private VisaoSlot[][] Tabuleiro;
 		
 		if(this.CorSelecionada == "BRANCA"){			
 			if(this.LinhaSelecionada > 1){
-				this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada-2, this.ColunaSelecionada);
+				this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada-2, this.ColunaSelecionada);
 			}			
 		}
 					
 		else if (this.CorSelecionada == "PRETA"){			
 			if(this.LinhaSelecionada < 6){
-				this.TentarInserirCoordenadaPossivel(this.LinhaSelecionada+2, this.ColunaSelecionada);
+				this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada+2, this.ColunaSelecionada);
 			}
 		}				
 	
 		return this.CoordenadasPossiveis;
 	}
 	
-	private Boolean TentarInserirCoordenadaPossivel(int l, int c){
+	private Boolean tentarInserirCoordenadaPossivel(int l, int c){
 		if(this.Tabuleiro[l][c].getControlePeca() == null){			
 			Coordenada coord = new Coordenada(l,c);
 			this.CoordenadasPossiveis.add(coord);
@@ -50,7 +50,7 @@ private VisaoSlot[][] Tabuleiro;
 		return false;
 	}
 	
-	public void ResetarMovimentosPossiveis(){
+	public void resetarMovimentosPossiveis(){
 		this.CoordenadasPossiveis.clear();
 	}
 

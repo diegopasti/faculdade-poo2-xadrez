@@ -76,20 +76,20 @@ public class VisaoSlot extends JPanel implements MouseListener{
 				if(!getSelecionado() && (controlePeca != null)){
 					if(controlePeca.getModeloPeca().getCor() == VisaoSlot.CorAtiva || getSlotPossivel()){
 						//System.out.println("\nSLOT >>> SELECIONAMOS UMA PECA: ");
-						MarcarPeca();
+						marcarPeca();
 					}
 				}
 				
 				// MOVENDO UMA PECA
 				else if (controlePeca == null && getSlotPossivel()){
 					//System.out.println("\nSLOT >>> TENTANDO MOVER A PECA");
-					MoverPeca();
+					moverPeca();
 				}
 				
 				// DESMARCANDO UMA PECA
 				else if(controlePeca != null){
 					//System.out.println("\nSLOT >>> DESMARCAMOS UMA PECA: ");
-					DesmarcarPeca();				
+					desmarcarPeca();				
 					NotificarObservador("DESMARCAR");	
 				}
 				
@@ -110,47 +110,47 @@ public class VisaoSlot extends JPanel implements MouseListener{
 		this.controlePeca = null;
 	}
 	
-	public void MoverPeca(){
+	public void moverPeca(){
 		this.NotificarObservador("MOVER");		
 	}
 	
 	
-	public void MarcarPeca(){
+	public void marcarPeca(){
 		this.setSelecionado(true);
 		//System.out.println("SELECIONEI PECA");
-		this.AtualizarBotao(getPathPressed());
+		this.atualizarBotao(getPathPressed());
 		this.NotificarObservador("MARCAR");
 	}
 		
-	public void MarcarInimigo(Boolean AtualizarImagem){
+	public void marcarInimigo(Boolean AtualizarImagem){
 		this.setSlotInimigo(true);
 		if(AtualizarImagem){
-			this.AtualizarBotao(this.getPathEnemy());	
+			this.atualizarBotao(this.getPathEnemy());	
 		}
 		this.getControlePeca().getModeloPeca().setAmeacado(true);
 	}
 	
-	public void MarcarXeque(){
-		this.AtualizarBotao(this.getPathXeque());
+	public void marcarXeque(){
+		this.atualizarBotao(this.getPathXeque());
 		this.setSlotXeque(true);
 		this.setSlotInimigo(true);
 	}
 	
-	public void DesmarcarPeca(){		
+	public void desmarcarPeca(){		
 		this.setSelecionado(false);
 		this.setSlotInimigo(false);
 		this.setSlotXeque(false);
-		this.AtualizarBotao(getPathReleased());
+		this.atualizarBotao(getPathReleased());
 	}
 	
-	public void MarcarPossibilidade(){
-		this.AtualizarBotao(getPathPossibilidade());
+	public void marcarPossibilidade(){
+		this.atualizarBotao(getPathPossibilidade());
 		this.setSlotPossivel(true);		
 	}
 	
 	
 	
-	public void AdicionarObservador(MonitorSlots monitor){
+	public void adicionarObservador(MonitorSlots monitor){
 		this.Monitor = monitor;		
 	}
 	
@@ -158,47 +158,47 @@ public class VisaoSlot extends JPanel implements MouseListener{
 		
 		if(Acao  == "MARCAR"){
 			this.Monitor.setSlotAtivo(this);
-			this.Monitor.Update(Acao);
+			this.Monitor.update(Acao);
 		}
 		
 		else if (Acao == "MOVER"){
 			this.Monitor.setSlotAtivo(this);
-			this.Monitor.Update(Acao);
+			this.Monitor.update(Acao);
 		}
 		
 		else if (Acao == "DESMARCAR"){
-			this.Monitor.Update(Acao);
+			this.Monitor.update(Acao);
 			//this.Monitor.DesativarSlot(this);
 		}
 						
 	}
 	
-	public void RemoverObservador(){
+	public void removerObservador(){
 		this.Monitor = null;
 	}
 	
-	public void InserirPeca(ControlePeca Peca){
+	public void inserirPeca(ControlePeca Peca){
 		Peca.getVisaoPeca().setSize(82, 74);
 		Peca.getVisaoPeca().setLocation(-1, -1);
 		this.controlePeca = Peca;
 		this.add(this.controlePeca.getVisaoPeca());
 	}
 	
-	public void RemoverPeca(){
+	public void removerPeca(){
 		if(this.controlePeca != null){
 			this.remove(this.controlePeca.getVisaoPeca());
-			this.AtualizarBotao(this.getPathReleased());
+			this.atualizarBotao(this.getPathReleased());
 		}
 	}
 
-	public void DefinirImagens(String Over, String Pressed, String Released){
+	public void definirImagens(String Over, String Pressed, String Released){
 		this.setPathOverlapping(Over);
 		this.setPathPressed(Pressed);
 		this.setPathReleased(Released);
-		this.AtualizarBotao(this.getPathReleased());
+		this.atualizarBotao(this.getPathReleased());
 	}
 	
-	public void AtualizarBotao(String Path){
+	public void atualizarBotao(String Path){
 		this.botaoSlot.setIcon(null);
 		this.botaoSlot.setIcon(getIcone(Path));
 	}
@@ -225,7 +225,6 @@ public class VisaoSlot extends JPanel implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -234,20 +233,20 @@ public class VisaoSlot extends JPanel implements MouseListener{
 		if(this.controlePeca != null){			
 			if(this.controlePeca.getModeloPeca().getCor() != VisaoSlot.CorAtiva){
 				if(this.getSlotPossivel()){
-					this.AtualizarBotao(this.getPathOverlapping());	
+					this.atualizarBotao(this.getPathOverlapping());	
 				}
 			}						
 			else{
 				//if(this.controlePeca.getModeloPeca()){ TENHO QUE VERIFICAR SE A PECA EH DO ZEUS
 					
 				//}
-				this.AtualizarBotao(this.getPathOverlapping());
+				this.atualizarBotao(this.getPathOverlapping());
 			}
 		}
 		
 		else{
 			if(this.getSlotPossivel()){
-				this.AtualizarBotao(this.getPathOverlapping());	
+				this.atualizarBotao(this.getPathOverlapping());	
 			}			
 		}
 	}
@@ -259,33 +258,33 @@ public class VisaoSlot extends JPanel implements MouseListener{
 				
 				if(this.getSlotInimigo()){
 					if(this.getSlotXeque()){
-						this.AtualizarBotao(this.getPathXeque());
+						this.atualizarBotao(this.getPathXeque());
 					}
 					else{
-						this.AtualizarBotao(this.getPathEnemy());
+						this.atualizarBotao(this.getPathEnemy());
 					}
 				}
 				else{
 					
 					if(!this.getSelecionado()){
-						this.AtualizarBotao(this.getPathReleased());
+						this.atualizarBotao(this.getPathReleased());
 					}
 					else{
-						this.AtualizarBotao(this.getPathPossibilidade());
+						this.atualizarBotao(this.getPathPossibilidade());
 					}
 					
 				}
 			}
 			else{
-				this.AtualizarBotao(this.getPathReleased());
+				this.atualizarBotao(this.getPathReleased());
 			}
 			
 			if(this.getSelecionado()){
-				this.AtualizarBotao(this.getPathPressed());
+				this.atualizarBotao(this.getPathPressed());
 			}
 		}
 		else if(this.getSlotPossivel()){
-			this.AtualizarBotao(this.getPathPossibilidade());
+			this.atualizarBotao(this.getPathPossibilidade());
 		}
 	}
 

@@ -17,12 +17,12 @@ public class ControlePeca {
 		return this.visaoPeca;
 	}
 	
-	public void ConfigurarModelo(String cor, String nome, String pathImage, int valor, Coordenada coord){
+	public void configurarModelo(String cor, String nome, String pathImage, int valor, Coordenada coord){
 		this.setModeloPeca(new ModeloPeca());
 		this.getModeloPeca().setCor(cor);
 		
 		this.getModeloPeca().setTipo(nome);
-		this.DefinirImagem(pathImage);
+		this.definirImagem(pathImage);
 		this.getModeloPeca().setValor(valor);
 		this.setCoordenada(coord);
 	}
@@ -37,17 +37,17 @@ public class ControlePeca {
 	}
 	
 		
-	public void DefinirTipo(String tipo){
+	public void definirTipo(String tipo){
 		this.modeloPeca.setTipo(tipo);
 		//this.visaoPeca = new Controle_Peca();		
 	}
 	
-	public void DefinirImagem(String path){
-		this.visaoPeca.DefinirImagem(path);
+	public void definirImagem(String path){
+		this.visaoPeca.definirImagem(path);
 	}
 	
 	
-	public void DefinirValor(int x){
+	public void definirValor(int x){
 		this.modeloPeca.setValor(x);		
 	}
 	

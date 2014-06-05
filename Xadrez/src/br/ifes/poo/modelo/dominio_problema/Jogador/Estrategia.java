@@ -5,6 +5,6 @@ import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 
 public interface Estrategia {
 
-	public ControlePeca EscolherPeca(VisaoJogo Jogo);
+	public ControlePeca escolherPeca(VisaoJogo Jogo);
 	
 }

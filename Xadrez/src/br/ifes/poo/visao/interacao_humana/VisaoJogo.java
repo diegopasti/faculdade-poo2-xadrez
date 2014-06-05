@@ -28,14 +28,14 @@ public class VisaoJogo extends JPanel {
 	
 	
 	public VisaoJogo(){
-		this.ConstruirTabuleiro(10,8);
-		this.ConstruirMenu(677,526);
-		this.ConstruirPlacar();
-		this.ConstruirBackground();	
+		this.construirTabuleiro(10,8);
+		this.construirMenu(677,526);
+		this.construirPlacar();
+		this.construirBackground();	
 		System.out.println("INICIANDO A VISAO DO JOGO");
 	}
 
-	public void ConstruirBackground(){
+	public void construirBackground(){
 		this.setLayout(null);
 		ImageIcon img = new ImageIcon(getClass().getResource("/img/Tabuleiro.png"));
 		this.Background = new JLabel(img);		
@@ -44,7 +44,7 @@ public class VisaoJogo extends JPanel {
 		this.add(this.Background);		
 	}
 	
-	public void ConfigurarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
+	public void configurarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
 		this.NomePrimeiroJogador.setText(PriJogador.getNome());
 		this.NomeSegundoJogador.setText(SegJogador.getNome());
 		
@@ -53,12 +53,12 @@ public class VisaoJogo extends JPanel {
 		
 	}
 	
-	public void AtualizarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
+	public void atualizarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
 		this.PontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
 		this.PontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
 	}
 	
-	public void ConstruirPlacar(){
+	public void construirPlacar(){
 		this.NomePrimeiroJogador = new JLabel("PLAYER 1", SwingConstants.CENTER);
 		this.NomePrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
 		this.NomePrimeiroJogador.setLocation(677, 10);
@@ -91,7 +91,7 @@ public class VisaoJogo extends JPanel {
 		return this.visaoTabuleiro;
 	}
 	
-	public void ConstruirTabuleiro(int x, int y){
+	public void construirTabuleiro(int x, int y){
 		this.visaoTabuleiro = new VisaoTabuleiro();
 		
 		this.visaoTabuleiro.setLocation(x, y);
@@ -99,27 +99,27 @@ public class VisaoJogo extends JPanel {
 	}
 	
 	
-	public void InserirPeca(ControlePeca Peca){
+	public void inserirPeca(ControlePeca Peca){
 		//System.out.println("INSERINDO PECA: "+Peca.toString());
-		this.visaoTabuleiro.InserirPeca(Peca, Peca.getCoordenada());		
+		this.visaoTabuleiro.inserirPeca(Peca, Peca.getCoordenada());		
 	}
 	
-	public void RemoverPeca(Coordenada coord){
-		this.visaoTabuleiro.RemoverPeca(coord);		
+	public void removerPeca(Coordenada coord){
+		this.visaoTabuleiro.removerPeca(coord);		
 	}
 	
-	public void MoverPeca(ControlePeca Peca, int linOrigem, int colOrigem, int linDest, int colDest){
-		this.visaoTabuleiro.RemoverPeca(new Coordenada(linOrigem, colOrigem));
-		this.visaoTabuleiro.InserirPeca(Peca, new Coordenada(linOrigem, colOrigem));		
+	public void moverPeca(ControlePeca Peca, int linOrigem, int colOrigem, int linDest, int colDest){
+		this.visaoTabuleiro.removerPeca(new Coordenada(linOrigem, colOrigem));
+		this.visaoTabuleiro.inserirPeca(Peca, new Coordenada(linOrigem, colOrigem));		
 	}
 	
 	
-	public void ConstruirMenu(int x, int y){
+	public void construirMenu(int x, int y){
 		this.botaoVoltar = new VisaoBotao();
-		this.botaoVoltar.DefinirImagens("/img/Menu/Voltar_Over.png", "/img/Menu/Voltar_Pressed.png", "/img/Menu/Voltar_Released.png");
+		this.botaoVoltar.definirImagens("/img/Menu/Voltar_Over.png", "/img/Menu/Voltar_Pressed.png", "/img/Menu/Voltar_Released.png");
 		
 		this.botaoDesistir = new VisaoBotao();
-		this.botaoDesistir.DefinirImagens("/img/Menu/Desistir_Over.png", "/img/Menu/Desistir_Pressed.png", "/img/Menu/Desistir_Released.png");
+		this.botaoDesistir.definirImagens("/img/Menu/Desistir_Over.png", "/img/Menu/Desistir_Pressed.png", "/img/Menu/Desistir_Released.png");
 		
 		this.botaoDesistir.setLocation(x,y);
 		this.botaoVoltar.setLocation(x,y+30);		

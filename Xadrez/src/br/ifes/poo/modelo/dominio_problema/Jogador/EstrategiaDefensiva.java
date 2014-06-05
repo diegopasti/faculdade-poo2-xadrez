@@ -8,21 +8,21 @@ import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 public class EstrategiaDefensiva implements Estrategia{
 	
 	
-	public ControlePeca EscolherPeca(VisaoJogo Jogo){
-		return VerificaPecasAmeacadas(Jogo);
+	public ControlePeca escolherPeca(VisaoJogo Jogo){
+		return verificaPecasAmeacadas(Jogo);
 	}
 	
-	private ControlePeca VerificaPecasAmeacadas(VisaoJogo Jogo){
+	private ControlePeca verificaPecasAmeacadas(VisaoJogo Jogo){
 		ArrayList<ControlePeca> PecasAmeacadas = new ArrayList<ControlePeca>();
 		for(int g=0; g<Jogo.getTabuleiro().getJogadorAtivo().getPecas().size(); g++){
 			if(Jogo.getTabuleiro().getJogadorAtivo().getPecas().get(g).getModeloPeca().getAmeacado()){
 				PecasAmeacadas.add(Jogo.getTabuleiro().getJogadorAtivo().getPecas().get(g));
 			}
 		}		
-		return this.EscolherPecaMaisValiosa(PecasAmeacadas);
+		return this.escolherPecaMaisValiosa(PecasAmeacadas);
 	}
 	
-	private ControlePeca EscolherPecaMaisValiosa(ArrayList<ControlePeca> PecasAmeacadas){
+	private ControlePeca escolherPecaMaisValiosa(ArrayList<ControlePeca> PecasAmeacadas){
 		
 		ControlePeca PecaMaisValiosa = null;
 		if(!PecasAmeacadas.isEmpty()){

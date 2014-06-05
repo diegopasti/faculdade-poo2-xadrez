@@ -7,6 +7,6 @@ import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 
 public interface Inteligencia {
 	
-	public ControlePeca EscolherPeca(ControleJogador Jogador, VisaoJogo visaoJogo);
-	public Coordenada EscolherMovimento(ControlePeca PecaEscolhida);
+	public ControlePeca escolherPeca(ControleJogador Jogador, VisaoJogo visaoJogo);
+	public Coordenada escolherMovimento(ControlePeca PecaEscolhida);
 }

@@ -20,7 +20,7 @@ public class FabricaPecasBrancas extends FabricaAbstrataPecas {
 	
 	public void setConfiguracao(String nome, String pathImage, int valor, int lin, int col){
 		this.controlePeca = new ControlePeca();
-		this.controlePeca.ConfigurarModelo("BRANCA",nome,pathImage,valor,new Coordenada(lin, col));
+		this.controlePeca.configurarModelo("BRANCA",nome,pathImage,valor,new Coordenada(lin, col));
 	}
 	
 	public ControlePeca getControlePeca() {

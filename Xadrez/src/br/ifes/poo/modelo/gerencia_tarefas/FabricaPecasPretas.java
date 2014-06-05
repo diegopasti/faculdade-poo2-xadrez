@@ -19,7 +19,7 @@ private ControlePeca controlePeca = null;
 	
 	public void setConfiguracao(String nome, String pathImage, int valor, int lin, int col){
 		this.controlePeca = new ControlePeca();
-		this.controlePeca.ConfigurarModelo("PRETA",nome,pathImage,valor,new Coordenada(lin, col));
+		this.controlePeca.configurarModelo("PRETA",nome,pathImage,valor,new Coordenada(lin, col));
 	}
 	
 	public ControlePeca getControlePeca() {

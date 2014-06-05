@@ -28,23 +28,23 @@ public class VisaoEntrada extends JPanel {
 		}
 	}
 
-	public void Visão_MenuPrincipal(){
+	public void visaoMenuPrincipal(){
 		this.setLayout(null);
 		System.out.println("INICIANDO A VISAO DA ENTRADA");
 	}
 	
-	public void ConstruirMenu(int x, int y){
+	public void construirMenu(int x, int y){
 		this.botaoJogarSozinho = new VisaoBotao();
-		this.botaoJogarSozinho.DefinirImagens("/img/Menu/JogarSozinho_Over.png", "/img/Menu/JogarSozinho_Pressed.png", "/img/Menu/JogarSozinho_Released.png");
+		this.botaoJogarSozinho.definirImagens("/img/Menu/JogarSozinho_Over.png", "/img/Menu/JogarSozinho_Pressed.png", "/img/Menu/JogarSozinho_Released.png");
 				
 		this.botaoJogarDupla = new VisaoBotao();
-		this.botaoJogarDupla.DefinirImagens("/img/Menu/JogarDupla_Over.png", "/img/Menu/JogarDupla_Pressed.png", "/img/Menu/JogarDupla_Released.png");
+		this.botaoJogarDupla.definirImagens("/img/Menu/JogarDupla_Over.png", "/img/Menu/JogarDupla_Pressed.png", "/img/Menu/JogarDupla_Released.png");
 		
 		this.botaoEstatisticas= new VisaoBotao();
-		this.botaoEstatisticas.DefinirImagens("/img/Menu/Estatisticas_Over.png", "/img/Menu/Estatisticas_Pressed.png", "/img/Menu/Estatisticas_Released.png");
+		this.botaoEstatisticas.definirImagens("/img/Menu/Estatisticas_Over.png", "/img/Menu/Estatisticas_Pressed.png", "/img/Menu/Estatisticas_Released.png");
 
 		this.botaoSair = new VisaoBotao();
-		this.botaoSair.DefinirImagens("/img/Menu/Sair_Over.png", "/img/Menu/Sair_Pressed.png", "/img/Menu/Sair_Released.png");
+		this.botaoSair.definirImagens("/img/Menu/Sair_Over.png", "/img/Menu/Sair_Pressed.png", "/img/Menu/Sair_Released.png");
 		
 		this.botaoJogarSozinho.setLocation(x,y);
 		this.botaoJogarDupla.setLocation(x,y+30);
@@ -57,7 +57,7 @@ public class VisaoEntrada extends JPanel {
 		this.add(this.botaoSair);
 	}
 	
-	public void ConstruirBackground(){
+	public void construirBackground(){
 		this.setLayout(null);
 		ImageIcon img = new ImageIcon(getClass().getResource("/img/Entrada.png"));
 		this.Background = new JLabel(img);		

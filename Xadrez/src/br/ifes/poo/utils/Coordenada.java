@@ -27,7 +27,7 @@ public class Coordenada {
 		return "["+this.getLinha()+","+this.getColuna()+"]";
 	}
 	
-	public Boolean IsEqual(Coordenada outra){
+	public Boolean isEqual(Coordenada outra){
 		if(this.getColuna() != outra.getColuna() || this.getLinha() != outra.getLinha()){
 			return false;
 		}

@@ -15,17 +15,17 @@ public class ControleJogador {
 		this.Pecas = new ArrayList<ControlePeca>();
 	}
 
-	public void JogadaAutomatica(ControleJogador Oponente, VisaoJogo visaoJogo){
-		ControlePeca PecaEscolhida = this.modeloJogador.getInteligencia().EscolherPeca(this, visaoJogo);
-		visaoJogo.getTabuleiro().AtivarSlot(PecaEscolhida.getCoordenada());
-		this.MarcarMovimentosPossiveis(visaoJogo);
-		visaoJogo.getTabuleiro().AtivarSlot(this.modeloJogador.getInteligencia().EscolherMovimento(PecaEscolhida));
+	public void jogadaAutomatica(ControleJogador Oponente, VisaoJogo visaoJogo){
+		ControlePeca PecaEscolhida = this.modeloJogador.getInteligencia().escolherPeca(this, visaoJogo);
+		visaoJogo.getTabuleiro().ativarSlot(PecaEscolhida.getCoordenada());
+		this.marcarMovimentosPossiveis(visaoJogo);
+		visaoJogo.getTabuleiro().ativarSlot(this.modeloJogador.getInteligencia().escolherMovimento(PecaEscolhida));
 	}
 	
 	
-	private void MarcarMovimentosPossiveis(VisaoJogo visaoJogo){
+	private void marcarMovimentosPossiveis(VisaoJogo visaoJogo){
 		for(int j=0; j < visaoJogo.getTabuleiro().getSlotAtivo().getControlePeca().getModeloPeca().getMovimentosPossiveis().size(); j++){
-			visaoJogo.getTabuleiro().getMatrizSlots()[visaoJogo.getTabuleiro().getSlotAtivo().getControlePeca().getModeloPeca().getMovimentosPossiveis().get(j).getLinha()][visaoJogo.getTabuleiro().getSlotAtivo().getControlePeca().getModeloPeca().getMovimentosPossiveis().get(j).getColuna()].MarcarPossibilidade();
+			visaoJogo.getTabuleiro().getMatrizSlots()[visaoJogo.getTabuleiro().getSlotAtivo().getControlePeca().getModeloPeca().getMovimentosPossiveis().get(j).getLinha()][visaoJogo.getTabuleiro().getSlotAtivo().getControlePeca().getModeloPeca().getMovimentosPossiveis().get(j).getColuna()].marcarPossibilidade();
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class ControleJogador {
 	public ArrayList<ControlePeca> getPecas() {
 		return Pecas;
 	}
-	public void InserirPeca(ControlePeca peca) {
+	public void inserirPeca(ControlePeca peca) {
 		this.Pecas.add(peca);
 	}	
 }

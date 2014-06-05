@@ -17,15 +17,15 @@ public class ControleAplicacao {
 		//this.modeloAplicacao = new ModeloAplicacao();
 	}
 	
-	private void ConstruirEntrada(){
+	private void construirEntrada(){
 		this.controleEntrada = new ControleEntrada();
 		
 		// ADICIONANDO O EVENTO DE CLICK NO BOTAO DE JOGAR SOZINHO DO MENU.
 		this.controleEntrada.getBotao(1).addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				visaoAplicacao.ExcluirPainel();
-				ConstruirCadastroJogadores(1);
+				visaoAplicacao.excluirPainel();
+				construirCadastroJogadores(1);
 			}
 		});;
 		
@@ -33,8 +33,8 @@ public class ControleAplicacao {
 		this.controleEntrada.getBotao(2).addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				visaoAplicacao.ExcluirPainel();
-				ConstruirCadastroJogadores(2);
+				visaoAplicacao.excluirPainel();
+				construirCadastroJogadores(2);
 			}
 		});;
 				
@@ -43,23 +43,23 @@ public class ControleAplicacao {
 		this.controleEntrada.getBotao(4).addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				visaoAplicacao.DestruirTela();				
+				visaoAplicacao.destruirTela();				
 			}
 		});;
 		
-		this.visaoAplicacao.IncluirPainel(this.controleEntrada.getEntrada());
+		this.visaoAplicacao.incluirPainel(this.controleEntrada.getEntrada());
 		
 	}
 	
-	private void ConstruirCadastroJogadores(int opcao){
+	private void construirCadastroJogadores(int opcao){
 		this.controleCadastroJogadores = new ControleCadastroJogadores(opcao);
-		this.visaoAplicacao.IncluirPainel(this.controleCadastroJogadores.getVisaoCadastrarJogadores());
+		this.visaoAplicacao.incluirPainel(this.controleCadastroJogadores.getVisaoCadastrarJogadores());
 		
 		this.controleCadastroJogadores.getBotao(1).addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				visaoAplicacao.ExcluirPainel();
-				ConstruirEntrada();
+				visaoAplicacao.excluirPainel();
+				construirEntrada();
 			}
 		});;
 		
@@ -69,8 +69,8 @@ public class ControleAplicacao {
 				
 				
 				if(!controleCadastroJogadores.getNomeJogador(1).isEmpty() && !controleCadastroJogadores.getNomeJogador(2).isEmpty()){
-					visaoAplicacao.ExcluirPainel();
-					ConstruirJogo(controleCadastroJogadores.getNomeJogador(1),controleCadastroJogadores.getNomeJogador(2));
+					visaoAplicacao.excluirPainel();
+					construirJogo(controleCadastroJogadores.getNomeJogador(1),controleCadastroJogadores.getNomeJogador(2));
 				}
 			}
 		});;
@@ -78,22 +78,22 @@ public class ControleAplicacao {
 		
 	}
 	
-	private void ConstruirJogo(String nome1, String nome2){
+	private void construirJogo(String nome1, String nome2){
 		this.controleJogo = new ControleJogo(nome1,nome2);
-		this.visaoAplicacao.IncluirPainel(this.controleJogo.getVisaoJogo());
+		this.visaoAplicacao.incluirPainel(this.controleJogo.getVisaoJogo());
 		this.controleJogo.getBotao(1).addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				visaoAplicacao.ExcluirPainel();
-				ConstruirEntrada();
+				visaoAplicacao.excluirPainel();
+				construirEntrada();
 			}
 		});;
 		
 	}
 	
-	public void IniciarAplicativo(){
+	public void iniciarAplicativo(){
 		this.visaoAplicacao = new VisaoAplicacao("PROJETO XADREZ");
-		this.ConstruirEntrada();		
+		this.construirEntrada();		
 		this.visaoAplicacao.setVisible(true);
 		
 	}

@@ -21,7 +21,7 @@ public class TipoMovimentoBispo extends TipoMovimentoAbstrato {
 	}
 	
 	@Override
-	public ArrayList<Coordenada> MovimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna) {
+	public ArrayList<Coordenada> movimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna) {
 
 		this.CoordenadasPossiveis = new ArrayList<Coordenada>();
 		
@@ -41,7 +41,7 @@ public class TipoMovimentoBispo extends TipoMovimentoAbstrato {
 			c = this.ColunaSelecionada - g;
 			
 			if(l >= 0 && c>=0){
-				if(!this.TentarInserirCoordenadaPossivel(l, c)){
+				if(!this.tentarInserirCoordenadaPossivel(l, c)){
 					break;
 				}
 			}
@@ -58,7 +58,7 @@ public class TipoMovimentoBispo extends TipoMovimentoAbstrato {
 			
 			if(l>=0 && c<8){		
 				
-				if(!this.TentarInserirCoordenadaPossivel(l, c)){
+				if(!this.tentarInserirCoordenadaPossivel(l, c)){
 					break;
 				}
 			}
@@ -77,7 +77,7 @@ public class TipoMovimentoBispo extends TipoMovimentoAbstrato {
 			
 			if(l<8 && c>=0){		
 				
-				if(!this.TentarInserirCoordenadaPossivel(l, c)){
+				if(!this.tentarInserirCoordenadaPossivel(l, c)){
 					break;
 				}
 			}
@@ -93,7 +93,7 @@ public class TipoMovimentoBispo extends TipoMovimentoAbstrato {
 			c = this.ColunaSelecionada + g;
 			if(l<8 && c<8){		
 				
-				if(!this.TentarInserirCoordenadaPossivel(l, c)){
+				if(!this.tentarInserirCoordenadaPossivel(l, c)){
 					break;
 				}
 			}
@@ -107,7 +107,7 @@ public class TipoMovimentoBispo extends TipoMovimentoAbstrato {
 	}
 	
 	
-	private Boolean TentarInserirCoordenadaPossivel(int l, int c){
+	private Boolean tentarInserirCoordenadaPossivel(int l, int c){
 		if(this.Tabuleiro[l][c].getControlePeca() == null){
 			//System.out.println("SLOT ["+l+","+c+"] : "+tabuleiro[l][c].getControlePeca());
 			Coordenada coord = new Coordenada(l,c);
@@ -130,7 +130,7 @@ public class TipoMovimentoBispo extends TipoMovimentoAbstrato {
 	
 	
 	@Override
-	public void ResetarMovimentosPossiveis() {
+	public void resetarMovimentosPossiveis() {
 		this.CoordenadasPossiveis.clear();
 	}	
 		
