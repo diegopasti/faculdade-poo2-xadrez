@@ -1,5 +1,6 @@
 package br.ifes.poo.visao.interacao_humana;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
@@ -48,6 +49,8 @@ public class VisaoJogo extends JPanel {
 		this.NomePrimeiroJogador.setText(PriJogador.getNome());
 		this.NomeSegundoJogador.setText(SegJogador.getNome());
 		
+		
+		
 		this.PontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
 		this.PontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
 		
@@ -59,29 +62,33 @@ public class VisaoJogo extends JPanel {
 	}
 	
 	public void construirPlacar(){
-		this.NomePrimeiroJogador = new JLabel("PLAYER 1", SwingConstants.CENTER);
+		this.NomePrimeiroJogador = new JLabel("PLAYER 1", SwingConstants.LEFT);
 		this.NomePrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
-		this.NomePrimeiroJogador.setLocation(677, 10);
+		this.NomePrimeiroJogador.setForeground(Color.white);
+		this.NomePrimeiroJogador.setLocation(60, 670);
 		this.NomePrimeiroJogador.setSize(112,24);
 		this.add(this.NomePrimeiroJogador);
 		
 		
-		this.NomeSegundoJogador = new JLabel("PLAYER 2", SwingConstants.CENTER);
+		this.NomeSegundoJogador = new JLabel("PLAYER 2", SwingConstants.LEFT);
 		this.NomeSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
-		this.NomeSegundoJogador.setLocation(677, 66);
+		this.NomeSegundoJogador.setForeground(Color.white);
+		this.NomeSegundoJogador.setLocation(60, 20);
 		this.NomeSegundoJogador.setSize(112,24);
 		this.add(this.NomeSegundoJogador);
 		
-		this.PontosPrimeiroJogador = new JLabel("0", SwingConstants.CENTER);
-		this.PontosPrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
-		this.PontosPrimeiroJogador.setLocation(677, 33);
-		this.PontosPrimeiroJogador.setSize(112,24);
+		this.PontosPrimeiroJogador = new JLabel("0", SwingConstants.LEFT);
+		this.PontosPrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 20 ) );
+		this.PontosPrimeiroJogador.setForeground(Color.white);
+		this.PontosPrimeiroJogador.setLocation(20, 670);
+		this.PontosPrimeiroJogador.setSize(30,24);
 		this.add(this.PontosPrimeiroJogador);
 		
-		this.PontosSegundoJogador = new JLabel("0", SwingConstants.CENTER);
-		this.PontosSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
-		this.PontosSegundoJogador.setLocation(677, 89);
-		this.PontosSegundoJogador.setSize(112,24);
+		this.PontosSegundoJogador = new JLabel("0", SwingConstants.LEFT);
+		this.PontosSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 20 ) );
+		this.PontosSegundoJogador.setForeground(Color.white);
+		this.PontosSegundoJogador.setLocation(20, 20);
+		this.PontosSegundoJogador.setSize(30,24);
 		this.add(this.PontosSegundoJogador);
 		
 	}
