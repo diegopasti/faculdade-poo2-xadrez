@@ -1,19 +1,28 @@
 package br.ifes.poo.visao.interacao_humana;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import br.ifes.poo.controle.controle_interface.ControleJogador;
 import br.ifes.poo.controle.controle_interface.ControlePeca;
 import br.ifes.poo.utils.Coordenada;
 
 @SuppressWarnings("serial")
-public class VisaoJogo extends JPanel {
+public class VisaoJogo extends JPanel{
 	
 	private JLabel Background = null;
 	private JLabel NomePrimeiroJogador = null;
@@ -22,38 +31,91 @@ public class VisaoJogo extends JPanel {
 	private JLabel PontosPrimeiroJogador = null;
 	private JLabel PontosSegundoJogador = null;
 	
+	private JTextField textMensagem = null;
+	private JLabel labelMensagem = null;
+	
 	private VisaoBotao botaoVoltar = null;
 	private VisaoBotao botaoDesistir = null;
+	private VisaoBotao botaoEmpate = null;
 	
 	private VisaoTabuleiro visaoTabuleiro;
+	private VisaoChat visaoChat;
 	
-	
-	public VisaoJogo(){
-		this.construirTabuleiro(70,62);
-		this.construirMenu(677,526);
-		this.construirPlacar();
-		this.construirBackground();	
+	public VisaoJogo(){	
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new ControleSinais());
+		
+		this.construirTela();
+		
+		this.adicionarComponentes();
+		
 		System.out.println("INICIANDO A VISAO DO JOGO");
 	}
-
-	public void construirBackground(){
+	
+	
+	private void construirTela(){
 		this.setLayout(null);
+		this.construirBackground();
+		this.construirTabuleiro(296,62); // 70
+		this.construirMenu(680,20);
+		//this.construirPlacar();
+		this.construirChat();
+		this.construirCampoMensagem();
+		this.adicionarComponentes();
+	}
+	
+	private void adicionarComponentes(){
+		this.add(visaoTabuleiro);
+		this.add(this.botaoEmpate);
+		this.add(this.botaoDesistir);
+		this.add(this.botaoVoltar);
+		this.add(this.visaoChat);
+		
+		this.add(this.textMensagem);
+		this.add(this.labelMensagem);
+		this.add(this.Background);
+		
+		
+		
+	}
+	
+	private void construirCampoMensagem(){
+		
+		
+		this.labelMensagem = new JLabel(new ImageIcon(getClass().getResource("/img/Componentes/enter.png")));
+		this.labelMensagem.setSize(500,25);
+		this.labelMensagem.setLocation(-436, 677);
+		
+		
+		this.textMensagem = new JTextField();
+		this.textMensagem.setForeground(Color.white);
+		this.textMensagem.setSize(440, 25);
+		this.textMensagem.setLocation(1,677);
+		this.textMensagem.setBorder(null);
+		this.textMensagem.setOpaque(false);
+	}
+	
+	
+	private void construirChat(){
+		this.visaoChat = new VisaoChat();
+		this.visaoChat.setLocation(5, 5);
+		this.visaoChat.setSize(280,636);
+		
+				
+	}
+
+	private void construirBackground(){		
 		ImageIcon img = new ImageIcon(getClass().getResource("/img/Tabuleiro.png"));
 		this.Background = new JLabel(img);		
 		this.Background.setLocation(0, 0);
 		this.Background.setSize(1024,730);
-		this.add(this.Background);		
 	}
 	
-	public void configurarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
+	private void configurarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
 		this.NomePrimeiroJogador.setText(PriJogador.getNome());
 		this.NomeSegundoJogador.setText(SegJogador.getNome());
-		
-		
-		
 		this.PontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
 		this.PontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
-		
 	}
 	
 	public void atualizarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
@@ -61,38 +123,40 @@ public class VisaoJogo extends JPanel {
 		this.PontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
 	}
 	
-	public void construirPlacar(){
+	private void construirPlacar(){
 		this.NomePrimeiroJogador = new JLabel("PLAYER 1", SwingConstants.LEFT);
 		this.NomePrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
 		this.NomePrimeiroJogador.setForeground(Color.white);
-		this.NomePrimeiroJogador.setLocation(60, 670);
+		this.NomePrimeiroJogador.setLocation(330, 670);
 		this.NomePrimeiroJogador.setSize(112,24);
-		this.add(this.NomePrimeiroJogador);
-		
+		this.add(this.NomePrimeiroJogador);		
 		
 		this.NomeSegundoJogador = new JLabel("PLAYER 2", SwingConstants.LEFT);
 		this.NomeSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
 		this.NomeSegundoJogador.setForeground(Color.white);
-		this.NomeSegundoJogador.setLocation(60, 20);
+		this.NomeSegundoJogador.setLocation(330, 20);
 		this.NomeSegundoJogador.setSize(112,24);
 		this.add(this.NomeSegundoJogador);
 		
 		this.PontosPrimeiroJogador = new JLabel("0", SwingConstants.LEFT);
 		this.PontosPrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 20 ) );
 		this.PontosPrimeiroJogador.setForeground(Color.white);
-		this.PontosPrimeiroJogador.setLocation(20, 670);
+		this.PontosPrimeiroJogador.setLocation(300, 665);
 		this.PontosPrimeiroJogador.setSize(30,24);
 		this.add(this.PontosPrimeiroJogador);
 		
 		this.PontosSegundoJogador = new JLabel("0", SwingConstants.LEFT);
 		this.PontosSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 20 ) );
 		this.PontosSegundoJogador.setForeground(Color.white);
-		this.PontosSegundoJogador.setLocation(20, 20);
+		this.PontosSegundoJogador.setLocation(300, 20);
 		this.PontosSegundoJogador.setSize(30,24);
 		this.add(this.PontosSegundoJogador);
 		
 	}
 	
+	public VisaoChat getChat(){
+		return this.visaoChat;
+	}
 	
 	public VisaoTabuleiro getTabuleiro(){
 		return this.visaoTabuleiro;
@@ -101,7 +165,7 @@ public class VisaoJogo extends JPanel {
 	public void construirTabuleiro(int x, int y){
 		this.visaoTabuleiro = new VisaoTabuleiro();		
 		this.visaoTabuleiro.setLocation(x, y);
-		this.add(visaoTabuleiro);
+		
 	}
 	
 	
@@ -120,18 +184,23 @@ public class VisaoJogo extends JPanel {
 	}
 	
 	
-	public void construirMenu(int x, int y){
+	private void construirMenu(int x, int y){
+		this.botaoEmpate = new VisaoBotao();
+		this.botaoEmpate.definirImagens("/img/Menu/Empate_Over.png", "/img/Menu/Empate_Pressed.png", "/img/Menu/Empate_Released.png");
+		this.botaoEmpate.setSize(100,30);
+		
 		this.botaoVoltar = new VisaoBotao();
 		this.botaoVoltar.definirImagens("/img/Menu/Voltar_Over.png", "/img/Menu/Voltar_Pressed.png", "/img/Menu/Voltar_Released.png");
+		this.botaoVoltar.setSize(90,30);
 		
 		this.botaoDesistir = new VisaoBotao();
 		this.botaoDesistir.definirImagens("/img/Menu/Desistir_Over.png", "/img/Menu/Desistir_Pressed.png", "/img/Menu/Desistir_Released.png");
+		this.botaoDesistir.setSize(100,30);
 		
-		this.botaoDesistir.setLocation(x,y);
-		this.botaoVoltar.setLocation(x,y+30);		
 		
-		this.add(this.botaoDesistir);
-		this.add(this.botaoVoltar);
+		this.botaoEmpate.setLocation(x, y);
+		this.botaoDesistir.setLocation(x+100,y);
+		this.botaoVoltar.setLocation(x+200,y);		
 	}
 	
 	public VisaoBotao getBotao(int i) {
@@ -143,5 +212,40 @@ public class VisaoJogo extends JPanel {
 				return null;
 		}
 	}
+	
+	
+	private class ControleSinais implements KeyEventDispatcher{
+		@Override
+        public boolean dispatchKeyEvent(KeyEvent e) {
+            if (e.getID() == KeyEvent.KEY_PRESSED) {
+            	
+            	if(e.getKeyCode()==10){
+            		if(textMensagem.getLocation().getX()==0.0){
+            			labelMensagem.setLocation(-436,677);
+            			textMensagem.setLocation(-500,677);
+                		textMensagem.setText("");
+            		}
+            		else{
+            			textMensagem.setLocation(0,677);
+            			labelMensagem.setLocation(0,677);
+            			textMensagem.setText(" d i g i t e   s u a   m e n s a g e m   a q u i");
+            			textMensagem.grabFocus();
+            			textMensagem.selectAll();	
+            		}
+            		
+            	}
+            	
+            }
+            	
+	        else if (e.getID() == KeyEvent.KEY_RELEASED) {
+	                
+	        } else if (e.getID() == KeyEvent.KEY_TYPED) {
+	        	//System.out.println("Tecla tipada");
+	        }
+            return false;
+	    }
+	}	
+	
+	
 	
 }

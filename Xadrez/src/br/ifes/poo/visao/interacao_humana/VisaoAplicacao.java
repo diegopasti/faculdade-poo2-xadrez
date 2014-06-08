@@ -1,6 +1,8 @@
 package br.ifes.poo.visao.interacao_humana;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -111,6 +113,7 @@ public class VisaoAplicacao extends JFrame {
 			System.out.println("EXCLUI UM PANEL");
 			
 		}
+
 	}
 	
 }

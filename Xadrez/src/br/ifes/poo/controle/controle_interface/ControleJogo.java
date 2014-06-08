@@ -18,11 +18,10 @@ public class ControleJogo {
 		System.out.println("INICIANDO O CONTROLE DO JOGO");
 		this.visaoJogo = new VisaoJogo();
 		this.construirJogadores(nome1,nome2);
-		this.iniciarControleTurno();
-		
-		//this.ConfigurarDatabase();
-		
-		this.visaoJogo.setVisible(true);		
+		this.iniciarControleTurno();		
+		//this.ConfigurarDatabase();		
+		this.visaoJogo.setVisible(true);
+		//this.visaoJogo.getChat().inserirMensagem(JogadorAtivo.getNome(), "Coeh vei funciona");
 	}
 	
 	public ControleJogador getControlePrimeiroJogador() {
@@ -78,7 +77,7 @@ public class ControleJogo {
 			this.controleSegundoJogador  = new ControleJogador(nome2,"PRETA");
 		}
 		
-		this.visaoJogo.configurarPlacar(this.controlePrimeiroJogador, this.controleSegundoJogador);
+		//this.visaoJogo.configurarPlacar(this.controlePrimeiroJogador, this.controleSegundoJogador);
 		
 		this.construirPecasBrancas();
 		this.construirPecasPretas();

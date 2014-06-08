@@ -215,7 +215,7 @@ public class VisaoTabuleiro extends JPanel{
 		else{
 			this.removerPeca(slot.getCoordenada());
 			this.controleJogo.getJogadorAtivo().addPontos(slot.getControlePeca().getModeloPeca().getValor());
-			this.controleJogo.atualizarPlacar();
+			//this.controleJogo.atualizarPlacar();
 			this.moverPeca(slot);	
 		}
 		
