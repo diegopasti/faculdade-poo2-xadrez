@@ -3,6 +3,7 @@ package br.ifes.poo.visao.interacao_humana;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -15,6 +16,7 @@ public class VisaoChat extends JPanel {
 	private ControleChat controleChat;
 	private JTextArea textArea; 
 	private JScrollPane scrollPane;
+	
 		
 	public VisaoChat(){
 		this.controleChat = new ControleChat();
@@ -27,22 +29,21 @@ public class VisaoChat extends JPanel {
 
 		this.textArea = new JTextArea(1,50);
 		this.textArea.setForeground(Color.white);
-		this.textArea.setSize(240,636);
+		this.textArea.setSize(238,550);
 		this.scrollPane = new JScrollPane(this.textArea);
-		this.scrollPane.setSize(240, 675);
+		this.scrollPane.setSize(238, 550);
 		
 		this.scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		this.add(scrollPane,BorderLayout.CENTER);
-		
-
 	}
 	
 	private void ConfigurarChat(){
 		this.setOpaque(false);
 		this.textArea.setBorder(null);
 		this.textArea.setOpaque(false);
-		this.textArea.setEditable(true);
+		this.textArea.setEditable(false);
+		//this.textArea.setEnabled(false);
 		this.textArea.setLineWrap(true);		
 		
 		this.scrollPane.setBorder(null);
@@ -54,6 +55,13 @@ public class VisaoChat extends JPanel {
 	}
 	
 	public void inserirMensagem(String user, String msg){
+		String linhasVazias = "";
+		for(int k=0; k<40-this.textArea.getLineCount();k++){
+			linhasVazias = linhasVazias +"\n";
+		}
+		
+		textArea.setText(linhasVazias + textArea.getText());
+		
 		if(this.textArea.getText().isEmpty()){
 			this.textArea.setText(user+": "+msg);	
 		}

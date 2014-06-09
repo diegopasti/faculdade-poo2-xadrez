@@ -21,7 +21,7 @@ public class ControleJogo {
 		this.iniciarControleTurno();		
 		//this.ConfigurarDatabase();		
 		this.visaoJogo.setVisible(true);
-		//this.visaoJogo.getChat().inserirMensagem(JogadorAtivo.getNome(), "Coeh vei funciona");
+		
 	}
 	
 	public ControleJogador getControlePrimeiroJogador() {

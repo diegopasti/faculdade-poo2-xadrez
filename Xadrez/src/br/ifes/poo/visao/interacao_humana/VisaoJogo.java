@@ -1,11 +1,7 @@
 package br.ifes.poo.visao.interacao_humana;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
@@ -15,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 import br.ifes.poo.controle.controle_interface.ControleJogador;
 import br.ifes.poo.controle.controle_interface.ControlePeca;
@@ -33,6 +28,8 @@ public class VisaoJogo extends JPanel{
 	
 	private JTextField textMensagem = null;
 	private JLabel labelMensagem = null;
+	private VisaoBotao botaoScrollUp=null;
+	private VisaoBotao botaoScrollDown=null;
 	
 	private VisaoBotao botaoVoltar = null;
 	private VisaoBotao botaoDesistir = null;
@@ -44,11 +41,8 @@ public class VisaoJogo extends JPanel{
 	public VisaoJogo(){	
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher(new ControleSinais());
-		
 		this.construirTela();
-		
 		this.adicionarComponentes();
-		
 		System.out.println("INICIANDO A VISAO DO JOGO");
 	}
 	
@@ -73,35 +67,44 @@ public class VisaoJogo extends JPanel{
 		
 		this.add(this.textMensagem);
 		this.add(this.labelMensagem);
+		this.add(this.botaoScrollUp);
+		this.add(this.botaoScrollDown);
+		
 		this.add(this.Background);
 		
 		
 		
 	}
 	
-	private void construirCampoMensagem(){
-		
-		
+	private void construirCampoMensagem(){		
 		this.labelMensagem = new JLabel(new ImageIcon(getClass().getResource("/img/Componentes/enter.png")));
 		this.labelMensagem.setSize(500,25);
-		this.labelMensagem.setLocation(-436, 677);
-		
+		this.labelMensagem.setLocation(-436, 677);		
 		
 		this.textMensagem = new JTextField();
 		this.textMensagem.setForeground(Color.white);
 		this.textMensagem.setSize(440, 25);
-		this.textMensagem.setLocation(1,677);
+		this.textMensagem.setLocation(4,677);
 		this.textMensagem.setBorder(null);
 		this.textMensagem.setOpaque(false);
+		
+		
+		this.botaoScrollDown = new VisaoBotao();
+		this.botaoScrollDown.setSize(40, 17);
+		this.botaoScrollDown.definirImagens("/img/Componentes/ArrowDown_Over.png", "/img/Componentes/ArrowDown_Pressed.png", "/img/Componentes/ArrowDown_Released.png");
+		this.botaoScrollDown.setLocation(130,638);
+		
+		this.botaoScrollUp = new VisaoBotao();
+		this.botaoScrollUp.setSize(40, 17);
+		this.botaoScrollUp.definirImagens("/img/Componentes/ArrowUp_Over.png", "/img/Componentes/ArrowUp_Pressed.png", "/img/Componentes/ArrowUp_Released.png");
+		this.botaoScrollUp.setLocation(130,46);
 	}
 	
 	
 	private void construirChat(){
 		this.visaoChat = new VisaoChat();
-		this.visaoChat.setLocation(5, 5);
-		this.visaoChat.setSize(280,636);
-		
-				
+		this.visaoChat.setLocation(7, 72);
+		this.visaoChat.setSize(276,555);
 	}
 
 	private void construirBackground(){		
@@ -219,8 +222,17 @@ public class VisaoJogo extends JPanel{
         public boolean dispatchKeyEvent(KeyEvent e) {
             if (e.getID() == KeyEvent.KEY_PRESSED) {
             	
+            	System.out.println(e.getKeyCode());
+            	
+            	
+            	
             	if(e.getKeyCode()==10){
             		if(textMensagem.getLocation().getX()==0.0){
+            			if(!textMensagem.getText().equals(" d i g i t e   s u a   m e n s a g e m   a q u i")){
+            				// Enviar mensagem pro chat
+                			visaoChat.inserirMensagem(visaoTabuleiro.getJogadorAtivo().getNome(),textMensagem.getText());	
+            			}
+            			
             			labelMensagem.setLocation(-436,677);
             			textMensagem.setLocation(-500,677);
                 		textMensagem.setText("");
