@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -29,6 +30,8 @@ public class VisaoJogo extends JPanel{
 	private JTextField textMensagem = null;
 	private JLabel labelMensagem = null;
 	
+	private VisaoCemiterio visaoCemiterioBranca;
+	private VisaoCemiterio visaoCemiterioPreta;
 	private VisaoTabuleiro visaoTabuleiro;
 	private VisaoChat visaoChat;
 	private VisaoMenuJogo menuJogo;
@@ -40,16 +43,27 @@ public class VisaoJogo extends JPanel{
 		System.out.println("INICIANDO A VISAO DO JOGO");
 	}
 	
+
+	
 	
 	private void construirTela(){
 		this.setLayout(null);
 		this.construirBackground();
 		this.construirTabuleiro(326,62); // 70
 		this.construirMenu();
-		//this.construirPlacar();
-		this.construirChat();
+		this.construirPlacar();
+		this.construirChat();		
 		this.construirCampoMensagem();
+		this.construirCemiterio();
 		this.adicionarComponentes();
+	}
+	
+	private void construirCemiterio(){
+		this.visaoCemiterioBranca = new VisaoCemiterio("BRANCA");
+		this.visaoCemiterioBranca.setLocation(70,35);
+		
+		this.visaoCemiterioPreta = new VisaoCemiterio("PRETA");
+		this.visaoCemiterioPreta.setLocation(70,625);
 	}
 	
 	private void adicionarComponentes(){
@@ -58,9 +72,9 @@ public class VisaoJogo extends JPanel{
 		this.add(this.visaoChat);		
 		this.add(this.textMensagem);		
 		this.add(this.labelMensagem);
-		this.add(this.Background);
-		
-		
+		this.add(this.visaoCemiterioBranca);
+		this.add(this.visaoCemiterioPreta);
+		this.add(this.Background);		
 	}
 	
 	private void construirCampoMensagem(){		
@@ -69,6 +83,7 @@ public class VisaoJogo extends JPanel{
 		this.labelMensagem.setLocation(-216, 555);	
 		
 		this.textMensagem = new JTextField();
+		this.textMensagem.setForeground(Color.white);
 		this.textMensagem.setSize(220, 25);
 		this.textMensagem.setLocation(4,555);
 		this.textMensagem.setBorder(null);
@@ -111,16 +126,18 @@ public class VisaoJogo extends JPanel{
 		this.NomePrimeiroJogador = new JLabel("PLAYER 1", SwingConstants.LEFT);
 		this.NomePrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
 		this.NomePrimeiroJogador.setForeground(Color.white);
-		this.NomePrimeiroJogador.setLocation(330, 670);
+		this.NomePrimeiroJogador.setLocation(530, 5);
 		this.NomePrimeiroJogador.setSize(112,24);
 		this.add(this.NomePrimeiroJogador);		
 		
 		this.NomeSegundoJogador = new JLabel("PLAYER 2", SwingConstants.LEFT);
 		this.NomeSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
 		this.NomeSegundoJogador.setForeground(Color.white);
-		this.NomeSegundoJogador.setLocation(330, 20);
+		this.NomeSegundoJogador.setLocation(530, 635);
 		this.NomeSegundoJogador.setSize(112,24);
 		this.add(this.NomeSegundoJogador);
+		
+		/*
 		
 		this.PontosPrimeiroJogador = new JLabel("0", SwingConstants.LEFT);
 		this.PontosPrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 20 ) );
@@ -135,7 +152,7 @@ public class VisaoJogo extends JPanel{
 		this.PontosSegundoJogador.setLocation(300, 20);
 		this.PontosSegundoJogador.setSize(30,24);
 		this.add(this.PontosSegundoJogador);
-		
+		*/
 	}
 	
 	public VisaoChat getChat(){
@@ -192,11 +209,9 @@ public class VisaoJogo extends JPanel{
             		}
             		else{
             			menuJogo.setLocation(820, 255);
-            		}
-            		
+            		}            		
             	}
-            	
-            	
+            	            	
             	if(e.getKeyCode()==10){
             		if(labelMensagem.getLocation().getX()==0.0){
             			if(!textMensagem.getText().equals(" d i g i t e   s u a   m e n s a g e m   a q u i")){
