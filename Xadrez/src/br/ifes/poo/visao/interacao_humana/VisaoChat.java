@@ -29,12 +29,12 @@ public class VisaoChat extends JPanel {
 
 		this.textArea = new JTextArea(1,50);
 		this.textArea.setForeground(Color.white);
-		this.textArea.setSize(238,440);
+		this.textArea.setSize(238,400);
 		this.scrollPane = new JScrollPane(this.textArea);
-		this.scrollPane.setSize(238, 440);
+		this.scrollPane.setSize(238, 400);
 		
 		this.scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		this.add(scrollPane,BorderLayout.CENTER);
 	}
 	
@@ -48,6 +48,9 @@ public class VisaoChat extends JPanel {
 		
 		this.scrollPane.setBorder(null);
 		this.scrollPane.setOpaque(false);
+		this.scrollPane.getVerticalScrollBar().setOpaque(false);
+		this.scrollPane.getVerticalScrollBar().setBorder(null);
+						
 		this.scrollPane.getViewport().setBorder(null);
 		this.scrollPane.getViewport().setOpaque(false);
 }
@@ -69,13 +72,4 @@ public class VisaoChat extends JPanel {
 		
 		this.controleChat.inserirMensagem(user, msg);
 	}
-	
-	public void esconderChat(){
-		this.setVisible(false);
-	}
-	
-	public void exibirChat(){
-		this.setVisible(true);
-	}
-	
 }

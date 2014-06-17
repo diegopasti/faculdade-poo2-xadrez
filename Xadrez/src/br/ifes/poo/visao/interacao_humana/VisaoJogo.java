@@ -28,22 +28,15 @@ public class VisaoJogo extends JPanel{
 	
 	private JTextField textMensagem = null;
 	private JLabel labelMensagem = null;
-	private JLabel labelEsc = null;
-	private VisaoBotao botaoScrollUp=null;
-	private VisaoBotao botaoScrollDown=null;
-	
-	private VisaoBotao botaoVoltar = null;
-	private VisaoBotao botaoDesistir = null;
-	private VisaoBotao botaoEmpate = null;
 	
 	private VisaoTabuleiro visaoTabuleiro;
 	private VisaoChat visaoChat;
+	private VisaoMenuJogo menuJogo;
 	
 	public VisaoJogo(){	
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher(new ControleSinais());
 		this.construirTela();
-		this.adicionarComponentes();
 		System.out.println("INICIANDO A VISAO DO JOGO");
 	}
 	
@@ -51,8 +44,8 @@ public class VisaoJogo extends JPanel{
 	private void construirTela(){
 		this.setLayout(null);
 		this.construirBackground();
-		this.construirTabuleiro(296,62); // 70
-		this.construirMenu(680,20);
+		this.construirTabuleiro(326,62); // 70
+		this.construirMenu();
 		//this.construirPlacar();
 		this.construirChat();
 		this.construirCampoMensagem();
@@ -60,22 +53,12 @@ public class VisaoJogo extends JPanel{
 	}
 	
 	private void adicionarComponentes(){
-		this.add(visaoTabuleiro);
-		this.add(this.botaoEmpate);
-		this.add(this.botaoDesistir);
-		this.add(this.botaoVoltar);
-		this.add(this.visaoChat);
-		
-		this.add(this.textMensagem);
+		this.add(this.menuJogo);
+		this.add(visaoTabuleiro);		
+		this.add(this.visaoChat);		
+		this.add(this.textMensagem);		
 		this.add(this.labelMensagem);
-		this.add(this.labelEsc);
-		
-		this.add(this.botaoScrollUp);
-		this.add(this.botaoScrollDown);
-		
 		this.add(this.Background);
-		
-		
 		
 		
 	}
@@ -83,37 +66,26 @@ public class VisaoJogo extends JPanel{
 	private void construirCampoMensagem(){		
 		this.labelMensagem = new JLabel(new ImageIcon(getClass().getResource("/img/Componentes/enter.png")));
 		this.labelMensagem.setSize(280,25);
-		this.labelMensagem.setLocation(-216, 677);	
-		
-		this.labelEsc = new JLabel(new ImageIcon(getClass().getResource("/img/Componentes/esc.png")));
-		this.labelEsc.setSize(300,200);
-		this.labelEsc.setLocation(990, 255);		
+		this.labelMensagem.setLocation(-216, 555);	
 		
 		this.textMensagem = new JTextField();
-		this.textMensagem.setForeground(Color.white);
 		this.textMensagem.setSize(220, 25);
-		this.textMensagem.setLocation(4,677);
+		this.textMensagem.setLocation(4,555);
 		this.textMensagem.setBorder(null);
 		this.textMensagem.setOpaque(false);
 		
-		/*
-		this.botaoScrollDown = new VisaoBotao();
-		this.botaoScrollDown.setSize(40, 17);
-		this.botaoScrollDown.definirImagens("/img/Componentes/ArrowUp_Over.png", "/img/Componentes/ArrowUp_Pressed.png", "/img/Componentes/ArrowUp_Released.png");
-		this.botaoScrollDown.setLocation(130,565);
-		
-		this.botaoScrollUp = new VisaoBotao();
-		this.botaoScrollUp.setSize(40, 17);
-		this.botaoScrollUp.definirImagens("/img/Componentes/ArrowDown_Over.png", "/img/Componentes/ArrowDown_Pressed.png", "/img/Componentes/ArrowDown_Released.png");
-		this.botaoScrollUp.setLocation(130,120);
-		*/
 	}
 	
+	private void construirMenu(){
+		this.menuJogo = new VisaoMenuJogo();
+		this.menuJogo.setLocation(990, 255);	
+		this.menuJogo.setSize(300, 200);
+	}
 	
 	private void construirChat(){
 		this.visaoChat = new VisaoChat();
 		this.visaoChat.setLocation(7, 127);
-		this.visaoChat.setSize(276,445);
+		this.visaoChat.setSize(276,425);
 	}
 
 	private void construirBackground(){		
@@ -195,30 +167,10 @@ public class VisaoJogo extends JPanel{
 		this.visaoTabuleiro.inserirPeca(Peca, new Coordenada(linOrigem, colOrigem));		
 	}
 	
-	
-	private void construirMenu(int x, int y){
-		this.botaoEmpate = new VisaoBotao();
-		this.botaoEmpate.definirImagens("/img/Menu/Empate_Over.png", "/img/Menu/Empate_Pressed.png", "/img/Menu/Empate_Released.png");
-		this.botaoEmpate.setSize(100,30);
-		
-		this.botaoVoltar = new VisaoBotao();
-		this.botaoVoltar.definirImagens("/img/Menu/Voltar_Over.png", "/img/Menu/Voltar_Pressed.png", "/img/Menu/Voltar_Released.png");
-		this.botaoVoltar.setSize(90,30);
-		
-		this.botaoDesistir = new VisaoBotao();
-		this.botaoDesistir.definirImagens("/img/Menu/Desistir_Over.png", "/img/Menu/Desistir_Pressed.png", "/img/Menu/Desistir_Released.png");
-		this.botaoDesistir.setSize(100,30);
-		
-		
-		this.botaoEmpate.setLocation(x, y);
-		this.botaoDesistir.setLocation(x+100,y);
-		this.botaoVoltar.setLocation(x+200,y);		
-	}
-	
 	public VisaoBotao getBotao(int i) {
 		switch (i){
 			case 1:
-				return this.botaoVoltar;
+				return this.menuJogo.getBotao(1);
 			
 			default:
 				return null;
@@ -235,32 +187,32 @@ public class VisaoJogo extends JPanel{
             	
             	
             	if(e.getKeyCode()==27){
-            		if(labelEsc.getLocation().getX()==720.0){
-            			labelEsc.setLocation(990, 255);	
+            		if(menuJogo.getLocation().getX()==820.0){
+            			menuJogo.setLocation(990, 255);	
             		}
             		else{
-            			labelEsc.setLocation(720, 255);
+            			menuJogo.setLocation(820, 255);
             		}
             		
             	}
             	
             	
             	if(e.getKeyCode()==10){
-            		if(textMensagem.getLocation().getX()==0.0){
+            		if(labelMensagem.getLocation().getX()==0.0){
             			if(!textMensagem.getText().equals(" d i g i t e   s u a   m e n s a g e m   a q u i")){
             				// Enviar mensagem pro chat
                 			visaoChat.inserirMensagem(visaoTabuleiro.getJogadorAtivo().getNome(),textMensagem.getText());	
             			}
             			
-            			labelMensagem.setLocation(-436,677);
-            			textMensagem.setLocation(-500,677);
+            			labelMensagem.setLocation(-216,555);
+            			textMensagem.setLocation(-216,555);
             			textMensagem.setEnabled(false);
                 		textMensagem.setText("");
             		}
             		else{
             			textMensagem.setEnabled(true);
-            			textMensagem.setLocation(0,677);
-            			labelMensagem.setLocation(0,677);
+            			textMensagem.setLocation(4,555);
+            			labelMensagem.setLocation(0,555);
             			textMensagem.setText(" d i g i t e   s u a   m e n s a g e m   a q u i");
             			textMensagem.grabFocus();
             			textMensagem.selectAll();	
