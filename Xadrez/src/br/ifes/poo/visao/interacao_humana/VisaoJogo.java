@@ -28,6 +28,7 @@ public class VisaoJogo extends JPanel{
 	
 	private JTextField textMensagem = null;
 	private JLabel labelMensagem = null;
+	private JLabel labelEsc = null;
 	private VisaoBotao botaoScrollUp=null;
 	private VisaoBotao botaoScrollDown=null;
 	
@@ -67,6 +68,8 @@ public class VisaoJogo extends JPanel{
 		
 		this.add(this.textMensagem);
 		this.add(this.labelMensagem);
+		this.add(this.labelEsc);
+		
 		this.add(this.botaoScrollUp);
 		this.add(this.botaoScrollDown);
 		
@@ -74,37 +77,43 @@ public class VisaoJogo extends JPanel{
 		
 		
 		
+		
 	}
 	
 	private void construirCampoMensagem(){		
 		this.labelMensagem = new JLabel(new ImageIcon(getClass().getResource("/img/Componentes/enter.png")));
-		this.labelMensagem.setSize(500,25);
-		this.labelMensagem.setLocation(-436, 677);		
+		this.labelMensagem.setSize(280,25);
+		this.labelMensagem.setLocation(-216, 677);	
+		
+		this.labelEsc = new JLabel(new ImageIcon(getClass().getResource("/img/Componentes/esc.png")));
+		this.labelEsc.setSize(300,200);
+		this.labelEsc.setLocation(990, 255);		
 		
 		this.textMensagem = new JTextField();
 		this.textMensagem.setForeground(Color.white);
-		this.textMensagem.setSize(440, 25);
+		this.textMensagem.setSize(220, 25);
 		this.textMensagem.setLocation(4,677);
 		this.textMensagem.setBorder(null);
 		this.textMensagem.setOpaque(false);
 		
-		
+		/*
 		this.botaoScrollDown = new VisaoBotao();
 		this.botaoScrollDown.setSize(40, 17);
-		this.botaoScrollDown.definirImagens("/img/Componentes/ArrowDown_Over.png", "/img/Componentes/ArrowDown_Pressed.png", "/img/Componentes/ArrowDown_Released.png");
-		this.botaoScrollDown.setLocation(130,638);
+		this.botaoScrollDown.definirImagens("/img/Componentes/ArrowUp_Over.png", "/img/Componentes/ArrowUp_Pressed.png", "/img/Componentes/ArrowUp_Released.png");
+		this.botaoScrollDown.setLocation(130,565);
 		
 		this.botaoScrollUp = new VisaoBotao();
 		this.botaoScrollUp.setSize(40, 17);
-		this.botaoScrollUp.definirImagens("/img/Componentes/ArrowUp_Over.png", "/img/Componentes/ArrowUp_Pressed.png", "/img/Componentes/ArrowUp_Released.png");
-		this.botaoScrollUp.setLocation(130,46);
+		this.botaoScrollUp.definirImagens("/img/Componentes/ArrowDown_Over.png", "/img/Componentes/ArrowDown_Pressed.png", "/img/Componentes/ArrowDown_Released.png");
+		this.botaoScrollUp.setLocation(130,120);
+		*/
 	}
 	
 	
 	private void construirChat(){
 		this.visaoChat = new VisaoChat();
-		this.visaoChat.setLocation(7, 72);
-		this.visaoChat.setSize(276,555);
+		this.visaoChat.setLocation(7, 127);
+		this.visaoChat.setSize(276,445);
 	}
 
 	private void construirBackground(){		
@@ -225,6 +234,16 @@ public class VisaoJogo extends JPanel{
             	System.out.println(e.getKeyCode());
             	
             	
+            	if(e.getKeyCode()==27){
+            		if(labelEsc.getLocation().getX()==720.0){
+            			labelEsc.setLocation(990, 255);	
+            		}
+            		else{
+            			labelEsc.setLocation(720, 255);
+            		}
+            		
+            	}
+            	
             	
             	if(e.getKeyCode()==10){
             		if(textMensagem.getLocation().getX()==0.0){
@@ -235,9 +254,11 @@ public class VisaoJogo extends JPanel{
             			
             			labelMensagem.setLocation(-436,677);
             			textMensagem.setLocation(-500,677);
+            			textMensagem.setEnabled(false);
                 		textMensagem.setText("");
             		}
             		else{
+            			textMensagem.setEnabled(true);
             			textMensagem.setLocation(0,677);
             			labelMensagem.setLocation(0,677);
             			textMensagem.setText(" d i g i t e   s u a   m e n s a g e m   a q u i");
