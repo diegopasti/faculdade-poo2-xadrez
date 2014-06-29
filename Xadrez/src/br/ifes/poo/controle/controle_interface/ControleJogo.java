@@ -16,13 +16,25 @@ public class ControleJogo {
 	
 	public ControleJogo(String nome1, String nome2){	
 		System.out.println("INICIANDO O CONTROLE DO JOGO");
-		this.visaoJogo = new VisaoJogo();
 		this.construirJogadores(nome1,nome2);
+		
+		this.visaoJogo = new VisaoJogo(controlePrimeiroJogador, controleSegundoJogador);
+		this.visaoJogo.configurarPlacar(controlePrimeiroJogador, controleSegundoJogador);
+		this.construirPecasBrancas();
+		this.construirPecasPretas();
+		
 		this.iniciarControleTurno();		
 		//this.ConfigurarDatabase();		
 		this.visaoJogo.setVisible(true);
 		
 	}
+	
+	
+	public void salvarContexto(){
+		
+		
+	}
+	
 	
 	public ControleJogador getControlePrimeiroJogador() {
 		return controlePrimeiroJogador;
@@ -76,11 +88,6 @@ public class ControleJogo {
 		else{
 			this.controleSegundoJogador  = new ControleJogador(nome2,"PRETA");
 		}
-		
-		//this.visaoJogo.configurarPlacar(this.controlePrimeiroJogador, this.controleSegundoJogador);
-		
-		this.construirPecasBrancas();
-		this.construirPecasPretas();
 	}
 	
 	public void declararVencedor(ControleJogador Jogador){

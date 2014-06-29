@@ -1,20 +1,25 @@
 package br.ifes.poo.controle.controle_interface;
 
 import java.util.ArrayList;
+
 import br.ifes.poo.modelo.dominio_problema.ModeloJogador;
 import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 
 public class ControleJogador {
 
 	private ModeloJogador modeloJogador;
-	private ArrayList<ControlePeca> Pecas;
+	private ArrayList<ControlePeca> pecas;
+	private ArrayList<Boolean> capturadas;
+	
 	
 	
 	public ControleJogador(String Nome, String Cor){
 		this.modeloJogador = new ModeloJogador(Nome,Cor);
-		this.Pecas = new ArrayList<ControlePeca>();
+		this.pecas = new ArrayList<ControlePeca>();
+		this.capturadas = new ArrayList<Boolean>();
+		
 	}
-
+		
 	public void jogadaAutomatica(ControleJogador Oponente, VisaoJogo visaoJogo){
 		ControlePeca PecaEscolhida = this.modeloJogador.getInteligencia().escolherPeca(this, visaoJogo);
 		visaoJogo.getTabuleiro().ativarSlot(PecaEscolhida.getCoordenada());
@@ -27,6 +32,11 @@ public class ControleJogador {
 		for(int j=0; j < visaoJogo.getTabuleiro().getSlotAtivo().getControlePeca().getModeloPeca().getMovimentosPossiveis().size(); j++){
 			visaoJogo.getTabuleiro().getMatrizSlots()[visaoJogo.getTabuleiro().getSlotAtivo().getControlePeca().getModeloPeca().getMovimentosPossiveis().get(j).getLinha()][visaoJogo.getTabuleiro().getSlotAtivo().getControlePeca().getModeloPeca().getMovimentosPossiveis().get(j).getColuna()].marcarPossibilidade();
 		}
+	}
+	
+	
+	public ArrayList<Boolean> getPecasCapturadas(){
+		return capturadas;
 	}
 	
 	public String getNome() {
@@ -48,9 +58,9 @@ public class ControleJogador {
 		this.modeloJogador.setPontos(this.modeloJogador.getPontos()+pontos);
 	}
 	public ArrayList<ControlePeca> getPecas() {
-		return Pecas;
+		return pecas;
 	}
 	public void inserirPeca(ControlePeca peca) {
-		this.Pecas.add(peca);
+		this.pecas.add(peca);
 	}	
 }

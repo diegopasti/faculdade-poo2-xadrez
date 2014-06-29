@@ -5,11 +5,11 @@ import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -36,17 +36,14 @@ public class VisaoJogo extends JPanel{
 	private VisaoChat visaoChat;
 	private VisaoMenuJogo menuJogo;
 	
-	public VisaoJogo(){	
+	public VisaoJogo(ControleJogador primeiroJogador, ControleJogador segundoJogador){	
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher(new ControleSinais());
-		this.construirTela();
+		construirTela(primeiroJogador,segundoJogador);
 		System.out.println("INICIANDO A VISAO DO JOGO");
-	}
+	}	
 	
-
-	
-	
-	private void construirTela(){
+	private void construirTela(ControleJogador primeiroJogador, ControleJogador segundoJogador){
 		this.setLayout(null);
 		this.construirBackground();
 		this.construirTabuleiro(326,62); // 70
@@ -54,16 +51,28 @@ public class VisaoJogo extends JPanel{
 		this.construirPlacar();
 		this.construirChat();		
 		this.construirCampoMensagem();
-		this.construirCemiterio();
 		this.adicionarComponentes();
+		this.construirCemiterio(primeiroJogador.getPecasCapturadas(),segundoJogador.getPecasCapturadas());
 	}
 	
-	private void construirCemiterio(){
-		this.visaoCemiterioBranca = new VisaoCemiterio("BRANCA");
+	private void construirCemiterio(ArrayList<Boolean> pecasPretasMortas, ArrayList<Boolean> pecasBrancasMortas){
+		
+		this.visaoCemiterioBranca = new VisaoCemiterio("BRANCA", pecasBrancasMortas);
 		this.visaoCemiterioBranca.setLocation(70,35);
 		
-		this.visaoCemiterioPreta = new VisaoCemiterio("PRETA");
+		this.visaoCemiterioPreta = new VisaoCemiterio("PRETA", pecasPretasMortas);
 		this.visaoCemiterioPreta.setLocation(70,625);
+		this.add(this.visaoCemiterioBranca);
+		this.add(this.visaoCemiterioPreta);
+	}
+	
+	public void atualizarCemiterio(ControleJogador user, ControlePeca peca){
+		if(user.getCor().equals("BRANCA")){
+			visaoCemiterioBranca.capturarPeca(peca);
+		}
+		else{
+			visaoCemiterioPreta.capturarPeca(peca);
+		}
 	}
 	
 	private void adicionarComponentes(){
@@ -72,8 +81,7 @@ public class VisaoJogo extends JPanel{
 		this.add(this.visaoChat);		
 		this.add(this.textMensagem);		
 		this.add(this.labelMensagem);
-		this.add(this.visaoCemiterioBranca);
-		this.add(this.visaoCemiterioPreta);
+		
 		this.add(this.Background);		
 	}
 	
@@ -110,7 +118,7 @@ public class VisaoJogo extends JPanel{
 		this.Background.setSize(1024,730);
 	}
 	
-	private void configurarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
+	public void configurarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
 		this.NomePrimeiroJogador.setText(PriJogador.getNome());
 		this.NomeSegundoJogador.setText(SegJogador.getNome());
 		this.PontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
@@ -123,36 +131,36 @@ public class VisaoJogo extends JPanel{
 	}
 	
 	private void construirPlacar(){
-		this.NomePrimeiroJogador = new JLabel("PLAYER 1", SwingConstants.LEFT);
+		this.NomePrimeiroJogador = new JLabel("PLAYER 1", SwingConstants.CENTER);
 		this.NomePrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
 		this.NomePrimeiroJogador.setForeground(Color.white);
-		this.NomePrimeiroJogador.setLocation(530, 5);
-		this.NomePrimeiroJogador.setSize(112,24);
+		this.NomePrimeiroJogador.setLocation(500, 14);
+		this.NomePrimeiroJogador.setSize(150,24);
 		this.add(this.NomePrimeiroJogador);		
 		
-		this.NomeSegundoJogador = new JLabel("PLAYER 2", SwingConstants.LEFT);
+		this.NomeSegundoJogador = new JLabel("PLAYER 2", SwingConstants.CENTER);
 		this.NomeSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
 		this.NomeSegundoJogador.setForeground(Color.white);
-		this.NomeSegundoJogador.setLocation(530, 635);
-		this.NomeSegundoJogador.setSize(112,24);
+		this.NomeSegundoJogador.setLocation(500, 670);
+		this.NomeSegundoJogador.setSize(150,24);
 		this.add(this.NomeSegundoJogador);
 		
-		/*
+		
 		
 		this.PontosPrimeiroJogador = new JLabel("0", SwingConstants.LEFT);
-		this.PontosPrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 20 ) );
+		this.PontosPrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 26 ) );
 		this.PontosPrimeiroJogador.setForeground(Color.white);
-		this.PontosPrimeiroJogador.setLocation(300, 665);
+		this.PontosPrimeiroJogador.setLocation(15, 48);
 		this.PontosPrimeiroJogador.setSize(30,24);
 		this.add(this.PontosPrimeiroJogador);
 		
 		this.PontosSegundoJogador = new JLabel("0", SwingConstants.LEFT);
-		this.PontosSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 20 ) );
+		this.PontosSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 26 ) );
 		this.PontosSegundoJogador.setForeground(Color.white);
-		this.PontosSegundoJogador.setLocation(300, 20);
+		this.PontosSegundoJogador.setLocation(15, 638);
 		this.PontosSegundoJogador.setSize(30,24);
 		this.add(this.PontosSegundoJogador);
-		*/
+		
 	}
 	
 	public VisaoChat getChat(){

@@ -137,14 +137,21 @@ public class VisaoTabuleiro extends JPanel{
 	}
 	
 	public void definirMovimentosPossiveisSlotAtivo(){
-		this.MovimentosPossiveis.addAll(this.SlotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.MatrizSlots));
+		ArrayList<Coordenada> movimentos = this.SlotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.MatrizSlots);
+		if(movimentos!=null){
+			if(!movimentos.isEmpty()){
+				this.MovimentosPossiveis.addAll(movimentos);			
+			}
+		}
+		else{
+			System.out.println("Nao tinha movimentos possiveis?");
+		}
 	}
 	
 	public void desativarSlot(VisaoSlot slot){
 		//System.out.println("TABULEIRO >>> TEMOS QUE DESATIVAR AS POSSIBILIDADE DE MOVIMENTO: "+this.MovimentosPossiveis);
 		this.desmarcarMovimentosPossiveis(this.MovimentosPossiveis);		
-		this.SlotAtivo.getControlePeca().getModeloPeca().resetarMovimentosPossiveis();
-		
+		this.SlotAtivo.getControlePeca().getModeloPeca().resetarMovimentosPossiveis();		
 		this.MovimentosPossiveis.clear();
 		this.SlotAtivo.desmarcarPeca();
 	}
@@ -205,6 +212,8 @@ public class VisaoTabuleiro extends JPanel{
 	
 	
 	public void capturarPeca(VisaoSlot slot){
+		this.controleJogo.getVisaoJogo().atualizarCemiterio(JogadorAtivo, slot.getControlePeca());
+		
 		if(slot.getControlePeca().getModeloPeca().getTipo() == "REI"){
 			// E O FIM DO JOGO!
 			this.removerPeca(slot.getCoordenada());
@@ -215,7 +224,7 @@ public class VisaoTabuleiro extends JPanel{
 		else{
 			this.removerPeca(slot.getCoordenada());
 			this.controleJogo.getJogadorAtivo().addPontos(slot.getControlePeca().getModeloPeca().getValor());
-			//this.controleJogo.atualizarPlacar();
+			this.controleJogo.atualizarPlacar();
 			this.moverPeca(slot);	
 		}
 		
