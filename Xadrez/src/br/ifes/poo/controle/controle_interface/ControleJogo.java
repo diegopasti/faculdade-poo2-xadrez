@@ -30,12 +30,6 @@ public class ControleJogo {
 	}
 	
 	
-	public void salvarContexto(){
-		
-		
-	}
-	
-	
 	public ControleJogador getControlePrimeiroJogador() {
 		return controlePrimeiroJogador;
 	}

@@ -12,6 +12,7 @@ public class ContextoJogador implements InterfaceContexto{
 	private String pontos;
 	private ArrayList<ControlePeca> pecas;
 	private ArrayList<Boolean> capturadas;
+	private Boolean turnoAtivo=false;
 	
 	
 	public ContextoJogador(ControleJogador user){
@@ -19,6 +20,7 @@ public class ContextoJogador implements InterfaceContexto{
 		cor = user.getCor();
 		pontos = ""+user.getPontos();
 		pecas = user.getPecas();
+		capturadas = user.getPecasCapturadas();
 	}
 
 	@Override
@@ -26,14 +28,34 @@ public class ContextoJogador implements InterfaceContexto{
 		System.out.println("GERANDO CONTEXTO DO "+nome.toUpperCase());
 		System.out.println("COR: "+cor);
 		System.out.println("PONTOS: "+pontos);
-		System.out.println("PECAS DISPONIVEIS: "+pecas);
 		
+		System.out.println("PECAS DISPONIVEIS: ");
+		for(int k=0; k<pecas.size();k++){
+			if(pecas.get(k).estaCapturada()){
+				//System.out.println("PECA CAPTURADA: "+pecas.get(k).getModeloPeca().getTipo());	
+			}
+			else{
+				System.out.println("PECA LIVRE: "+pecas.get(k).getModeloPeca().getTipo());
+			}				
+		}
+		
+		System.out.println("PECAS CAPTURADAS: ");
+		for(int k=0; k < capturadas.size();k++){
+			System.out.print(capturadas.get(k)+" ");
+			if(k==8){
+				System.out.println(" ");
+			}
+		}
 	}
 
 	@Override
 	public void recuperarContexto() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setJogadorAtivo(Boolean ativo){
+		turnoAtivo = ativo;
 	}
 
 }

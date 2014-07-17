@@ -2,6 +2,8 @@ package br.ifes.poo.controle.controle_interface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import br.ifes.poo.modelo.gerencia_dados.ContextoJogo;
+import br.ifes.poo.modelo.gerencia_dados.ControleContexto;
 import br.ifes.poo.visao.interacao_humana.VisaoAplicacao;
 
 public class ControleAplicacao {
@@ -10,10 +12,13 @@ public class ControleAplicacao {
 	private ControleEntrada controleEntrada;
 	private ControleJogo controleJogo;	
 	private ControleCadastroJogadores controleCadastroJogadores;
+	
+	private ControleContexto controleContexto;
 
 	
 	public ControleAplicacao() {
 		System.out.println("INICIANDO O CONTROLE DA APLICACAO");
+		controleContexto = new ControleContexto();
 		//this.modeloAplicacao = new ModeloAplicacao();
 	}
 	
@@ -67,7 +72,6 @@ public class ControleAplicacao {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				
 				if(!controleCadastroJogadores.getNomeJogador(1).isEmpty() && !controleCadastroJogadores.getNomeJogador(2).isEmpty()){
 					visaoAplicacao.excluirPainel();
 					construirJogo(controleCadastroJogadores.getNomeJogador(1),controleCadastroJogadores.getNomeJogador(2));
@@ -82,6 +86,16 @@ public class ControleAplicacao {
 		this.controleJogo = new ControleJogo(nome1,nome2);
 		this.visaoAplicacao.incluirPainel(this.controleJogo.getVisaoJogo());
 		this.controleJogo.getBotao(1).addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//visaoAplicacao.excluirPainel();
+				ContextoJogo contexto = new ContextoJogo(controleJogo);
+				contexto.salvarContexto();
+				//construirEntrada();
+			}
+		});;
+		
+		this.controleJogo.getBotao(3).addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				visaoAplicacao.excluirPainel();

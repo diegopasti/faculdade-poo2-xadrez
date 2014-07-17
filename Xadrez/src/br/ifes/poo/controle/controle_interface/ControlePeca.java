@@ -8,23 +8,34 @@ public class ControlePeca {
 
 	private VisaoPeca visaoPeca;
 	private ModeloPeca modeloPeca;
+	private Boolean estaCapturada;
 	
 	public ControlePeca(){
-		this.visaoPeca = new VisaoPeca();
+		visaoPeca = new VisaoPeca();
+		this.estaCapturada = false;
+	}
+	
+	public Boolean estaCapturada(){
+		return this.estaCapturada;
+	}
+	
+	public void setCapturada(Boolean valor){
+		this.estaCapturada = valor;
 	}
 	
 	public VisaoPeca getVisaoPeca(){
-		return this.visaoPeca;
+		return visaoPeca;
 	}
 	
 	public void configurarModelo(String cor, String nome, String pathImage, int valor, Coordenada coord){
-		this.setModeloPeca(new ModeloPeca());
-		this.getModeloPeca().setCor(cor);
+		setModeloPeca(new ModeloPeca());
+		getModeloPeca().setCor(cor);
 		
-		this.getModeloPeca().setTipo(nome);
-		this.definirImagem(pathImage);
-		this.getModeloPeca().setValor(valor);
-		this.setCoordenada(coord);
+		getModeloPeca().setTipo(nome);
+		definirImagem(pathImage);
+		getModeloPeca().setValor(valor);
+		setCoordenada(coord);
+		modeloPeca.setCoordenadaInicial(coord);
 	}
 	
 	public void setModeloPeca(ModeloPeca modeloPeca) {

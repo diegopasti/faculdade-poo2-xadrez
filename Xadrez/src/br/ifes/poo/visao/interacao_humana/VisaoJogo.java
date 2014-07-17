@@ -30,8 +30,8 @@ public class VisaoJogo extends JPanel{
 	private JTextField textMensagem = null;
 	private JLabel labelMensagem = null;
 	
-	private VisaoCemiterio visaoCemiterioBranca;
-	private VisaoCemiterio visaoCemiterioPreta;
+	private VisaoPecasCapturadas visaoCemiterioBranca;
+	private VisaoPecasCapturadas visaoCemiterioPreta;
 	private VisaoTabuleiro visaoTabuleiro;
 	private VisaoChat visaoChat;
 	private VisaoMenuJogo menuJogo;
@@ -51,24 +51,27 @@ public class VisaoJogo extends JPanel{
 		this.construirPlacar();
 		this.construirChat();		
 		this.construirCampoMensagem();
-		this.adicionarComponentes();
 		this.construirCemiterio(primeiroJogador.getPecasCapturadas(),segundoJogador.getPecasCapturadas());
+		this.adicionarComponentes();
+		
 	}
 	
 	private void construirCemiterio(ArrayList<Boolean> pecasPretasMortas, ArrayList<Boolean> pecasBrancasMortas){
 		
-		this.visaoCemiterioBranca = new VisaoCemiterio("BRANCA", pecasBrancasMortas);
+		this.visaoCemiterioBranca = new VisaoPecasCapturadas("BRANCA");
 		this.visaoCemiterioBranca.setLocation(70,35);
 		
-		this.visaoCemiterioPreta = new VisaoCemiterio("PRETA", pecasPretasMortas);
+		this.visaoCemiterioPreta = new VisaoPecasCapturadas("PRETA");
 		this.visaoCemiterioPreta.setLocation(70,625);
-		this.add(this.visaoCemiterioBranca);
-		this.add(this.visaoCemiterioPreta);
+		
 	}
 	
 	public void atualizarCemiterio(ControleJogador user, ControlePeca peca){
+		user.capturarPeca(peca);
+		
 		if(user.getCor().equals("BRANCA")){
 			visaoCemiterioBranca.capturarPeca(peca);
+			
 		}
 		else{
 			visaoCemiterioPreta.capturarPeca(peca);
@@ -81,7 +84,8 @@ public class VisaoJogo extends JPanel{
 		this.add(this.visaoChat);		
 		this.add(this.textMensagem);		
 		this.add(this.labelMensagem);
-		
+		this.add(this.visaoCemiterioBranca);
+		this.add(this.visaoCemiterioPreta);
 		this.add(this.Background);		
 	}
 	
@@ -196,6 +200,12 @@ public class VisaoJogo extends JPanel{
 		switch (i){
 			case 1:
 				return this.menuJogo.getBotao(1);
+			
+			case 2:
+				return this.menuJogo.getBotao(2);
+			
+			case 3:
+				return this.menuJogo.getBotao(3);
 			
 			default:
 				return null;

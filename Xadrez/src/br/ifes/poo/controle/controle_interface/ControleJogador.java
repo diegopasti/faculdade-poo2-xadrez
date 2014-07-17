@@ -8,16 +8,32 @@ import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 public class ControleJogador {
 
 	private ModeloJogador modeloJogador;
-	private ArrayList<ControlePeca> pecas;
-	private ArrayList<Boolean> capturadas;
-	
+	private ArrayList<ControlePeca> pecas;	
 	
 	
 	public ControleJogador(String Nome, String Cor){
 		this.modeloJogador = new ModeloJogador(Nome,Cor);
 		this.pecas = new ArrayList<ControlePeca>();
-		this.capturadas = new ArrayList<Boolean>();
 		
+	}
+	
+	public void capturarPeca(ControlePeca peca){
+		
+		int i =0;
+		
+		if(peca.getModeloPeca().getTipo().contains("PEAO")){
+			i = 8;
+		}
+		
+		for(int k=i; k<pecas.size();k++){
+			if(peca.getModeloPeca().getTipo().equals(pecas.get(k).getModeloPeca().getTipo())){
+				System.out.println("Compara a Peca: "+peca.getModeloPeca().getTipo()+" com a do conjunto: "+pecas.get(k).getModeloPeca().getTipo());
+				this.pecas.get(k).setCapturada(true);
+			}
+		}
+		
+		System.out.println("Olha quem ja foi capturada: "+this.getPecasCapturadas());
+			
 	}
 		
 	public void jogadaAutomatica(ControleJogador Oponente, VisaoJogo visaoJogo){
@@ -36,7 +52,13 @@ public class ControleJogador {
 	
 	
 	public ArrayList<Boolean> getPecasCapturadas(){
-		return capturadas;
+		ArrayList<Boolean> pecasCapturadas = new ArrayList<Boolean>();
+		
+		for(int k=0; k < this.pecas.size();k++){
+			pecasCapturadas.add(this.pecas.get(k).estaCapturada());
+		}
+		
+		return pecasCapturadas;
 	}
 	
 	public String getNome() {

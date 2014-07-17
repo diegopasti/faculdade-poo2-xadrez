@@ -15,9 +15,13 @@ public class ModeloPeca {
 	
 	private Coordenada Coordenada;
 	
+	private Coordenada CoordenadaInicial;
+	
 	private ArrayList<Coordenada> MovimentosPossiveis;
 	
 	private ArrayList<TipoMovimentoAbstrato> PadroesMovimento = null;
+	
+	
 
 	public ModeloPeca(){
 		this.PadroesMovimento = new ArrayList<TipoMovimentoAbstrato>();
@@ -97,7 +101,16 @@ public class ModeloPeca {
 	public void setCoordenada(Coordenada coordenada) {
 		Coordenada = coordenada;
 	}
+	
 
+	public void setCoordenadaInicial(Coordenada c){
+		CoordenadaInicial = c;
+	}
+	
+	public Coordenada getCoordenadaInicial(){
+		return CoordenadaInicial;
+	}
+	
 	public ArrayList<Coordenada> getMovimentosPossiveis() {
 		return MovimentosPossiveis;
 	}
