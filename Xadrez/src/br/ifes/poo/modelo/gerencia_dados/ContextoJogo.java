@@ -15,11 +15,9 @@ public class ContextoJogo implements InterfaceContexto {
 		contextoSegundoJogador = new ContextoJogador(controleJogo.getControleSegundoJogador());
 		
 		if(controleJogo.getControlePrimeiroJogador()==controleJogo.getJogadorAtivo()){
-			System.out.println("Esta na vez do primeiro jogador");
 			contextoPrimeiroJogador.setJogadorAtivo(true);
 		}
 		else{
-			System.out.println("Esta na vez do segundo jogador");
 			contextoSegundoJogador.setJogadorAtivo(true);
 		}
 	}

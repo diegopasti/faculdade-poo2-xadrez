@@ -1,4 +1,4 @@
-package br.ifes.poo.visao.interacao_humana;
+package br.ifes.poo.visao.interacao_humana.cemiterio;
 
 import java.awt.GridLayout;
 import java.util.ArrayList;

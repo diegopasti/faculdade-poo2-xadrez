@@ -1,6 +1,7 @@
 package br.ifes.poo.visao.interacao_humana;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
@@ -16,6 +17,9 @@ import javax.swing.SwingConstants;
 import br.ifes.poo.controle.controle_interface.ControleJogador;
 import br.ifes.poo.controle.controle_interface.ControlePeca;
 import br.ifes.poo.utils.Coordenada;
+import br.ifes.poo.visao.interacao_humana.cemiterio.VisaoCemiterio;
+import br.ifes.poo.visao.interacao_humana.cemiterio.VisaoCemiterioBranco;
+import br.ifes.poo.visao.interacao_humana.cemiterio.VisaoCemiterioPreto;
 
 @SuppressWarnings("serial")
 public class VisaoJogo extends JPanel{
@@ -30,8 +34,8 @@ public class VisaoJogo extends JPanel{
 	private JTextField textMensagem = null;
 	private JLabel labelMensagem = null;
 	
-	private VisaoPecasCapturadas visaoCemiterioBranca;
-	private VisaoPecasCapturadas visaoCemiterioPreta;
+	private VisaoCemiterio visaoCemiterioBranca;
+	private VisaoCemiterio visaoCemiterioPreta;
 	private VisaoTabuleiro visaoTabuleiro;
 	private VisaoChat visaoChat;
 	private VisaoMenuJogo menuJogo;
@@ -57,12 +61,11 @@ public class VisaoJogo extends JPanel{
 	}
 	
 	private void construirCemiterio(ArrayList<Boolean> pecasPretasMortas, ArrayList<Boolean> pecasBrancasMortas){
+		visaoCemiterioBranca = new VisaoCemiterioBranco();
+		visaoCemiterioBranca.setLocation(70,35);
 		
-		this.visaoCemiterioBranca = new VisaoPecasCapturadas("BRANCA");
-		this.visaoCemiterioBranca.setLocation(70,35);
-		
-		this.visaoCemiterioPreta = new VisaoPecasCapturadas("PRETA");
-		this.visaoCemiterioPreta.setLocation(70,625);
+		visaoCemiterioPreta = new VisaoCemiterioPreto();
+		visaoCemiterioPreta.setLocation(70,625);
 		
 	}
 	
@@ -79,14 +82,14 @@ public class VisaoJogo extends JPanel{
 	}
 	
 	private void adicionarComponentes(){
-		this.add(this.menuJogo);
+		this.add(menuJogo);
 		this.add(visaoTabuleiro);		
-		this.add(this.visaoChat);		
-		this.add(this.textMensagem);		
-		this.add(this.labelMensagem);
-		this.add(this.visaoCemiterioBranca);
-		this.add(this.visaoCemiterioPreta);
-		this.add(this.Background);		
+		this.add(visaoChat);		
+		this.add(textMensagem);		
+		this.add(labelMensagem);
+		this.add((Component) visaoCemiterioBranca);
+		this.add((Component) visaoCemiterioPreta);
+		this.add(Background);		
 	}
 	
 	private void construirCampoMensagem(){		

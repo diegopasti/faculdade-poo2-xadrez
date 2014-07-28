@@ -35,17 +35,19 @@ public class ContextoJogador implements InterfaceContexto{
 				//System.out.println("PECA CAPTURADA: "+pecas.get(k).getModeloPeca().getTipo());	
 			}
 			else{
-				System.out.println("PECA LIVRE: "+pecas.get(k).getModeloPeca().getTipo());
+				System.out.print(pecas.get(k).getModeloPeca().getTipo()+" ");
 			}				
 		}
 		
-		System.out.println("PECAS CAPTURADAS: ");
+		
+		System.out.println("\nPECAS CAPTURADAS: ");
 		for(int k=0; k < capturadas.size();k++){
-			System.out.print(capturadas.get(k)+" ");
-			if(k==8){
+			System.out.printf("%5s ",capturadas.get(k));
+			if(k==7){
 				System.out.println(" ");
 			}
 		}
+		System.out.println("");
 	}
 
 	@Override
