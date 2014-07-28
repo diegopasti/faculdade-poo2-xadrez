@@ -6,7 +6,7 @@ public class Xadrez {
 
 	public static void main(String[] args) {
 		// TESTEs
-		System.out.println("INICIANDO O XADREZ");
+		System.out.println("INICIANDO O XADREZ - Testando controle de versão Bitbucket");
 		ControleAplicacao Xadrez = new ControleAplicacao();
 		Xadrez.iniciarAplicativo(); 
 	}
