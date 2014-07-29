@@ -57,7 +57,15 @@ public class ContextoJogador implements InterfaceContexto{
 	}
 	
 	public void setJogadorAtivo(Boolean ativo){
-		turnoAtivo = ativo;
+		setTurnoAtivo(ativo);
+	}
+
+	public Boolean getTurnoAtivo() {
+		return turnoAtivo;
+	}
+
+	public void setTurnoAtivo(Boolean turnoAtivo) {
+		this.turnoAtivo = turnoAtivo;
 	}
 
 }

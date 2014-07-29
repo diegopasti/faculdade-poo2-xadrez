@@ -17,9 +17,7 @@ public class ControleAplicacao {
 
 	
 	public ControleAplicacao() {
-		System.out.println("INICIANDO O CONTROLE DA APLICACAO");
-		controleContexto = new ControleContexto();
-		//this.modeloAplicacao = new ModeloAplicacao();
+		setControleContexto(new ControleContexto());
 	}
 	
 	private void construirEntrada(){
@@ -88,10 +86,8 @@ public class ControleAplicacao {
 		this.controleJogo.getBotao(1).addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//visaoAplicacao.excluirPainel();
 				ContextoJogo contexto = new ContextoJogo(controleJogo);
 				contexto.salvarContexto();
-				//construirEntrada();
 			}
 		});;
 		
@@ -109,8 +105,13 @@ public class ControleAplicacao {
 		this.visaoAplicacao = new VisaoAplicacao("PROJETO XADREZ");
 		this.construirEntrada();		
 		this.visaoAplicacao.setVisible(true);
-		
 	}
-	
-	
+
+	public ControleContexto getControleContexto() {
+		return controleContexto;
+	}
+
+	public void setControleContexto(ControleContexto controleContexto) {
+		this.controleContexto = controleContexto;
+	}
 }

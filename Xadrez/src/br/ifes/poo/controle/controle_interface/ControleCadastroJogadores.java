@@ -1,4 +1,4 @@
-	package br.ifes.poo.controle.controle_interface;
+package br.ifes.poo.controle.controle_interface;
 
 import br.ifes.poo.visao.interacao_humana.VisaoBotao;
 import br.ifes.poo.visao.interacao_humana.VisaoCadastrarJogadores;
@@ -9,8 +9,6 @@ public class ControleCadastroJogadores {
 	private VisaoCadastrarJogadores visaoCadastroJogadores = null;
 
 	public ControleCadastroJogadores(int numJogadores){
-		System.out.println("INICIANDO O CONTROLE DE CADASTRO DE JOGADORES");
-		
 		if(numJogadores == 1){
 			this.visaoCadastroJogadores = new VisaoCadastrarJogadores(1);	
 		}
