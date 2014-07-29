@@ -13,7 +13,7 @@ public class MonitorSlots implements Observador {
 	public void update(String Acao) {
 		
 		
-		if(Acao == "MARCAR"){
+		if(Acao.equals("MARCAR")){
 			if(this.Slot.getControlePeca() == null){
 			}
 			else{
@@ -22,12 +22,12 @@ public class MonitorSlots implements Observador {
 			this.Tabuleiro.ativarSlot(this.Slot);
 		}
 		
-		else if(Acao == "MOVER"){
+		else if(Acao.equals("MOVER")){
 			//System.out.println("MONITOR >> GALERA SLOT["+this.Slot.getCoordenada().toString()+"] FOI MOVIDO!");
 			this.Tabuleiro.moverPeca(this.Slot);
 		}
 		
-		else if(Acao == "DESMARCAR"){
+		else if(Acao.equals("DESMARCAR")){
 			//System.out.println("MONITOR >> GALERA SLOT["+this.Slot.getCoordenada().toString()+"] FOI DESMARCADO!");
 			this.Tabuleiro.desativarSlot(this.Slot);
 		}

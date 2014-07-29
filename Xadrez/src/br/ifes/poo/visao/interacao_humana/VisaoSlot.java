@@ -154,20 +154,20 @@ public class VisaoSlot extends JPanel implements MouseListener{
 		this.Monitor = monitor;		
 	}
 	
-	public void NotificarObservador(String Acao){
+	public void NotificarObservador(String acao){
 		
-		if(Acao  == "MARCAR"){
+		if(acao.equals("MARCAR")){
 			this.Monitor.setSlotAtivo(this);
-			this.Monitor.update(Acao);
+			this.Monitor.update(acao);
 		}
 		
-		else if (Acao == "MOVER"){
+		else if (acao.equals("MOVER")){
 			this.Monitor.setSlotAtivo(this);
-			this.Monitor.update(Acao);
+			this.Monitor.update(acao);
 		}
 		
-		else if (Acao == "DESMARCAR"){
-			this.Monitor.update(Acao);
+		else if (acao.equals("DESMARCAR")){
+			this.Monitor.update(acao);
 			//this.Monitor.DesativarSlot(this);
 		}
 						

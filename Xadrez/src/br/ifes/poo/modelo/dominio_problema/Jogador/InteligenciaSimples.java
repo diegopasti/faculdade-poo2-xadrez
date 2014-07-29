@@ -9,9 +9,9 @@ import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 
 public class InteligenciaSimples implements Inteligencia{
 
-	private ArrayList<ControlePeca> PecasMovimentaveis;
-	private ArrayList<Estrategia> Estrategias;
-	private ControlePeca PecaEscolhida;	
+	private ArrayList<ControlePeca> pecasMovimentaveis;
+	private ArrayList<Estrategia> estrategias;
+	private ControlePeca pecaEscolhida;	
 	private VisaoJogo visaoJogo;
 	
 	public InteligenciaSimples(){
@@ -24,15 +24,15 @@ public class InteligenciaSimples implements Inteligencia{
 		
 		this.verificarPecasMovimentaveis(Jogador);
 		
-		this.PecaEscolhida = this.verificarMovimentosDefensivos();
-		if(this.PecaEscolhida == null){
-			this.PecaEscolhida = this.verificarMovimentosOfensivos();
-			if(this.PecaEscolhida == null){
-				this.PecaEscolhida = this.verificarMovimentoSimples();		
+		this.pecaEscolhida = this.verificarMovimentosDefensivos();
+		if(this.pecaEscolhida == null){
+			this.pecaEscolhida = this.verificarMovimentosOfensivos();
+			if(this.pecaEscolhida == null){
+				this.pecaEscolhida = this.verificarMovimentoSimples();		
 			}
 		}
 		
-		return this.PecaEscolhida;
+		return this.pecaEscolhida;
 	}
 	
 	@Override
@@ -81,7 +81,7 @@ public class InteligenciaSimples implements Inteligencia{
 	}
 	
 	private ControlePeca verificarMovimentoSimples(){
-		return this.PecasMovimentaveis.get(new Random().nextInt(this.PecasMovimentaveis.size()));
+		return this.pecasMovimentaveis.get(new Random().nextInt(this.pecasMovimentaveis.size()));
 	}
 	
 	private ControlePeca verificarMovimentosOfensivos(){
@@ -90,26 +90,26 @@ public class InteligenciaSimples implements Inteligencia{
 	}
 	
 	private ControlePeca verificarMovimentosDefensivos(){
-		ControlePeca Peca = this.Estrategias.get(1).escolherPeca(this.visaoJogo);
+		ControlePeca Peca = this.estrategias.get(1).escolherPeca(this.visaoJogo);
 		return Peca;
 	}
 	
 	private void verificarPecasMovimentaveis(ControleJogador Jogador){
-		this.PecasMovimentaveis = new ArrayList<ControlePeca>();		
+		this.pecasMovimentaveis = new ArrayList<ControlePeca>();		
 		
 		// CALCULAR OS MOVIMENTOS POSSIVEIS DE TODOS AS PECAS
 		for(int c=0; c < Jogador.getPecas().size(); c++){
 			if(!Jogador.getPecas().get(c).getModeloPeca().verificarMovimentosPossiveis(this.visaoJogo.getTabuleiro().getMatrizSlots()).isEmpty()){
-				this.PecasMovimentaveis.add(Jogador.getPecas().get(c));
+				this.pecasMovimentaveis.add(Jogador.getPecas().get(c));
 			}
 		}		
 	}
 	
 	private void configurarEstrategias(){
-		this.Estrategias = new ArrayList<Estrategia>();
-		this.Estrategias.add(new EstrategiaBasica());
-		this.Estrategias.add(new EstrategiaDefensiva());	
-		this.Estrategias.add(new EstrategiaOfensiva());
+		this.estrategias = new ArrayList<Estrategia>();
+		this.estrategias.add(new EstrategiaBasica());
+		this.estrategias.add(new EstrategiaDefensiva());	
+		this.estrategias.add(new EstrategiaOfensiva());
 	}	
 
 }

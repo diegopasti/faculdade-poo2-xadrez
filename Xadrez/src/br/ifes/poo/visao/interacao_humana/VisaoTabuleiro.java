@@ -202,7 +202,7 @@ public class VisaoTabuleiro extends JPanel{
 		ArrayList<Coordenada> Coordenadas = this.SlotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.MatrizSlots);
 		for(int g = 0; g < Coordenadas.size(); g++){
 			if(this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca() != null){
-				if(this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca().getModeloPeca().getTipo() == "REI"){
+				if(this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca().getModeloPeca().getTipo().equals("REI")){
 					this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].marcarXeque();
 				}	
 			}
@@ -214,7 +214,7 @@ public class VisaoTabuleiro extends JPanel{
 	public void capturarPeca(VisaoSlot slot){
 		this.controleJogo.getVisaoJogo().atualizarCemiterio(JogadorAtivo, slot.getControlePeca());
 		
-		if(slot.getControlePeca().getModeloPeca().getTipo() == "REI"){
+		if(slot.getControlePeca().getModeloPeca().getTipo().equals("REI")){
 			// E O FIM DO JOGO!
 			this.removerPeca(slot.getCoordenada());
 			this.controleJogo.declararVencedor(getJogadorAtivo());
@@ -234,8 +234,8 @@ public class VisaoTabuleiro extends JPanel{
 		
 		for(int i=0; i < possibilidades.size() ; i++){
 			if(this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca() != null){
-				if(this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getCor() != this.SlotAtivo.getControlePeca().getModeloPeca().getCor()){
-					if(this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getTipo() == "REI"){
+				if(!this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getCor().equals(this.SlotAtivo.getControlePeca().getModeloPeca().getCor())){
+					if(this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getTipo().equals("REI")){
 						this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarXeque();
 					}
 					else{

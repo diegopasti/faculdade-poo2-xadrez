@@ -7,59 +7,29 @@ import br.ifes.poo.visao.interacao_humana.VisaoSlot;
 
 public class TipoMovimentoPeaoInicial extends TipoMovimentoAbstrato{
 
-private ArrayList<Coordenada> CoordenadasPossiveis;
-private String TipoMovimento = "";
-private int LinhaSelecionada;
-private int ColunaSelecionada;
-private String CorSelecionada;
-private VisaoSlot[][] Tabuleiro;
-	
 	public TipoMovimentoPeaoInicial(){
 		this.TipoMovimento = "PEAO INICIAL";
 	}
 	
-	public ArrayList<Coordenada> movimentosPossiveis(String Cor, VisaoSlot[][] tabuleiro, int linha, int coluna){
-		this.CoordenadasPossiveis = new ArrayList<Coordenada>();
+	public ArrayList<Coordenada> movimentosPossiveis(String Cor, VisaoSlot[][] tab, int linha, int coluna){
+		coordenadasPossiveis = new ArrayList<Coordenada>();
+		linhaSelecionada  = linha;
+		colunaSelecionada = coluna;
+		corSelecionada    = Cor;
+		tabuleiro         = tab;		
 		
-		this.LinhaSelecionada  = linha;
-		this.ColunaSelecionada = coluna;
-		this.CorSelecionada    = Cor;
-		this.Tabuleiro         = tabuleiro;
-		
-		if(this.CorSelecionada == "BRANCA"){			
-			if(this.LinhaSelecionada > 1){
-				this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada-2, this.ColunaSelecionada);
+		if(corSelecionada.equals("BRANCA")){			
+			if(linhaSelecionada > 1){
+				this.tentarInserirCoordenadaPossivel(linhaSelecionada-2, colunaSelecionada);
 			}			
 		}
 					
-		else if (this.CorSelecionada == "PRETA"){			
-			if(this.LinhaSelecionada < 6){
-				this.tentarInserirCoordenadaPossivel(this.LinhaSelecionada+2, this.ColunaSelecionada);
+		else if (corSelecionada.equals("PRETA")){			
+			if(linhaSelecionada < 6){
+				this.tentarInserirCoordenadaPossivel(linhaSelecionada+2, colunaSelecionada);
 			}
 		}				
 	
-		return this.CoordenadasPossiveis;
+		return coordenadasPossiveis;
 	}
-	
-	private Boolean tentarInserirCoordenadaPossivel(int l, int c){
-		if(this.Tabuleiro[l][c].getControlePeca() == null){			
-			Coordenada coord = new Coordenada(l,c);
-			this.CoordenadasPossiveis.add(coord);
-			return true;
-		}
-		return false;
-	}
-	
-	public void resetarMovimentosPossiveis(){
-		this.CoordenadasPossiveis.clear();
-	}
-
-	public String getTipoMovimento() {
-		return TipoMovimento;
-	}
-
-	public void setTipoMovimento(String tipoMovimento) {
-		TipoMovimento = tipoMovimento;
-	}
-	
 }

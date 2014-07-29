@@ -9,8 +9,8 @@ import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 public class ControleJogo {
 	
 	private VisaoJogo visaoJogo   = null;
-	private FabricaAbstrataPecas FabricaPecas;
-	private ControleJogador JogadorAtivo = null;
+	private FabricaAbstrataPecas fabricaPecas;
+	private ControleJogador jogadorAtivo = null;
 	private ControleJogador controlePrimeiroJogador;
 	private ControleJogador controleSegundoJogador;	
 	
@@ -43,40 +43,40 @@ public class ControleJogo {
 	}
 	
 	public void iniciarControleTurno(){
-		if(this.JogadorAtivo == null){ 	// PRIMEIRO TURNO
-			this.JogadorAtivo = this.controlePrimeiroJogador;
-			this.visaoJogo.getTabuleiro().setJogadorAtivo(this.JogadorAtivo);
+		if(this.jogadorAtivo == null){ 	// PRIMEIRO TURNO
+			this.jogadorAtivo = this.controlePrimeiroJogador;
+			this.visaoJogo.getTabuleiro().setJogadorAtivo(this.jogadorAtivo);
 			this.visaoJogo.getTabuleiro().setControleJogo(this);
 		}
 	}
 	
 	public ControleJogador getJogadorAtivo(){	
-		return this.JogadorAtivo;
+		return this.jogadorAtivo;
 	}
 	
 	public void proximoJogadorAtivo(){
 		if(this.getJogadorAtivo() == this.controlePrimeiroJogador){
-			this.JogadorAtivo = this.controleSegundoJogador;			
+			this.jogadorAtivo = this.controleSegundoJogador;			
 		}
 		else{
-			this.JogadorAtivo = this.controlePrimeiroJogador;
+			this.jogadorAtivo = this.controlePrimeiroJogador;
 		}
 		
-		this.visaoJogo.getTabuleiro().setJogadorAtivo(this.JogadorAtivo);
+		this.visaoJogo.getTabuleiro().setJogadorAtivo(this.jogadorAtivo);
 		
-		if(this.JogadorAtivo.getNome().equals("ZEUS")){
+		if(this.jogadorAtivo.getNome().equals("ZEUS")){
 			this.jogarPeloZeus();
 		}
 	}	
 	
 	public void jogarPeloZeus(){
-		this.JogadorAtivo.jogadaAutomatica(this.controlePrimeiroJogador, this.visaoJogo);
+		this.jogadorAtivo.jogadaAutomatica(this.controlePrimeiroJogador, this.visaoJogo);
 	}
 	
 	public void construirJogadores(String nome1, String nome2){
 		
 		this.controlePrimeiroJogador = new ControleJogador(nome1,"BRANCA");
-		if(nome2=="ZEUS"){
+		if(nome2.equals("ZEUS")){
 			this.controleSegundoJogador  = new ControleJogador("ZEUS","PRETA");
 		}
 		else{
@@ -85,29 +85,29 @@ public class ControleJogo {
 	}
 	
 	public void declararVencedor(ControleJogador Jogador){
-		System.out.println("FIM DO JOGO!"+this.JogadorAtivo.getNome()+" VENCEU!");				
+		System.out.println("FIM DO JOGO!"+this.jogadorAtivo.getNome()+" VENCEU!");				
 	}
 
 	
 	private void construirPecasBrancas(){
-		this.FabricaPecas = new FabricaPecasBrancas();
+		this.fabricaPecas = new FabricaPecasBrancas();
 		
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getRei());
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getRainha());
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getBispo(1));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getBispo(2));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getTorre(1));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getTorre(2));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getCavalo(1));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getCavalo(2));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getPeao(1));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getPeao(2));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getPeao(3));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getPeao(4));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getPeao(5));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getPeao(6));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getPeao(7));
-		this.controlePrimeiroJogador.inserirPeca(this.FabricaPecas.getPeao(8));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getRei());
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getRainha());
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getBispo(1));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getBispo(2));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getTorre(1));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getTorre(2));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getCavalo(1));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getCavalo(2));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getPeao(1));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getPeao(2));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getPeao(3));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getPeao(4));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getPeao(5));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getPeao(6));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getPeao(7));
+		this.controlePrimeiroJogador.inserirPeca(this.fabricaPecas.getPeao(8));
 		
 		for(int i=0; i < this.controlePrimeiroJogador.getPecas().size() ; i++){
 			this.visaoJogo.inserirPeca(this.controlePrimeiroJogador.getPecas().get(i));	
@@ -116,23 +116,23 @@ public class ControleJogo {
 	}	
 	
 	private void construirPecasPretas(){
-		this.FabricaPecas = new FabricaPecasPretas();		
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getRei());
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getRainha());
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getBispo(1));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getBispo(2));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getTorre(1));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getTorre(2));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getCavalo(1));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getCavalo(2));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getPeao(1));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getPeao(2));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getPeao(3));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getPeao(4));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getPeao(5));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getPeao(6));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getPeao(7));
-		this.controleSegundoJogador.inserirPeca(this.FabricaPecas.getPeao(8));
+		this.fabricaPecas = new FabricaPecasPretas();		
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getRei());
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getRainha());
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getBispo(1));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getBispo(2));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getTorre(1));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getTorre(2));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getCavalo(1));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getCavalo(2));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getPeao(1));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getPeao(2));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getPeao(3));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getPeao(4));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getPeao(5));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getPeao(6));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getPeao(7));
+		this.controleSegundoJogador.inserirPeca(this.fabricaPecas.getPeao(8));
 		
 		for(int i=0; i < this.controleSegundoJogador.getPecas().size() ; i++){
 			this.visaoJogo.inserirPeca(this.controleSegundoJogador.getPecas().get(i));	

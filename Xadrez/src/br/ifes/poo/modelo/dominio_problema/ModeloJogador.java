@@ -5,10 +5,10 @@ import br.ifes.poo.modelo.dominio_problema.Jogador.InteligenciaSimples;
 
 public class ModeloJogador {
 
-	private String Nome;
-	private String Cor;
-	private int Pontos;
-	private Inteligencia Inteligencia;
+	private String nome;
+	private String cor;
+	private int pontos;
+	private Inteligencia inteligencia;
 	
 	public ModeloJogador(String nome, String Cor){
 		if(nome.equals("ZEUS")){
@@ -23,34 +23,34 @@ public class ModeloJogador {
 	}
 
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 
-	public void setNome(String nome) {
-		Nome = nome;
+	public void setNome(String n) {
+		nome = n;
 	}
 
 	public int getPontos() {
-		return Pontos;
+		return pontos;
 	}
 
-	public void setPontos(int pontos) {
-		Pontos = pontos;
+	public void setPontos(int p) {
+		pontos = p;
 	}
 
 	public String getCor() {
-		return Cor;
+		return cor;
 	}
 
-	public void setCor(String cor) {
-		Cor = cor;
+	public void setCor(String c) {
+		cor = c;
 	}
 
 	public Inteligencia getInteligencia() {
-		return Inteligencia;
+		return inteligencia;
 	}
 
-	public void setInteligencia(Inteligencia inteligencia) {
-		Inteligencia = inteligencia;
+	public void setInteligencia(Inteligencia i) {
+		inteligencia = i;
 	}
 }

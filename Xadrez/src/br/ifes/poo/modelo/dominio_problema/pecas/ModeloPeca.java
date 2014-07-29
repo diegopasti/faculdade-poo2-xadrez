@@ -7,46 +7,46 @@ import br.ifes.poo.visao.interacao_humana.VisaoSlot;
 
 public class ModeloPeca {
 
-	private int Valor;
-	private String Tipo;
-	private String Cor;
+	private int valor;
+	private String tipo;
+	private String cor;
 	
-	private Boolean Ameacado;
+	private Boolean ameacado;
 	
-	private Coordenada Coordenada;
+	private Coordenada coordenada;
 	
-	private Coordenada CoordenadaInicial;
+	private Coordenada coordenadaInicial;
 	
-	private ArrayList<Coordenada> MovimentosPossiveis;
+	private ArrayList<Coordenada> movimentosPossiveis;
 	
-	private ArrayList<TipoMovimentoAbstrato> PadroesMovimento = null;
+	private ArrayList<TipoMovimentoAbstrato> padroesMovimento = null;
 	
 	
 
 	public ModeloPeca(){
-		this.PadroesMovimento = new ArrayList<TipoMovimentoAbstrato>();
-		this.MovimentosPossiveis = new ArrayList<Coordenada>();
+		this.padroesMovimento = new ArrayList<TipoMovimentoAbstrato>();
+		this.movimentosPossiveis = new ArrayList<Coordenada>();
 		this.setAmeacado(false);
 	}
 	
 	public ArrayList<TipoMovimentoAbstrato> getPadraoMovimento() {
-		return this.PadroesMovimento;
+		return this.padroesMovimento;
 	}
 	
 	public void addPadraoMovimento(TipoMovimentoAbstrato padraoMovimento) {
-		this.PadroesMovimento.add(padraoMovimento);
+		this.padroesMovimento.add(padraoMovimento);
 	}
 	
 	public void removePadraoMovimento(TipoMovimentoAbstrato padraoMovimento) {
-		this.PadroesMovimento.add(padraoMovimento);
+		this.padroesMovimento.add(padraoMovimento);
 	}
 	
 	public void resetarMovimentosPossiveis(){		
 		
-		for(int g=0; g < this.PadroesMovimento.size(); g++){
-			this.PadroesMovimento.get(g).resetarMovimentosPossiveis();
+		for(int g=0; g < this.padroesMovimento.size(); g++){
+			this.padroesMovimento.get(g).resetarMovimentosPossiveis();
 		}
-		this.MovimentosPossiveis.clear();		
+		this.movimentosPossiveis.clear();		
 	}
 	
 	public ArrayList<Coordenada> verificarMovimentosPossiveis(VisaoSlot[][] tabuleiro){
@@ -54,11 +54,11 @@ public class ModeloPeca {
 		
 		ArrayList<Coordenada> CoordenadasPossiveis = new ArrayList<Coordenada>();
 				
-		if(this.PadroesMovimento != null){
-			for(int i=0; i < this.PadroesMovimento.size(); i++){
+		if(this.padroesMovimento != null){
+			for(int i=0; i < this.padroesMovimento.size(); i++){
 				
 				ArrayList<Coordenada> Coord = new ArrayList<Coordenada>();
-				Coord = this.PadroesMovimento.get(i).movimentosPossiveis(this.Cor, tabuleiro, getCoordenada().getLinha() , getCoordenada().getColuna());
+				Coord = this.padroesMovimento.get(i).movimentosPossiveis(this.cor, tabuleiro, getCoordenada().getLinha() , getCoordenada().getColuna());
 				//System.out.println("TIPO DE MOVIMENTO: "+this.PadroesMovimento.get(i).getTipoMovimento()+" > "+Coord.size()+" COORDENADAS POSSIVEIS.");
 				
 				for(int g=0; g < Coord.size(); g++){
@@ -66,60 +66,60 @@ public class ModeloPeca {
 					CoordenadasPossiveis.add(Coord.get(g));
 				}				
 			}
-			this.MovimentosPossiveis = CoordenadasPossiveis;
-			return this.MovimentosPossiveis;
+			this.movimentosPossiveis = CoordenadasPossiveis;
+			return this.movimentosPossiveis;
 		}
 		return null;
 		
 	}
 	
 	public String getTipo() {
-		return Tipo;
+		return tipo;
 	}
-	public void setTipo(String tipo) {
-		Tipo = tipo;
+	public void setTipo(String t) {
+		tipo = t;
 	}
 	public int getValor() {
-		return this.Valor;
+		return this.valor;
 	}
 	public void setValor(int value) {
-		this.Valor = value;
+		this.valor = value;
 	}
 
 	public String getCor() {
-		return Cor;
+		return cor;
 	}
 
-	public void setCor(String cor) {
-		Cor = cor;
+	public void setCor(String c) {
+		cor = c;
 	}
 
 	public Coordenada getCoordenada() {
-		return Coordenada;
+		return coordenada;
 	}
 
-	public void setCoordenada(Coordenada coordenada) {
-		Coordenada = coordenada;
+	public void setCoordenada(Coordenada c){
+		coordenada = c;
 	}
 	
 
 	public void setCoordenadaInicial(Coordenada c){
-		CoordenadaInicial = c;
+		coordenadaInicial = c;
 	}
 	
 	public Coordenada getCoordenadaInicial(){
-		return CoordenadaInicial;
+		return coordenadaInicial;
 	}
 	
 	public ArrayList<Coordenada> getMovimentosPossiveis() {
-		return MovimentosPossiveis;
+		return movimentosPossiveis;
 	}
 
 	public Boolean getAmeacado() {
-		return Ameacado;
+		return ameacado;
 	}
 
 	public void setAmeacado(Boolean ameacado) {
-		Ameacado = ameacado;
+		this.ameacado = ameacado;
 	}
 }

@@ -2,9 +2,9 @@ package br.ifes.poo.modelo.dominio_problema;
 
 public class ModeloJogo {
 	
-	private ModeloJogador Turno;
-	private ModeloJogador PrimeiroJogador;
-	private ModeloJogador SegundoJogador;
+	private ModeloJogador turno;
+	private ModeloJogador primeiroJogador;
+	private ModeloJogador segundoJogador;
 	
 	
 	public ModeloJogo(){
@@ -14,32 +14,32 @@ public class ModeloJogo {
 
 
 	public ModeloJogador getPrimeiroJogador() {
-		return this.PrimeiroJogador;
+		return this.primeiroJogador;
 	}
 
 
 	public void setPrimeiroJogador(ModeloJogador primeiroJogador) {
-		this.PrimeiroJogador = primeiroJogador;
+		this.primeiroJogador = primeiroJogador;
 	}
 
 
 	public ModeloJogador getSegundoJogador() {
-		return this.SegundoJogador;
+		return this.segundoJogador;
 	}
 
 
 	public void setSegundoJogador(ModeloJogador segundoJogador) {
-		this.SegundoJogador = segundoJogador;
+		this.segundoJogador = segundoJogador;
 	}
 
 
 	public ModeloJogador getTurno() {
-		return this.Turno;
+		return this.turno;
 	}
 
 
 	public void setTurno(ModeloJogador jogador) {
-		this.Turno = jogador;
+		this.turno = jogador;
 	}
 	
 }
