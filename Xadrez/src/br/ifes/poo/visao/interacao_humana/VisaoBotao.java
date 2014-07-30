@@ -9,11 +9,10 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class VisaoBotao extends JButton implements MouseListener {
 
-	private String PathReleased;
-	private String PathOverlapping;
-	private String PathPressed;
-	
-	
+	private String pathReleased;
+	private String pathOverlapping;
+	private String pathPressed;
+		
 	public VisaoBotao(){
 		super();
 		this.setFocusable(false);
@@ -21,8 +20,7 @@ public class VisaoBotao extends JButton implements MouseListener {
 		this.setBorderPainted(false);
 		this.setSize(140, 30);
 		this.addMouseListener(this);
-	}
-	
+	}	
 	
 	public void definirImagens(String Over, String Pressed, String Released){
 		this.setPathOverlapping(Over);
@@ -64,34 +62,27 @@ public class VisaoBotao extends JButton implements MouseListener {
 		return new ImageIcon(getClass().getResource(Path));
 	}
 
-
 	public String getPathReleased() {
-		return PathReleased;
+		return pathReleased;
 	}
-
 
 	public void setPathReleased(String pathReleased) {
-		PathReleased = pathReleased;
+		this.pathReleased = pathReleased;
 	}
-
 
 	public String getPathOverlapping() {
-		return PathOverlapping;
+		return pathOverlapping;
 	}
-
 
 	public void setPathOverlapping(String pathOverlapping) {
-		PathOverlapping = pathOverlapping;
+		this.pathOverlapping = pathOverlapping;
 	}
-
 
 	public String getPathPressed() {
-		return PathPressed;
+		return pathPressed;
 	}
-
 
 	public void setPathPressed(String pathPressed) {
-		PathPressed = pathPressed;
-	}
-	
+		this.pathPressed = pathPressed;
+	}	
 }

@@ -24,12 +24,12 @@ import br.ifes.poo.visao.interacao_humana.cemiterio.VisaoCemiterioPreto;
 @SuppressWarnings("serial")
 public class VisaoJogo extends JPanel{
 	
-	private JLabel Background = null;
-	private JLabel NomePrimeiroJogador = null;
-	private JLabel NomeSegundoJogador = null;
+	private JLabel background = null;
+	private JLabel nomePrimeiroJogador = null;
+	private JLabel nomeSegundoJogador = null;
 	
-	private JLabel PontosPrimeiroJogador = null;
-	private JLabel PontosSegundoJogador = null;
+	private JLabel pontosPrimeiroJogador = null;
+	private JLabel pontosSegundoJogador = null;
 	
 	private JTextField textMensagem = null;
 	private JLabel labelMensagem = null;
@@ -57,24 +57,19 @@ public class VisaoJogo extends JPanel{
 		this.construirCampoMensagem();
 		this.construirCemiterio(primeiroJogador.getPecasCapturadas(),segundoJogador.getPecasCapturadas());
 		this.adicionarComponentes();
-		
 	}
 	
 	private void construirCemiterio(ArrayList<Boolean> pecasPretasMortas, ArrayList<Boolean> pecasBrancasMortas){
 		visaoCemiterioBranca = new VisaoCemiterioBranco();
 		visaoCemiterioBranca.setLocation(70,35);
-		
 		visaoCemiterioPreta = new VisaoCemiterioPreto();
 		visaoCemiterioPreta.setLocation(70,625);
-		
 	}
 	
 	public void atualizarCemiterio(ControleJogador user, ControlePeca peca){
 		user.capturarPeca(peca);
-		
 		if(user.getCor().equals("BRANCA")){
 			visaoCemiterioBranca.capturarPeca(peca);
-			
 		}
 		else{
 			visaoCemiterioPreta.capturarPeca(peca);
@@ -89,21 +84,19 @@ public class VisaoJogo extends JPanel{
 		this.add(labelMensagem);
 		this.add((Component) visaoCemiterioBranca);
 		this.add((Component) visaoCemiterioPreta);
-		this.add(Background);		
+		this.add(background);		
 	}
 	
 	private void construirCampoMensagem(){		
 		this.labelMensagem = new JLabel(new ImageIcon(getClass().getResource("/img/Componentes/enter.png")));
 		this.labelMensagem.setSize(280,25);
 		this.labelMensagem.setLocation(-216, 555);	
-		
 		this.textMensagem = new JTextField();
 		this.textMensagem.setForeground(Color.white);
 		this.textMensagem.setSize(220, 25);
 		this.textMensagem.setLocation(4,555);
 		this.textMensagem.setBorder(null);
 		this.textMensagem.setOpaque(false);
-		
 	}
 	
 	private void construirMenu(){
@@ -120,54 +113,51 @@ public class VisaoJogo extends JPanel{
 
 	private void construirBackground(){		
 		ImageIcon img = new ImageIcon(getClass().getResource("/img/Tabuleiro.png"));
-		this.Background = new JLabel(img);		
-		this.Background.setLocation(0, 0);
-		this.Background.setSize(1024,730);
+		this.background = new JLabel(img);		
+		this.background.setLocation(0, 0);
+		this.background.setSize(1024,730);
 	}
 	
 	public void configurarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
-		this.NomePrimeiroJogador.setText(PriJogador.getNome());
-		this.NomeSegundoJogador.setText(SegJogador.getNome());
-		this.PontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
-		this.PontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
+		this.nomePrimeiroJogador.setText(PriJogador.getNome());
+		this.nomeSegundoJogador.setText(SegJogador.getNome());
+		this.pontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
+		this.pontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
 	}
 	
 	public void atualizarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
-		this.PontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
-		this.PontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
+		this.pontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
+		this.pontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
 	}
 	
 	private void construirPlacar(){
-		this.NomePrimeiroJogador = new JLabel("PLAYER 1", SwingConstants.CENTER);
-		this.NomePrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
-		this.NomePrimeiroJogador.setForeground(Color.white);
-		this.NomePrimeiroJogador.setLocation(500, 14);
-		this.NomePrimeiroJogador.setSize(150,24);
-		this.add(this.NomePrimeiroJogador);		
+		this.nomePrimeiroJogador = new JLabel("PLAYER 1", SwingConstants.CENTER);
+		this.nomePrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
+		this.nomePrimeiroJogador.setForeground(Color.white);
+		this.nomePrimeiroJogador.setLocation(500, 14);
+		this.nomePrimeiroJogador.setSize(150,24);
+		this.add(this.nomePrimeiroJogador);		
 		
-		this.NomeSegundoJogador = new JLabel("PLAYER 2", SwingConstants.CENTER);
-		this.NomeSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
-		this.NomeSegundoJogador.setForeground(Color.white);
-		this.NomeSegundoJogador.setLocation(500, 670);
-		this.NomeSegundoJogador.setSize(150,24);
-		this.add(this.NomeSegundoJogador);
+		this.nomeSegundoJogador = new JLabel("PLAYER 2", SwingConstants.CENTER);
+		this.nomeSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 16 ) );
+		this.nomeSegundoJogador.setForeground(Color.white);
+		this.nomeSegundoJogador.setLocation(500, 670);
+		this.nomeSegundoJogador.setSize(150,24);
+		this.add(this.nomeSegundoJogador);
 		
+		this.pontosPrimeiroJogador = new JLabel("0", SwingConstants.LEFT);
+		this.pontosPrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 26 ) );
+		this.pontosPrimeiroJogador.setForeground(Color.white);
+		this.pontosPrimeiroJogador.setLocation(15, 48);
+		this.pontosPrimeiroJogador.setSize(30,24);
+		this.add(this.pontosPrimeiroJogador);
 		
-		
-		this.PontosPrimeiroJogador = new JLabel("0", SwingConstants.LEFT);
-		this.PontosPrimeiroJogador.setFont(new Font( "Arial", Font.BOLD, 26 ) );
-		this.PontosPrimeiroJogador.setForeground(Color.white);
-		this.PontosPrimeiroJogador.setLocation(15, 48);
-		this.PontosPrimeiroJogador.setSize(30,24);
-		this.add(this.PontosPrimeiroJogador);
-		
-		this.PontosSegundoJogador = new JLabel("0", SwingConstants.LEFT);
-		this.PontosSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 26 ) );
-		this.PontosSegundoJogador.setForeground(Color.white);
-		this.PontosSegundoJogador.setLocation(15, 638);
-		this.PontosSegundoJogador.setSize(30,24);
-		this.add(this.PontosSegundoJogador);
-		
+		this.pontosSegundoJogador = new JLabel("0", SwingConstants.LEFT);
+		this.pontosSegundoJogador.setFont(new Font( "Arial", Font.BOLD, 26 ) );
+		this.pontosSegundoJogador.setForeground(Color.white);
+		this.pontosSegundoJogador.setLocation(15, 638);
+		this.pontosSegundoJogador.setSize(30,24);
+		this.add(this.pontosSegundoJogador);
 	}
 	
 	public VisaoChat getChat(){
@@ -181,12 +171,9 @@ public class VisaoJogo extends JPanel{
 	public void construirTabuleiro(int x, int y){
 		this.visaoTabuleiro = new VisaoTabuleiro();		
 		this.visaoTabuleiro.setLocation(x, y);
-		
 	}
 	
-	
 	public void inserirPeca(ControlePeca Peca){
-		//System.out.println("INSERINDO PECA: "+Peca.toString());
 		this.visaoTabuleiro.inserirPeca(Peca, Peca.getCoordenada());		
 	}
 	
@@ -201,29 +188,22 @@ public class VisaoJogo extends JPanel{
 	
 	public VisaoBotao getBotao(int i) {
 		switch (i){
-			case 1:
-				return this.menuJogo.getBotao(1);
+			case 1:	return this.menuJogo.getBotao(1);
 			
-			case 2:
-				return this.menuJogo.getBotao(2);
+			case 2:	return this.menuJogo.getBotao(2);
 			
-			case 3:
-				return this.menuJogo.getBotao(3);
+			case 3: return this.menuJogo.getBotao(3);
 			
-			default:
-				return null;
+			default: return null;
 		}
-	}
-	
+	}	
 	
 	private class ControleSinais implements KeyEventDispatcher{
 		@Override
         public boolean dispatchKeyEvent(KeyEvent e) {
             if (e.getID() == KeyEvent.KEY_PRESSED) {
-            	
-            	System.out.println(e.getKeyCode());
-            	
-            	
+            	//System.out.println(e.getKeyCode());
+
             	if(e.getKeyCode()==27){
             		if(menuJogo.getLocation().getX()==820.0){
             			menuJogo.setLocation(990, 255);	
@@ -236,7 +216,6 @@ public class VisaoJogo extends JPanel{
             	if(e.getKeyCode()==10){
             		if(labelMensagem.getLocation().getX()==0.0){
             			if(!textMensagem.getText().equals(" d i g i t e   s u a   m e n s a g e m   a q u i")){
-            				// Enviar mensagem pro chat
                 			visaoChat.inserirMensagem(visaoTabuleiro.getJogadorAtivo().getNome(),textMensagem.getText());	
             			}
             			
@@ -252,10 +231,8 @@ public class VisaoJogo extends JPanel{
             			textMensagem.setText(" d i g i t e   s u a   m e n s a g e m   a q u i");
             			textMensagem.grabFocus();
             			textMensagem.selectAll();	
-            		}
-            		
-            	}
-            	
+            		}            		
+            	}            	
             }
             	
 	        else if (e.getID() == KeyEvent.KEY_RELEASED) {
@@ -266,7 +243,4 @@ public class VisaoJogo extends JPanel{
             return false;
 	    }
 	}	
-	
-	
-	
 }

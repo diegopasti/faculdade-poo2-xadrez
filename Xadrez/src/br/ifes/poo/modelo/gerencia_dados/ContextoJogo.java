@@ -36,7 +36,6 @@ public class ContextoJogo implements InterfaceContexto {
 
 	@Override
 	public void recuperarContexto() {
-		// TODO Auto-generated method stub
 		
 	}
 	

@@ -16,48 +16,42 @@ import br.ifes.poo.utils.Coordenada;
 @SuppressWarnings("serial")
 public class VisaoSlot extends JPanel implements MouseListener{
 
-	private Boolean SlotSelecionado=false;       // Armazena o estado do Slot. Se esta ou não Selecionado.
-	private Boolean SlotInimigo=false;
-	private Boolean SlotPossivel=false;
-	private Boolean SlotXeque=false;
-	private Coordenada Coordenada;
+	private Boolean slotSelecionado=false;       // Armazena o estado do Slot. Se esta ou não Selecionado.
+	private Boolean slotInimigo=false;
+	private Boolean slotPossivel=false;
+	private Boolean slotXeque=false;
+	private Coordenada coordenada;
 	
 	private ControlePeca controlePeca = null;     // Armazena a Peca que esta contida no slot.
 	private JButton botaoSlot;         // Representa o Slot como um Botao no tabuleiro.
 	
+	private String pathReleased;       // 
+	private String pathOverlapping;    // Path dos Arquivos de Imagem para usar no controle de eventos basicos da Imagem
+	private String pathPressed;        //
 	
-	private String PathReleased;       // 
-	private String PathOverlapping;    // Path dos Arquivos de Imagem para usar no controle de eventos basicos da Imagem
-	private String PathPressed;        //
-	
-	
-	
-	private String PathPossibilidade;  // 
-	private String PathEnemy;        //
-	private String PathXeque;        // Path dos Arquivos de Imagem para usar no controle de eventos adicionais da Imagem
+	private String pathPossibilidade;  // 
+	private String pathEnemy;        //
+	private String pathXeque;        // Path dos Arquivos de Imagem para usar no controle de eventos adicionais da Imagem
 	//private String PathXequeMate;    //
 	
-	private MonitorSlots Monitor = null;
-	
-	private static String CorAtiva;
+	private MonitorSlots monitor = null;	
+	private static String corAtiva;
 	
 	public static String getCorAtiva(){
-		return CorAtiva;
+		return corAtiva;
 	}
 	
 	public static void setCorAtiva(String cor){
-		CorAtiva = cor;
+		corAtiva = cor;
 	}
 	
 	public VisaoSlot(){
 		
 		this.setSelecionado(false);
 		this.setSlotPossivel(false);
-		this.setSlotInimigo(false);
-		
+		this.setSlotInimigo(false);		
 		this.setLayout(null);		
 		this.setOpaque(false);
-		
 		this.botaoSlot = new JButton();
 		this.botaoSlot.setFocusable(false);
 		this.botaoSlot.setContentAreaFilled(false);
@@ -73,34 +67,21 @@ public class VisaoSlot extends JPanel implements MouseListener{
 			public void actionPerformed(ActionEvent arg0) {
 				
 				// MARCANDO UMA PECA
-				if(!getSelecionado() && (controlePeca != null)){
-					if(controlePeca.getModeloPeca().getCor() == VisaoSlot.CorAtiva || getSlotPossivel()){
-						//System.out.println("\nSLOT >>> SELECIONAMOS UMA PECA: ");
-						marcarPeca();
-					}
-				}
-				
+				if(!getSelecionado() && (controlePeca != null)) if(controlePeca.getModeloPeca().getCor() == VisaoSlot.corAtiva || getSlotPossivel()) marcarPeca();
+								
 				// MOVENDO UMA PECA
-				else if (controlePeca == null && getSlotPossivel()){
-					//System.out.println("\nSLOT >>> TENTANDO MOVER A PECA");
-					moverPeca();
-				}
+				else if (controlePeca == null && getSlotPossivel())	moverPeca();
 				
 				// DESMARCANDO UMA PECA
 				else if(controlePeca != null){
-					//System.out.println("\nSLOT >>> DESMARCAMOS UMA PECA: ");
 					desmarcarPeca();				
 					NotificarObservador("DESMARCAR");	
 				}
-				
-				
-				
 			}
 		});
 		
 		this.add(this.botaoSlot);
-	}
-	
+	}	
 	
 	public ControlePeca getControlePeca(){
 		return this.controlePeca;
@@ -114,19 +95,15 @@ public class VisaoSlot extends JPanel implements MouseListener{
 		this.NotificarObservador("MOVER");		
 	}
 	
-	
 	public void marcarPeca(){
 		this.setSelecionado(true);
-		//System.out.println("SELECIONEI PECA");
 		this.atualizarBotao(getPathPressed());
 		this.NotificarObservador("MARCAR");
 	}
 		
 	public void marcarInimigo(Boolean AtualizarImagem){
 		this.setSlotInimigo(true);
-		if(AtualizarImagem){
-			this.atualizarBotao(this.getPathEnemy());	
-		}
+		if(AtualizarImagem)	this.atualizarBotao(this.getPathEnemy());	
 		this.getControlePeca().getModeloPeca().setAmeacado(true);
 	}
 	
@@ -148,33 +125,27 @@ public class VisaoSlot extends JPanel implements MouseListener{
 		this.setSlotPossivel(true);		
 	}
 	
-	
-	
 	public void adicionarObservador(MonitorSlots monitor){
-		this.Monitor = monitor;		
+		this.monitor = monitor;		
 	}
 	
 	public void NotificarObservador(String acao){
 		
 		if(acao.equals("MARCAR")){
-			this.Monitor.setSlotAtivo(this);
-			this.Monitor.update(acao);
+			this.monitor.setSlotAtivo(this);
+			this.monitor.update(acao);
 		}
 		
 		else if (acao.equals("MOVER")){
-			this.Monitor.setSlotAtivo(this);
-			this.Monitor.update(acao);
+			this.monitor.setSlotAtivo(this);
+			this.monitor.update(acao);
 		}
 		
-		else if (acao.equals("DESMARCAR")){
-			this.Monitor.update(acao);
-			//this.Monitor.DesativarSlot(this);
-		}
-						
+		else if (acao.equals("DESMARCAR")) this.monitor.update(acao);
 	}
 	
 	public void removerObservador(){
-		this.Monitor = null;
+		this.monitor = null;
 	}
 	
 	public void inserirPeca(ControlePeca Peca){
@@ -216,39 +187,26 @@ public class VisaoSlot extends JPanel implements MouseListener{
 	}
 
 	public Boolean getSelecionado() {
-		return this.SlotSelecionado;
+		return this.slotSelecionado;
 	}
 
 	public void setSelecionado(Boolean selecionado) {
-		this.SlotSelecionado = selecionado;
+		this.slotSelecionado = selecionado;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		if(this.controlePeca != null){			
-			if(this.controlePeca.getModeloPeca().getCor() != VisaoSlot.CorAtiva){
-				if(this.getSlotPossivel()){
-					this.atualizarBotao(this.getPathOverlapping());	
-				}
-			}						
-			else{
-				//if(this.controlePeca.getModeloPeca()){ TENHO QUE VERIFICAR SE A PECA EH DO ZEUS
-					
-				//}
-				this.atualizarBotao(this.getPathOverlapping());
-			}
+			if(this.controlePeca.getModeloPeca().getCor() != VisaoSlot.corAtiva) if(this.getSlotPossivel()) this.atualizarBotao(this.getPathOverlapping());	
+			
+			else this.atualizarBotao(this.getPathOverlapping());
 		}
 		
-		else{
-			if(this.getSlotPossivel()){
-				this.atualizarBotao(this.getPathOverlapping());	
-			}			
-		}
+		else if(this.getSlotPossivel()) this.atualizarBotao(this.getPathOverlapping());	
 	}
 
 	@Override
@@ -257,134 +215,110 @@ public class VisaoSlot extends JPanel implements MouseListener{
 			if(this.getSlotPossivel()){
 				
 				if(this.getSlotInimigo()){
-					if(this.getSlotXeque()){
-						this.atualizarBotao(this.getPathXeque());
-					}
-					else{
-						this.atualizarBotao(this.getPathEnemy());
-					}
+					if(this.getSlotXeque()) this.atualizarBotao(this.getPathXeque());
+					
+					else this.atualizarBotao(this.getPathEnemy());
 				}
 				else{
 					
-					if(!this.getSelecionado()){
-						this.atualizarBotao(this.getPathReleased());
-					}
-					else{
-						this.atualizarBotao(this.getPathPossibilidade());
-					}
+					if(!this.getSelecionado()) this.atualizarBotao(this.getPathReleased());
 					
+					else this.atualizarBotao(this.getPathPossibilidade());
 				}
 			}
-			else{
-				this.atualizarBotao(this.getPathReleased());
-			}
-			
-			if(this.getSelecionado()){
-				this.atualizarBotao(this.getPathPressed());
-			}
+			else this.atualizarBotao(this.getPathReleased());
+						
+			if(this.getSelecionado()) this.atualizarBotao(this.getPathPressed());
 		}
-		else if(this.getSlotPossivel()){
-			this.atualizarBotao(this.getPathPossibilidade());
-		}
+
+		else if(this.getSlotPossivel())	this.atualizarBotao(this.getPathPossibilidade());
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-			
 	}
 
 	public String getPathReleased() {
-		return this.PathReleased;
+		return this.pathReleased;
 	}
 
 	public void setPathReleased(String pathReleased) {
-		this.PathReleased = pathReleased;
+		this.pathReleased = pathReleased;
 	}
 
 	public String getPathOverlapping() {
-		return this.PathOverlapping;
+		return this.pathOverlapping;
 	}
 
 	public void setPathOverlapping(String pathOverlapping) {
-		this.PathOverlapping = pathOverlapping;
-	}
-	
+		this.pathOverlapping = pathOverlapping;
+	}	
 	
 	public String getPathEnemy() {
-		return this.PathEnemy;
+		return this.pathEnemy;
 	}
 
 	public void setPathEnemy(String pathEnemy) {
-		this.PathEnemy = pathEnemy;
-	}
-	
+		this.pathEnemy = pathEnemy;
+	}	
 
 	public String getPathPressed() {
-		return this.PathPressed;
+		return this.pathPressed;
 	}
 
 	public void setPathPressed(String pathPressed) {
-		this.PathPressed = pathPressed;
+		this.pathPressed = pathPressed;
 	}
-
 
 	public String getPathPossibilidade() {
-		return this.PathPossibilidade;
+		return this.pathPossibilidade;
 	}
-
 
 	public void setPathPossibilidade(String pathPossibilidade) {
-		this.PathPossibilidade = pathPossibilidade;
+		this.pathPossibilidade = pathPossibilidade;
 	}
-
 
 	public Boolean getSlotPossivel() {
-		return this.SlotPossivel;
+		return this.slotPossivel;
 	}
-
 
 	public void setSlotPossivel(Boolean slotPossivel) {
-		this.SlotPossivel = slotPossivel;
+		this.slotPossivel = slotPossivel;
 	}
-
 
 	public Coordenada getCoordenada() {
-		return this.Coordenada;
+		return this.coordenada;
 	}
-
 
 	public void setCoordenada(Coordenada coordenada) {
-		this.Coordenada = coordenada;
+		this.coordenada = coordenada;
 	}
-
 
 	public Boolean getSlotInimigo() {
-		return this.SlotInimigo;
+		return this.slotInimigo;
 	}
 
-
 	public void setSlotInimigo(Boolean slotInimigo) {
-		this.SlotInimigo = slotInimigo;
+		this.slotInimigo = slotInimigo;
 	}
 
 	public String getPathXeque() {
-		return PathXeque;
+		return pathXeque;
 	}
 
 	public void setPathXeque(String pathXeque) {
-		PathXeque = pathXeque;
+		this.pathXeque = pathXeque;
 	}
 
 	public Boolean getSlotXeque() {
-		return SlotXeque;
+		return slotXeque;
 	}
 
 	public void setSlotXeque(Boolean slotXeque) {
-		SlotXeque = slotXeque;
+		this.slotXeque = slotXeque;
 	}
 }

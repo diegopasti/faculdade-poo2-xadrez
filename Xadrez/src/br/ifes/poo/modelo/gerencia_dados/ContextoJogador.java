@@ -51,9 +51,7 @@ public class ContextoJogador implements InterfaceContexto{
 	}
 
 	@Override
-	public void recuperarContexto() {
-		// TODO Auto-generated method stub
-		
+	public void recuperarContexto() {	
 	}
 	
 	public void setJogadorAtivo(Boolean ativo){

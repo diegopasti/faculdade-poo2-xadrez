@@ -16,12 +16,11 @@ import br.ifes.poo.utils.Coordenada;
 @SuppressWarnings("serial")
 public class VisaoTabuleiro extends JPanel{	
 	
-	private VisaoSlot[][] MatrizSlots = {{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null}};
-	private ArrayList<Coordenada> MovimentosPossiveis = null;
-	private MonitorSlots MonitorSlots = null;
-	private VisaoSlot SlotAtivo = null;
-	
-	private ControleJogador JogadorAtivo=null;
+	private VisaoSlot[][] matrizSlots = {{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null},{null,null,null,null,null,null,null,null}};
+	private ArrayList<Coordenada> movimentosPossiveis = null;
+	private MonitorSlots monitorSlots = null;
+	private VisaoSlot slotAtivo = null;	
+	private ControleJogador jogadorAtivo=null;
 	private ControleJogo controleJogo;
 	
 		
@@ -29,11 +28,9 @@ public class VisaoTabuleiro extends JPanel{
 				
 		System.out.println("INICIANDO A VISAO DO TABULEIRO");
 		
-		this.MonitorSlots = new MonitorSlots();
-		this.MonitorSlots.setTabuleiro(this);
-		
-		this.MovimentosPossiveis = new ArrayList<Coordenada>();
-		
+		this.monitorSlots = new MonitorSlots();
+		this.monitorSlots.setTabuleiro(this);		
+		this.movimentosPossiveis = new ArrayList<Coordenada>();		
 		this.setSize(656, 585);
 		this.setBackground(new Color(255,255,255,0));
 		this.setOpaque(false);
@@ -43,14 +40,14 @@ public class VisaoTabuleiro extends JPanel{
 			for(int i=0; i < 8; i++){
 				
 				VisaoSlot Slot = new VisaoSlot();
-				Slot.adicionarObservador(MonitorSlots);
+				Slot.adicionarObservador(monitorSlots);
 				Slot.definirImagens("/img/Tabuleiro/Slot_Over.png", "/img/Tabuleiro/Slot_Pressed.png", "/img/Tabuleiro/Slot_Released.png");
 				Slot.setPathPossibilidade("/img/Tabuleiro/Slot_Possivel.png");
 				Slot.setPathEnemy("/img/Tabuleiro/Slot_Inimigo.png");
 				Slot.setPathXeque("/img/Tabuleiro/Slot_Cheque.png");
 				Slot.setCoordenada(new Coordenada(k, i));
 				this.add(Slot);
-				this.MatrizSlots[k][i] = Slot;
+				this.matrizSlots[k][i] = Slot;
 				
 			}
 		}	
@@ -63,69 +60,59 @@ public class VisaoTabuleiro extends JPanel{
 	}
 	
 	public void setJogadorAtivo(ControleJogador jogador){
-		this.JogadorAtivo = jogador;
-		VisaoSlot.setCorAtiva(this.JogadorAtivo.getCor());
+		this.jogadorAtivo = jogador;
+		VisaoSlot.setCorAtiva(this.jogadorAtivo.getCor());
 	}
 	
 	public ControleJogador getJogadorAtivo(){
-		return this.JogadorAtivo;
-	}
-	
+		return this.jogadorAtivo;
+	}	
 	
 	public void ativarSlot(Coordenada coord){
-		this.MatrizSlots[coord.getLinha()][coord.getColuna()].marcarPeca();
-		//this.AtivarSlot(this.MatrizSlots[coord.getLinha()][coord.getColuna()]);
-	}
-		
+		this.matrizSlots[coord.getLinha()][coord.getColuna()].marcarPeca();
+	}		
 	
 	public void ativarSlot(VisaoSlot slot){
 		
-		if(this.MovimentosPossiveis.isEmpty()){
-			if(this.SlotAtivo != null){ 	// TINHAMOS UMA PECA SELECIONADA QUE NAO TINHA NENHUM MOVIMENTO POSSIVEL. TEMOS DESATIVAR ELA PRA ATIVAR O NOVO SLOT SELECIONADO.
-				this.desativarSlot(this.SlotAtivo);
+		if(this.movimentosPossiveis.isEmpty()){
+			if(this.slotAtivo != null){ 	// TINHAMOS UMA PECA SELECIONADA QUE NAO TINHA NENHUM MOVIMENTO POSSIVEL. TEMOS DESATIVAR ELA PRA ATIVAR O NOVO SLOT SELECIONADO.
+				this.desativarSlot(this.slotAtivo);
 			}
 			
-			this.SlotAtivo = slot;
+			this.slotAtivo = slot;
 			this.definirMovimentosPossiveisSlotAtivo();			
 			
-			if(!this.MovimentosPossiveis.isEmpty()){
-				//System.out.println("TABULEIRO >>> MOVIMENTOS POSSIVEIS: "+this.MovimentosPossiveis);
-				this.marcarMovimentosPossiveis(this.MovimentosPossiveis);
-				this.marcarInimigosPossiveis(this.MovimentosPossiveis);			
+			if(!this.movimentosPossiveis.isEmpty()){
+				this.marcarMovimentosPossiveis(this.movimentosPossiveis);
+				this.marcarInimigosPossiveis(this.movimentosPossiveis);			
 			}
 			
 			else{
-				//System.out.println("TABULEIRO >>> NAO TEM MOVIMENTO NENHUM POSSIVEL");
+				// NAO TEM MOVIMENTO NENHUM POSSIVEL
 			}
-			
-			
-			
 		}
 		else{
-			if(slot.getControlePeca() == null){
-				this.moverPeca(slot);
-			}
+			if(slot.getControlePeca() == null) this.moverPeca(slot);
 			
 			else{
 			
-				if(this.SlotAtivo.getControlePeca().getModeloPeca().getCor() != slot.getControlePeca().getModeloPeca().getCor()){
+				if(this.slotAtivo.getControlePeca().getModeloPeca().getCor() != slot.getControlePeca().getModeloPeca().getCor()){
 					
 					if(slot.getSlotInimigo()){
-						System.out.println("TABULEIRO >>> "+this.SlotAtivo.getControlePeca().toString()+" CAPTUROU "+slot.getControlePeca().toString()+"!");
+						System.out.println("TABULEIRO >>> "+this.slotAtivo.getControlePeca().toString()+" CAPTUROU "+slot.getControlePeca().toString()+"!");
 						this.capturarPeca(slot);
 					}
 				}
 				else{
 					// O JOGADOR TROCOU A SUA PECA ATIVA POR OUTRA DELE PROPRIO
-					this.desativarSlot(SlotAtivo);
-					this.SlotAtivo = slot;
+					this.desativarSlot(slotAtivo);
+					this.slotAtivo = slot;
 					this.definirMovimentosPossiveisSlotAtivo();
-					
-					
-					if(!this.MovimentosPossiveis.isEmpty()){
+										
+					if(!this.movimentosPossiveis.isEmpty()){
 						//System.out.println("TABULEIRO >>> MOVIMENTOS POSSIVEIS: "+this.MovimentosPossiveis);
-						this.marcarMovimentosPossiveis(this.MovimentosPossiveis);
-						this.marcarInimigosPossiveis(this.MovimentosPossiveis);				
+						this.marcarMovimentosPossiveis(this.movimentosPossiveis);
+						this.marcarInimigosPossiveis(this.movimentosPossiveis);				
 					}
 					
 					else{
@@ -137,10 +124,10 @@ public class VisaoTabuleiro extends JPanel{
 	}
 	
 	public void definirMovimentosPossiveisSlotAtivo(){
-		ArrayList<Coordenada> movimentos = this.SlotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.MatrizSlots);
+		ArrayList<Coordenada> movimentos = this.slotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.matrizSlots);
 		if(movimentos!=null){
 			if(!movimentos.isEmpty()){
-				this.MovimentosPossiveis.addAll(movimentos);			
+				this.movimentosPossiveis.addAll(movimentos);			
 			}
 		}
 		else{
@@ -150,34 +137,30 @@ public class VisaoTabuleiro extends JPanel{
 	
 	public void desativarSlot(VisaoSlot slot){
 		//System.out.println("TABULEIRO >>> TEMOS QUE DESATIVAR AS POSSIBILIDADE DE MOVIMENTO: "+this.MovimentosPossiveis);
-		this.desmarcarMovimentosPossiveis(this.MovimentosPossiveis);		
-		this.SlotAtivo.getControlePeca().getModeloPeca().resetarMovimentosPossiveis();		
-		this.MovimentosPossiveis.clear();
-		this.SlotAtivo.desmarcarPeca();
-	}
-	
+		this.desmarcarMovimentosPossiveis(this.movimentosPossiveis);		
+		this.slotAtivo.getControlePeca().getModeloPeca().resetarMovimentosPossiveis();		
+		this.movimentosPossiveis.clear();
+		this.slotAtivo.desmarcarPeca();
+	}	
 	
 	public void moverPeca(VisaoSlot SlotDestino){
 				
-		System.out.println("TABULEIRO >>> MOVENDO "+this.SlotAtivo.getControlePeca().toString()+" para "+SlotDestino.getCoordenada().toString());
-		this.removerPeca(this.SlotAtivo.getCoordenada());
-		this.inserirPeca(this.SlotAtivo.getControlePeca(), SlotDestino.getCoordenada());
-		
+		System.out.println("TABULEIRO >>> MOVENDO "+this.slotAtivo.getControlePeca().toString()+" para "+SlotDestino.getCoordenada().toString());
+		this.removerPeca(this.slotAtivo.getCoordenada());
+		this.inserirPeca(this.slotAtivo.getControlePeca(), SlotDestino.getCoordenada());
 		this.ativarEfeito();
 		this.verificarAmeaca();
 		this.verificarXeque();		
-		
-		this.desativarSlot(this.SlotAtivo);		
-		this.SlotAtivo.setControlePeca(null);
-		this.SlotAtivo = null;
-		
+		this.desativarSlot(this.slotAtivo);		
+		this.slotAtivo.setControlePeca(null);
+		this.slotAtivo = null;
 		this.controleJogo.proximoJogadorAtivo();
 	}
 	
 	
 	public void verificarAmeaca(){
 		ControleJogador controleJogadorAdversario = null;
-		if(this.JogadorAtivo != this.controleJogo.getControlePrimeiroJogador()){
+		if(this.jogadorAtivo != this.controleJogo.getControlePrimeiroJogador()){
 			controleJogadorAdversario = this.controleJogo.getControlePrimeiroJogador();
 		}
 		else{
@@ -189,127 +172,105 @@ public class VisaoTabuleiro extends JPanel{
 			controleJogadorAdversario.getPecas().get(k).getModeloPeca().setAmeacado(false);
 		}
 		
-		ArrayList<Coordenada> Coordenadas = this.SlotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.MatrizSlots);
+		ArrayList<Coordenada> Coordenadas = this.slotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.matrizSlots);
 		for(int g = 0; g < Coordenadas.size(); g++){
-			if(this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca() != null){ // E TEM QUE SER DE COR OPOSTA){
-				this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].marcarInimigo(false);
-			}
-			
+			if(this.matrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca() != null){ // E TEM QUE SER DE COR OPOSTA){
+				this.matrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].marcarInimigo(false);
+			}			
 		}
 	}
 	
 	public void verificarXeque(){
-		ArrayList<Coordenada> Coordenadas = this.SlotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.MatrizSlots);
+		ArrayList<Coordenada> Coordenadas = this.slotAtivo.getControlePeca().getModeloPeca().verificarMovimentosPossiveis(this.matrizSlots);
 		for(int g = 0; g < Coordenadas.size(); g++){
-			if(this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca() != null){
-				if(this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca().getModeloPeca().getTipo().equals("REI")){
-					this.MatrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].marcarXeque();
+			if(this.matrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca() != null){
+				if(this.matrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].getControlePeca().getModeloPeca().getTipo().equals("REI")){
+					this.matrizSlots[Coordenadas.get(g).getLinha()][Coordenadas.get(g).getColuna()].marcarXeque();
 				}	
-			}
-			
+			}			
 		}
 	}
 	
 	
 	public void capturarPeca(VisaoSlot slot){
-		this.controleJogo.getVisaoJogo().atualizarCemiterio(JogadorAtivo, slot.getControlePeca());
+		this.controleJogo.getVisaoJogo().atualizarCemiterio(jogadorAtivo, slot.getControlePeca());
 		
 		if(slot.getControlePeca().getModeloPeca().getTipo().equals("REI")){
 			// E O FIM DO JOGO!
 			this.removerPeca(slot.getCoordenada());
 			this.controleJogo.declararVencedor(getJogadorAtivo());
-			this.moverPeca(slot);	
-			
+			this.moverPeca(slot);				
 		}
 		else{
 			this.removerPeca(slot.getCoordenada());
 			this.controleJogo.getJogadorAtivo().addPontos(slot.getControlePeca().getModeloPeca().getValor());
 			this.controleJogo.atualizarPlacar();
 			this.moverPeca(slot);	
-		}
-		
+		}		
 	}
 	
 	public void marcarInimigosPossiveis(ArrayList<Coordenada> possibilidades){
 		
 		for(int i=0; i < possibilidades.size() ; i++){
-			if(this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca() != null){
-				if(!this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getCor().equals(this.SlotAtivo.getControlePeca().getModeloPeca().getCor())){
-					if(this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getTipo().equals("REI")){
-						this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarXeque();
+			if(this.matrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca() != null){
+				if(!this.matrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getCor().equals(this.slotAtivo.getControlePeca().getModeloPeca().getCor())){
+					if(this.matrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].getControlePeca().getModeloPeca().getTipo().equals("REI")){
+						this.matrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarXeque();
 					}
 					else{
-						this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarInimigo(true);	
-					}
-						
+						this.matrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarInimigo(true);	
+					}						
 				}	
 			}			
 		}
-	}
-	
+	}	
 	
 	public void desmarcarMovimentosPossiveis(ArrayList<Coordenada> possibilidades){
-		//System.out.println("TABULEIRO >>> "+possibilidades.size()+" VOU DESMARCAR O CAMINHO DO: "+this.SlotAtivo.getControlePeca().toString());
 		for(int i=0; i < possibilidades.size(); i++){
-			//System.out.println("TABULEIRO >>> SLOT: "+possibilidades.get(i).toString());
-			this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].desmarcarPeca();
-			this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].setSlotPossivel(false);
-		}
-		
+			this.matrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].desmarcarPeca();
+			this.matrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].setSlotPossivel(false);
+		}		
 	}
 	
 	public void marcarMovimentosPossiveis(ArrayList<Coordenada> possibilidades){
-		//System.out.println("TABULEIRO >>> QUANTIDADE DE MOVIMENTOS POSSIVEIS: "+possibilidades.size());
-		
 		for(int i=0; i < possibilidades.size(); i++){
-			//System.out.println("TABULEIRO >>> SLOT: "+possibilidades.get(i).toString());
-			this.MatrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarPossibilidade();
+			this.matrizSlots[possibilidades.get(i).getLinha()][possibilidades.get(i).getColuna()].marcarPossibilidade();
 		}
-	
 	}
 	
 	public String getCorJogadorAtivo(){
-		return this.JogadorAtivo.getCor();
+		return this.jogadorAtivo.getCor();
 	}
-
 	
 	public VisaoSlot getSlotAtivo(){
-		return this.SlotAtivo;
+		return this.slotAtivo;
 	}
 	
-	
-	
 	public void ativarEfeito(){
-		String Peca = this.SlotAtivo.getControlePeca().getModeloPeca().getTipo();
+		String Peca = this.slotAtivo.getControlePeca().getModeloPeca().getTipo();
 		
 		if(Peca.contains("PEAO")){
-			// REMOVE A OPCAO DE MOVER DUAS CASAS A FRENTE APOS TER REALIZADO SEU PRIMEIRO MOVIMENTO.
-			for(int g =0; g < this.SlotAtivo.getControlePeca().getModeloPeca().getPadraoMovimento().size(); g++ ){
-				if(this.SlotAtivo.getControlePeca().getModeloPeca().getPadraoMovimento().get(g) instanceof TipoMovimentoPeaoInicial ){
-					//System.out.println("O PEAO VAI PERDER O CAPACIDADE DE ANDAR DUAS CASAS");
-					this.SlotAtivo.getControlePeca().getModeloPeca().getPadraoMovimento().remove(g);
+			for(int g =0; g < this.slotAtivo.getControlePeca().getModeloPeca().getPadraoMovimento().size(); g++ ){
+				if(this.slotAtivo.getControlePeca().getModeloPeca().getPadraoMovimento().get(g) instanceof TipoMovimentoPeaoInicial ){
+					this.slotAtivo.getControlePeca().getModeloPeca().getPadraoMovimento().remove(g);
 					break;
 				}
 			}			
 		}
 		
-		if(this.SlotAtivo.getControlePeca().getModeloPeca().getAmeacado()){
-			this.SlotAtivo.getControlePeca().getModeloPeca().setAmeacado(false);
-		}
-		
+		if(this.slotAtivo.getControlePeca().getModeloPeca().getAmeacado()) this.slotAtivo.getControlePeca().getModeloPeca().setAmeacado(false);
 	}
 	
 	public VisaoSlot[][] getMatrizSlots(){
-		return this.MatrizSlots;
+		return this.matrizSlots;
 	}
 	
-	
 	public void inserirPeca(ControlePeca Peca, Coordenada coord){
-		this.MatrizSlots[coord.getLinha()][ coord.getColuna()].inserirPeca(Peca);
+		this.matrizSlots[coord.getLinha()][ coord.getColuna()].inserirPeca(Peca);
 		Peca.setCoordenada(coord);
 	}
 	
 	public void removerPeca(Coordenada coord){
-		this.MatrizSlots[coord.getLinha()][coord.getColuna()].removerPeca();
+		this.matrizSlots[coord.getLinha()][coord.getColuna()].removerPeca();
 	}
 }
