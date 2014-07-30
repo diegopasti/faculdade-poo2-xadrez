@@ -32,8 +32,8 @@ public class VisaoSlot extends JPanel implements MouseListener{
 	private String pathPossibilidade;  // 
 	private String pathEnemy;        //
 	private String pathXeque;        // Path dos Arquivos de Imagem para usar no controle de eventos adicionais da Imagem
-	//private String PathXequeMate;    //
 	
+	//private String PathXequeMate;    //
 	private MonitorSlots monitor = null;	
 	private static String corAtiva;
 	
@@ -101,9 +101,9 @@ public class VisaoSlot extends JPanel implements MouseListener{
 		this.NotificarObservador("MARCAR");
 	}
 		
-	public void marcarInimigo(Boolean AtualizarImagem){
+	public void marcarInimigo(Boolean atualizarImagem){
 		this.setSlotInimigo(true);
-		if(AtualizarImagem)	this.atualizarBotao(this.getPathEnemy());	
+		if(atualizarImagem)	this.atualizarBotao(this.getPathEnemy());	
 		this.getControlePeca().getModeloPeca().setAmeacado(true);
 	}
 	
@@ -148,10 +148,10 @@ public class VisaoSlot extends JPanel implements MouseListener{
 		this.monitor = null;
 	}
 	
-	public void inserirPeca(ControlePeca Peca){
-		Peca.getVisaoPeca().setSize(82, 74);
-		Peca.getVisaoPeca().setLocation(-1, -1);
-		this.controlePeca = Peca;
+	public void inserirPeca(ControlePeca peca){
+		peca.getVisaoPeca().setSize(82, 74);
+		peca.getVisaoPeca().setLocation(-1, -1);
+		this.controlePeca = peca;
 		this.add(this.controlePeca.getVisaoPeca());
 	}
 	
@@ -162,20 +162,20 @@ public class VisaoSlot extends JPanel implements MouseListener{
 		}
 	}
 
-	public void definirImagens(String Over, String Pressed, String Released){
-		this.setPathOverlapping(Over);
-		this.setPathPressed(Pressed);
-		this.setPathReleased(Released);
+	public void definirImagens(String over, String pressed, String released){
+		this.setPathOverlapping(over);
+		this.setPathPressed(pressed);
+		this.setPathReleased(released);
 		this.atualizarBotao(this.getPathReleased());
 	}
 	
-	public void atualizarBotao(String Path){
+	public void atualizarBotao(String path){
 		this.botaoSlot.setIcon(null);
-		this.botaoSlot.setIcon(getIcone(Path));
+		this.botaoSlot.setIcon(getIcone(path));
 	}
 	
-	public ImageIcon getIcone(String Path) {
-		return new ImageIcon(getClass().getResource(Path));
+	public ImageIcon getIcone(String path) {
+		return new ImageIcon(getClass().getResource(path));
 	}
 		
 	public JButton getBotaoSlot() {

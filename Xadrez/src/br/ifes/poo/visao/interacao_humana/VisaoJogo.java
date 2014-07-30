@@ -118,16 +118,16 @@ public class VisaoJogo extends JPanel{
 		this.background.setSize(1024,730);
 	}
 	
-	public void configurarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
-		this.nomePrimeiroJogador.setText(PriJogador.getNome());
-		this.nomeSegundoJogador.setText(SegJogador.getNome());
-		this.pontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
-		this.pontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
+	public void configurarPlacar(ControleJogador priJogador, ControleJogador segJogador){
+		this.nomePrimeiroJogador.setText(priJogador.getNome());
+		this.nomeSegundoJogador.setText(segJogador.getNome());
+		this.pontosPrimeiroJogador.setText(new String(""+priJogador.getPontos()));
+		this.pontosSegundoJogador.setText(new String(""+segJogador.getPontos()));
 	}
 	
-	public void atualizarPlacar(ControleJogador PriJogador, ControleJogador SegJogador){
-		this.pontosPrimeiroJogador.setText(new String(""+PriJogador.getPontos()));
-		this.pontosSegundoJogador.setText(new String(""+SegJogador.getPontos()));
+	public void atualizarPlacar(ControleJogador priJogador, ControleJogador segJogador){
+		this.pontosPrimeiroJogador.setText(new String(""+priJogador.getPontos()));
+		this.pontosSegundoJogador.setText(new String(""+segJogador.getPontos()));
 	}
 	
 	private void construirPlacar(){
@@ -173,8 +173,8 @@ public class VisaoJogo extends JPanel{
 		this.visaoTabuleiro.setLocation(x, y);
 	}
 	
-	public void inserirPeca(ControlePeca Peca){
-		this.visaoTabuleiro.inserirPeca(Peca, Peca.getCoordenada());		
+	public void inserirPeca(ControlePeca peca){
+		this.visaoTabuleiro.inserirPeca(peca, peca.getCoordenada());		
 	}
 	
 	public void removerPeca(Coordenada coord){

@@ -15,7 +15,7 @@ public abstract class TipoMovimentoAbstrato {
 	protected String corSelecionada;
 	protected VisaoSlot[][] tabuleiro;
 	
-	public ArrayList<Coordenada> movimentosPossiveis(String Cor,VisaoSlot[][] tabuleiro, int linha, int coluna){
+	public ArrayList<Coordenada> movimentosPossiveis(String cor,VisaoSlot[][] tabuleiro, int linha, int coluna){
 		return null;
 	}
 	

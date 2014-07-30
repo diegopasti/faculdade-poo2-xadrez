@@ -32,15 +32,15 @@ public class ControleJogador {
 			}
 		}
 		
-		System.out.println("Olha quem ja foi capturada: "+this.getPecasCapturadas());
+		//System.out.println("Olha quem ja foi capturada: "+this.getPecasCapturadas());
 			
 	}
 		
-	public void jogadaAutomatica(ControleJogador Oponente, VisaoJogo visaoJogo){
-		ControlePeca PecaEscolhida = this.modeloJogador.getInteligencia().escolherPeca(this, visaoJogo);
-		visaoJogo.getTabuleiro().ativarSlot(PecaEscolhida.getCoordenada());
+	public void jogadaAutomatica(ControleJogador oponente, VisaoJogo visaoJogo){
+		ControlePeca pecaEscolhida = this.modeloJogador.getInteligencia().escolherPeca(this, visaoJogo);
+		visaoJogo.getTabuleiro().ativarSlot(pecaEscolhida.getCoordenada());
 		this.marcarMovimentosPossiveis(visaoJogo);
-		visaoJogo.getTabuleiro().ativarSlot(this.modeloJogador.getInteligencia().escolherMovimento(PecaEscolhida));
+		visaoJogo.getTabuleiro().ativarSlot(this.modeloJogador.getInteligencia().escolherMovimento(pecaEscolhida));
 	}
 	
 	

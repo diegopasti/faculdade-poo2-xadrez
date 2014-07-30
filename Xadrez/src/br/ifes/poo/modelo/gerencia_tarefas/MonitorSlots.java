@@ -10,10 +10,10 @@ public class MonitorSlots implements Observador {
 	private VisaoTabuleiro Tabuleiro = null;
 		
 	@Override
-	public void update(String Acao) {
+	public void update(String acao) {
 		
 		
-		if(Acao.equals("MARCAR")){
+		if(acao.equals("MARCAR")){
 			if(this.Slot.getControlePeca() == null){
 			}
 			else{
@@ -22,12 +22,12 @@ public class MonitorSlots implements Observador {
 			this.Tabuleiro.ativarSlot(this.Slot);
 		}
 		
-		else if(Acao.equals("MOVER")){
+		else if(acao.equals("MOVER")){
 			//System.out.println("MONITOR >> GALERA SLOT["+this.Slot.getCoordenada().toString()+"] FOI MOVIDO!");
 			this.Tabuleiro.moverPeca(this.Slot);
 		}
 		
-		else if(Acao.equals("DESMARCAR")){
+		else if(acao.equals("DESMARCAR")){
 			//System.out.println("MONITOR >> GALERA SLOT["+this.Slot.getCoordenada().toString()+"] FOI DESMARCADO!");
 			this.Tabuleiro.desativarSlot(this.Slot);
 		}

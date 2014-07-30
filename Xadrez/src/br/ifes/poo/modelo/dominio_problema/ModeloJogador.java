@@ -10,7 +10,7 @@ public class ModeloJogador {
 	private int pontos;
 	private Inteligencia inteligencia;
 	
-	public ModeloJogador(String nome, String Cor){
+	public ModeloJogador(String nome, String cor){
 		if(nome.equals("ZEUS")){
 			this.setInteligencia(new InteligenciaSimples());
 		}
@@ -18,7 +18,7 @@ public class ModeloJogador {
 			this.setInteligencia(null);
 		}
 		this.setNome(nome);
-		this.setCor(Cor);
+		this.setCor(cor);
 		this.setPontos(0);
 	}
 

@@ -11,14 +11,14 @@ public class TipoMovimentoPeao extends TipoMovimentoAbstrato {
 		TipoMovimento = "PEAO";
 	}
 
-	public ArrayList<Coordenada> movimentosPossiveis(String Cor, VisaoSlot[][] tab, int linha, int coluna){
+	public ArrayList<Coordenada> movimentosPossiveis(String cor, VisaoSlot[][] tab, int linha, int coluna){
 		coordenadasPossiveis = new ArrayList<Coordenada>();
 		linhaSelecionada  = linha;
 		colunaSelecionada = coluna;
-		corSelecionada    = Cor;
+		corSelecionada    = cor;
 		tabuleiro         = tab;
 		
-		if(Cor.equals("BRANCA")){
+		if(cor.equals("BRANCA")){
 			if (linhaSelecionada > 0){
 				tentarInserirCoordenadaPossivel(linhaSelecionada-1, colunaSelecionada);
 				if(coluna > 0) if (tabuleiro[linhaSelecionada-1][colunaSelecionada-1].getControlePeca() != null) tentarInserirCoordenadaPossivel(linhaSelecionada-1, colunaSelecionada-1);
@@ -26,7 +26,7 @@ public class TipoMovimentoPeao extends TipoMovimentoAbstrato {
 			}
 		}
 		
-		else if(Cor.equals("PRETA")){
+		else if(cor.equals("PRETA")){
 			if (linha < 7) {
 				tentarInserirCoordenadaPossivel(linhaSelecionada+1, colunaSelecionada);
 				if(coluna > 0) if (tabuleiro[linhaSelecionada+1][colunaSelecionada-1].getControlePeca() != null) tentarInserirCoordenadaPossivel(linhaSelecionada+1, colunaSelecionada-1);

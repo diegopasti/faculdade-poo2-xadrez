@@ -6,7 +6,7 @@ import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 public class EstrategiaBasica implements Estrategia {
 
 	@Override
-	public ControlePeca escolherPeca(VisaoJogo Jogo) {
+	public ControlePeca escolherPeca(VisaoJogo jogo) {
 		return null;
 	}
 	

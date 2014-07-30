@@ -19,10 +19,10 @@ public class InteligenciaSimples implements Inteligencia{
 	}
 	
 	@Override
-	public ControlePeca escolherPeca(ControleJogador Jogador, VisaoJogo visaoJogo) {
+	public ControlePeca escolherPeca(ControleJogador jogador, VisaoJogo visaoJogo) {
 		this.visaoJogo = visaoJogo;
 		
-		this.verificarPecasMovimentaveis(Jogador);
+		this.verificarPecasMovimentaveis(jogador);
 		
 		this.pecaEscolhida = this.verificarMovimentosDefensivos();
 		if(this.pecaEscolhida == null){
@@ -36,21 +36,21 @@ public class InteligenciaSimples implements Inteligencia{
 	}
 	
 	@Override
-	public Coordenada escolherMovimento(ControlePeca PecaEscolhida) {
+	public Coordenada escolherMovimento(ControlePeca pecaEscolhida) {
 		
 		ControlePeca Peca = null;
 		
-		for(int k=1; k < PecaEscolhida.getModeloPeca().getMovimentosPossiveis().size(); k++){
-			if(this.visaoJogo.getTabuleiro().getMatrizSlots()[PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca() != null){
-				if(this.visaoJogo.getTabuleiro().getJogadorAtivo().getCor() != this.visaoJogo.getTabuleiro().getMatrizSlots()[PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca().getModeloPeca().getCor()){
-					if(this.visaoJogo.getTabuleiro().getMatrizSlots()[PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca().getModeloPeca().getAmeacado()){
+		for(int k=1; k < pecaEscolhida.getModeloPeca().getMovimentosPossiveis().size(); k++){
+			if(this.visaoJogo.getTabuleiro().getMatrizSlots()[pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca() != null){
+				if(this.visaoJogo.getTabuleiro().getJogadorAtivo().getCor() != this.visaoJogo.getTabuleiro().getMatrizSlots()[pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca().getModeloPeca().getCor()){
+					if(this.visaoJogo.getTabuleiro().getMatrizSlots()[pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca().getModeloPeca().getAmeacado()){
 						if(Peca == null){
-							Peca = this.visaoJogo.getTabuleiro().getMatrizSlots()[PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca();
+							Peca = this.visaoJogo.getTabuleiro().getMatrizSlots()[pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca();
 						}
 						
 						else{
-							if(this.visaoJogo.getTabuleiro().getMatrizSlots()[PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca().getModeloPeca().getValor() > Peca.getModeloPeca().getValor()){
-								Peca = this.visaoJogo.getTabuleiro().getMatrizSlots()[PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca();
+							if(this.visaoJogo.getTabuleiro().getMatrizSlots()[pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca().getModeloPeca().getValor() > Peca.getModeloPeca().getValor()){
+								Peca = this.visaoJogo.getTabuleiro().getMatrizSlots()[pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getLinha()][pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(k).getColuna()].getControlePeca();
 							}
 						}
 					}
@@ -61,23 +61,19 @@ public class InteligenciaSimples implements Inteligencia{
 		if(Peca == null){
 			System.out.println("INTELIGENCIA >>> A PECA ESCOLHIDA NÃO TEM NENHUM MOVIMENTO QUE PODE CAPTURAR ALGUMA PECA");
 			
-			if(PecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()>0){
-				int random = new Random().nextInt(PecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()); 
-				System.out.println("INTELIGENCIA >>> A PECA ESCOLHIDA TEM "+PecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()+"E ESCOLHEU O"+random+" MOVIMENTO");
-				return new Coordenada(PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(random).getLinha(),PecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(random).getColuna());
+			if(pecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()>0){
+				int random = new Random().nextInt(pecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()); 
+				System.out.println("INTELIGENCIA >>> A PECA ESCOLHIDA TEM "+pecaEscolhida.getModeloPeca().getMovimentosPossiveis().size()+"E ESCOLHEU O"+random+" MOVIMENTO");
+				return new Coordenada(pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(random).getLinha(),pecaEscolhida.getModeloPeca().getMovimentosPossiveis().get(random).getColuna());
 			}
 			else{
-			return PecaEscolhida.getCoordenada();
+			return pecaEscolhida.getCoordenada();
 			}
-			
-			
 		}
 		else{
 			System.out.println("INTELIGENCIA >>> A PECA ESCOLHIDA TEM UM MOVIMENTO QUE PODE CAPTURAR ALGUMA PECA");
 			return Peca.getCoordenada();
 		}
-		
-		
 	}
 	
 	private ControlePeca verificarMovimentoSimples(){
@@ -94,13 +90,11 @@ public class InteligenciaSimples implements Inteligencia{
 		return Peca;
 	}
 	
-	private void verificarPecasMovimentaveis(ControleJogador Jogador){
+	private void verificarPecasMovimentaveis(ControleJogador jogador){
 		this.pecasMovimentaveis = new ArrayList<ControlePeca>();		
-		
-		// CALCULAR OS MOVIMENTOS POSSIVEIS DE TODOS AS PECAS
-		for(int c=0; c < Jogador.getPecas().size(); c++){
-			if(!Jogador.getPecas().get(c).getModeloPeca().verificarMovimentosPossiveis(this.visaoJogo.getTabuleiro().getMatrizSlots()).isEmpty()){
-				this.pecasMovimentaveis.add(Jogador.getPecas().get(c));
+		for(int c=0; c < jogador.getPecas().size(); c++){
+			if(!jogador.getPecas().get(c).getModeloPeca().verificarMovimentosPossiveis(this.visaoJogo.getTabuleiro().getMatrizSlots()).isEmpty()){
+				this.pecasMovimentaveis.add(jogador.getPecas().get(c));
 			}
 		}		
 	}
@@ -111,5 +105,4 @@ public class InteligenciaSimples implements Inteligencia{
 		this.estrategias.add(new EstrategiaDefensiva());	
 		this.estrategias.add(new EstrategiaOfensiva());
 	}	
-
 }

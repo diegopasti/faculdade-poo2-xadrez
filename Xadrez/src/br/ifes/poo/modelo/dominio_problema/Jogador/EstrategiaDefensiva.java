@@ -8,32 +8,32 @@ import br.ifes.poo.visao.interacao_humana.VisaoJogo;
 public class EstrategiaDefensiva implements Estrategia{
 	
 	
-	public ControlePeca escolherPeca(VisaoJogo Jogo){
-		return verificaPecasAmeacadas(Jogo);
+	public ControlePeca escolherPeca(VisaoJogo jogo){
+		return verificaPecasAmeacadas(jogo);
 	}
 	
-	private ControlePeca verificaPecasAmeacadas(VisaoJogo Jogo){
-		ArrayList<ControlePeca> PecasAmeacadas = new ArrayList<ControlePeca>();
-		for(int g=0; g<Jogo.getTabuleiro().getJogadorAtivo().getPecas().size(); g++){
-			if(Jogo.getTabuleiro().getJogadorAtivo().getPecas().get(g).getModeloPeca().getAmeacado()){
-				PecasAmeacadas.add(Jogo.getTabuleiro().getJogadorAtivo().getPecas().get(g));
+	private ControlePeca verificaPecasAmeacadas(VisaoJogo jogo){
+		ArrayList<ControlePeca> pecasAmeacadas = new ArrayList<ControlePeca>();
+		for(int g=0; g<jogo.getTabuleiro().getJogadorAtivo().getPecas().size(); g++){
+			if(jogo.getTabuleiro().getJogadorAtivo().getPecas().get(g).getModeloPeca().getAmeacado()){
+				pecasAmeacadas.add(jogo.getTabuleiro().getJogadorAtivo().getPecas().get(g));
 			}
 		}		
-		return this.escolherPecaMaisValiosa(PecasAmeacadas);
+		return this.escolherPecaMaisValiosa(pecasAmeacadas);
 	}
 	
-	private ControlePeca escolherPecaMaisValiosa(ArrayList<ControlePeca> PecasAmeacadas){
+	private ControlePeca escolherPecaMaisValiosa(ArrayList<ControlePeca> pecasAmeacadas){
 		
-		ControlePeca PecaMaisValiosa = null;
-		if(!PecasAmeacadas.isEmpty()){
-			PecaMaisValiosa = PecasAmeacadas.get(0);
+		ControlePeca pecaMaisValiosa = null;
+		if(!pecasAmeacadas.isEmpty()){
+			pecaMaisValiosa = pecasAmeacadas.get(0);
 		}
 		
-		for(int k=1; k<PecasAmeacadas.size();k++){
-			if(PecasAmeacadas.get(k).getModeloPeca().getValor() > PecaMaisValiosa.getModeloPeca().getValor()){
-				PecaMaisValiosa = PecasAmeacadas.get(k);
+		for(int k=1; k<pecasAmeacadas.size();k++){
+			if(pecasAmeacadas.get(k).getModeloPeca().getValor() > pecaMaisValiosa.getModeloPeca().getValor()){
+				pecaMaisValiosa = pecasAmeacadas.get(k);
 			}
 		}
-		return PecaMaisValiosa;		
+		return pecaMaisValiosa;		
 	}	
 }

@@ -12,11 +12,11 @@ public class TipoMovimentoBispo extends TipoMovimentoAbstrato {
 	}
 	
 	@Override
-	public ArrayList<Coordenada> movimentosPossiveis(String Cor, VisaoSlot[][] tab, int linha, int coluna) {
+	public ArrayList<Coordenada> movimentosPossiveis(String cor, VisaoSlot[][] tab, int linha, int coluna) {
 		coordenadasPossiveis = new ArrayList<Coordenada>();
 		linhaSelecionada  = linha;
 		colunaSelecionada = coluna;
-		corSelecionada    = Cor;
+		corSelecionada    = cor;
 		tabuleiro         = tab;
 		int l, c;
 		l = linhaSelecionada;

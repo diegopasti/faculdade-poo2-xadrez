@@ -14,10 +14,9 @@ public class VisaoAplicacao extends JFrame {
 	private JPanel PainelPrincipal = null;
 	private ControleSinais ControleSinais = null;
 
-	public VisaoAplicacao(String Nome) {
-		super(Nome);
-		
-		this.construirTela(Nome);
+	public VisaoAplicacao(String nome) {
+		super(nome);
+		this.construirTela(nome);
 		this.construirControleSinais();
 		System.out.println("INICIANDO A VISAO DA APLICACAO");
 	}
@@ -28,7 +27,7 @@ public class VisaoAplicacao extends JFrame {
 		this.addMouseMotionListener(ControleSinais);
 	}
 		
-	public void construirTela(String Nome) {
+	public void construirTela(String nome) {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addContainerListener(this.ControleSinais);
 		
@@ -37,8 +36,8 @@ public class VisaoAplicacao extends JFrame {
 		this.setResizable(false);
 	}
 	
-	public void incluirPainel(JPanel Painel){
-		this.PainelPrincipal = Painel;
+	public void incluirPainel(JPanel painel){
+		this.PainelPrincipal = painel;
 		this.setContentPane(this.PainelPrincipal);
 	}
 	
@@ -61,49 +60,40 @@ public class VisaoAplicacao extends JFrame {
 		
 		@Override
 		public void mouseDragged(MouseEvent arg0) {
-			
 		}
 	
 		@Override
 		public void mouseMoved(MouseEvent arg0) {
 			//System.out.println("Mouse Event");
-			
 		}
 	
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			System.out.println("Mouse Click");
-			
 		}
 	
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			//System.out.println("Mouse Enter");
-			
 		}
 	
 		@Override
 		public void mouseExited(MouseEvent arg0) {
 			//System.out.println("Mouse Exited");
-			
 		}
 	
 		@Override
 		public void mousePressed(MouseEvent arg0) {
 			//System.out.println("Mouse pressed");
-			
 		}
 	
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			//System.out.println("Mouse release");
-			
 		}
 
 		@Override
 		public void componentAdded(ContainerEvent arg0) {
 			System.out.println("ADICIONEI UM PANEL");
-			
 		}
 
 		@Override
@@ -111,7 +101,5 @@ public class VisaoAplicacao extends JFrame {
 			System.out.println("EXCLUI UM PANEL");
 			
 		}
-
 	}
-	
 }

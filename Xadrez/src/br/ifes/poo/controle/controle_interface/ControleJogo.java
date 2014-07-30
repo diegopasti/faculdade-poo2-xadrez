@@ -25,11 +25,9 @@ public class ControleJogo {
 		
 		this.iniciarControleTurno();		
 		//this.ConfigurarDatabase();		
-		this.visaoJogo.setVisible(true);
-		
+		this.visaoJogo.setVisible(true);		
 	}
-	
-	
+		
 	public ControleJogador getControlePrimeiroJogador() {
 		return controlePrimeiroJogador;
 	}
@@ -84,11 +82,10 @@ public class ControleJogo {
 		}
 	}
 	
-	public void declararVencedor(ControleJogador Jogador){
+	public void declararVencedor(ControleJogador jogador){
 		System.out.println("FIM DO JOGO!"+this.jogadorAtivo.getNome()+" VENCEU!");				
 	}
 
-	
 	private void construirPecasBrancas(){
 		this.fabricaPecas = new FabricaPecasBrancas();
 		

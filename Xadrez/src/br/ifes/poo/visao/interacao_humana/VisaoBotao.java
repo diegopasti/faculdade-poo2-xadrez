@@ -22,10 +22,10 @@ public class VisaoBotao extends JButton implements MouseListener {
 		this.addMouseListener(this);
 	}	
 	
-	public void definirImagens(String Over, String Pressed, String Released){
-		this.setPathOverlapping(Over);
-		this.setPathPressed(Pressed);
-		this.setPathReleased(Released);
+	public void definirImagens(String over, String pressed, String released){
+		this.setPathOverlapping(over);
+		this.setPathPressed(pressed);
+		this.setPathReleased(released);
 		this.atualizarBotao(this.getPathReleased());
 	}
 	
@@ -53,13 +53,13 @@ public class VisaoBotao extends JButton implements MouseListener {
 		this.atualizarBotao(this.getPathReleased());		
 	}
 
-	public void atualizarBotao(String Path){
+	public void atualizarBotao(String path){
 		this.setIcon(null);
-		this.setIcon(getIcone(Path));
+		this.setIcon(getIcone(path));
 	}
 	
-	public ImageIcon getIcone(String Path) {
-		return new ImageIcon(getClass().getResource(Path));
+	public ImageIcon getIcone(String path) {
+		return new ImageIcon(getClass().getResource(path));
 	}
 
 	public String getPathReleased() {

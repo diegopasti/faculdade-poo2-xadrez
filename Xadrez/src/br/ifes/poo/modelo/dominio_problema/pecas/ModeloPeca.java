@@ -21,8 +21,6 @@ public class ModeloPeca {
 	
 	private ArrayList<TipoMovimentoAbstrato> padroesMovimento = null;
 	
-	
-
 	public ModeloPeca(){
 		this.padroesMovimento = new ArrayList<TipoMovimentoAbstrato>();
 		this.movimentosPossiveis = new ArrayList<Coordenada>();
@@ -50,27 +48,23 @@ public class ModeloPeca {
 	}
 	
 	public ArrayList<Coordenada> verificarMovimentosPossiveis(VisaoSlot[][] tabuleiro){
-		//System.out.println("PECA >>> VERIFICAR OS "+this.PadroesMovimento.size()+" MOVIMENTOS POSSIVEIS.");	
-		
-		ArrayList<Coordenada> CoordenadasPossiveis = new ArrayList<Coordenada>();
+		ArrayList<Coordenada> coordenadasPossiveis = new ArrayList<Coordenada>();
 				
 		if(this.padroesMovimento != null){
-			for(int i=0; i < this.padroesMovimento.size(); i++){
-				
+			for(int i=0; i < this.padroesMovimento.size(); i++){				
 				ArrayList<Coordenada> Coord = new ArrayList<Coordenada>();
 				Coord = this.padroesMovimento.get(i).movimentosPossiveis(this.cor, tabuleiro, getCoordenada().getLinha() , getCoordenada().getColuna());
 				//System.out.println("TIPO DE MOVIMENTO: "+this.PadroesMovimento.get(i).getTipoMovimento()+" > "+Coord.size()+" COORDENADAS POSSIVEIS.");
 				
 				for(int g=0; g < Coord.size(); g++){
 					//System.out.println("COORDENADAS POSSIVEIS: "+Coord.get(g).toString());
-					CoordenadasPossiveis.add(Coord.get(g));
+					coordenadasPossiveis.add(Coord.get(g));
 				}				
 			}
-			this.movimentosPossiveis = CoordenadasPossiveis;
+			this.movimentosPossiveis = coordenadasPossiveis;
 			return this.movimentosPossiveis;
 		}
-		return null;
-		
+		return null;		
 	}
 	
 	public String getTipo() {
@@ -100,8 +94,7 @@ public class ModeloPeca {
 
 	public void setCoordenada(Coordenada c){
 		coordenada = c;
-	}
-	
+	}	
 
 	public void setCoordenadaInicial(Coordenada c){
 		coordenadaInicial = c;

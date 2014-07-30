@@ -143,11 +143,11 @@ public class VisaoTabuleiro extends JPanel{
 		this.slotAtivo.desmarcarPeca();
 	}	
 	
-	public void moverPeca(VisaoSlot SlotDestino){
+	public void moverPeca(VisaoSlot slotDestino){
 				
-		System.out.println("TABULEIRO >>> MOVENDO "+this.slotAtivo.getControlePeca().toString()+" para "+SlotDestino.getCoordenada().toString());
+		System.out.println("TABULEIRO >>> MOVENDO "+this.slotAtivo.getControlePeca().toString()+" para "+slotDestino.getCoordenada().toString());
 		this.removerPeca(this.slotAtivo.getCoordenada());
-		this.inserirPeca(this.slotAtivo.getControlePeca(), SlotDestino.getCoordenada());
+		this.inserirPeca(this.slotAtivo.getControlePeca(), slotDestino.getCoordenada());
 		this.ativarEfeito();
 		this.verificarAmeaca();
 		this.verificarXeque();		
@@ -265,9 +265,9 @@ public class VisaoTabuleiro extends JPanel{
 		return this.matrizSlots;
 	}
 	
-	public void inserirPeca(ControlePeca Peca, Coordenada coord){
-		this.matrizSlots[coord.getLinha()][ coord.getColuna()].inserirPeca(Peca);
-		Peca.setCoordenada(coord);
+	public void inserirPeca(ControlePeca peca, Coordenada coord){
+		this.matrizSlots[coord.getLinha()][ coord.getColuna()].inserirPeca(peca);
+		peca.setCoordenada(coord);
 	}
 	
 	public void removerPeca(Coordenada coord){
